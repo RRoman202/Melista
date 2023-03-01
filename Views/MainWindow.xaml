@@ -5,13 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1080" Width="1920">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Resources/Gradient.png"/>
         </Grid.Background>
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/Gradient.png"/>
 
+            </Grid.Background>
+            <Grid.Effect>
+                <BlurEffect Radius="30"/>
+            </Grid.Effect>
+        </Grid>
     </Grid>
 </Window>
