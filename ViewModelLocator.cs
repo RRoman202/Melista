@@ -10,7 +10,7 @@
 
 
             services.AddTransient<MainViewModel>();
-            services.AddTransient<StartPageView>();
+            services.AddTransient<StartPageViewModel>();
 
             services.AddSingleton<PageService>();
 
