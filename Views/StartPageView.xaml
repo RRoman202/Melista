@@ -10,21 +10,19 @@
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="StartPageView">
 
-    <Grid>
+    <Grid Margin="10 15 10 15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
         <Grid Grid.RowSpan="2">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Gradient.png"/>
-            </Grid.Background>
+           
             <Grid.Effect>
-                <BlurEffect Radius="30"/>
+                <BlurEffect Radius="80"/>
             </Grid.Effect>
-            <Grid Background="White" Opacity="0.2"></Grid>
+            
         </Grid>
-        <Border Opacity="1" Width="1740" Height="100" VerticalAlignment="Bottom" CornerRadius="50">
+        <Border Opacity="0.6" Grid.Row="0" CornerRadius="50">
             <Border.Background>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
                     <GradientStop Color="#FF292929"/>
@@ -33,16 +31,24 @@
                     <GradientStop Color="Black" Offset="0.7"/>
                 </LinearGradientBrush>
             </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
+            </Border.Effect>
             <StackPanel>
 
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" VerticalAlignment="Bottom" Height="900" Width="1660" CornerRadius="20 20 0 0">
+        <Border Grid.Row="1" CornerRadius="20 20 20 20" Margin="100 10 100 10">
             <Border.Background>
-                <SolidColorBrush Color="Black" Opacity="1"></SolidColorBrush>
+                <SolidColorBrush Color="Black" Opacity="0.6"></SolidColorBrush>
             </Border.Background>
             <ListView Margin="30 30 30 0" Background="Transparent"></ListView>
+            <Border.Effect>
+                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
+            </Border.Effect>
         </Border>
+        
     </Grid>
+    
 </Page>

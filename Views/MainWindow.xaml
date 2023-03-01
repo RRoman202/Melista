@@ -9,19 +9,17 @@
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
         Title="MainWindow" Height="1080" Width="1920">
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Gradient.png"/>
-        </Grid.Background>
+        
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Gradient.png"/>
+            </Border.Background>
+            <Border.Effect>
+                <BlurEffect Radius="20"></BlurEffect>
+            </Border.Effect>
+        </Border>
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
-        <Grid>
-            <Grid.Background>
-                <ImageBrush ImageSource="/Resources/Gradient.png"/>
-
-            </Grid.Background>
-            <Grid.Effect>
-                <BlurEffect Radius="30"/>
-            </Grid.Effect>
-        </Grid>
+        
     </Grid>
 </Window>
