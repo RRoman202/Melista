@@ -4,3 +4,5 @@ global using Melista.Services;
 global using Melista.ViewModels;
 global using Melista.Views;
 global using DevExpress.Mvvm;
+global using System.Windows.Controls;
+global using System;
