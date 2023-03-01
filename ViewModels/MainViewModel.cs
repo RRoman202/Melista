@@ -9,7 +9,7 @@ using Melista.Views;
 
 namespace Melista.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BindableBase
     {
         private readonly PageService _pageService;
 
