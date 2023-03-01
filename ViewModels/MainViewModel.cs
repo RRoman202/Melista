@@ -1,13 +1,4 @@
-﻿using Melista.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Melista.Views;
-
-namespace Melista.ViewModels
+﻿namespace Melista.ViewModels
 {
     public class MainViewModel : BindableBase
     {
