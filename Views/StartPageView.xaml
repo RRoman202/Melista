@@ -7,22 +7,16 @@
       xmlns:viewmodels="clr-namespace:Melista.ViewModels"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="StartPageView">
 
-    <Grid Margin="10 15 10 15">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
-           
-            <Grid.Effect>
-                <BlurEffect Radius="80"/>
-            </Grid.Effect>
-            
-        </Grid>
-        <Border Opacity="0.6" Grid.Row="0" CornerRadius="50">
+
+        <Border Opacity="0.6" Grid.Row="0"  Margin="40 10 40 0" CornerRadius="50">
             <Border.Background>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
                     <GradientStop Color="#FF292929"/>
@@ -31,22 +25,16 @@
                     <GradientStop Color="Black" Offset="0.7"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
             <StackPanel>
 
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" CornerRadius="20 20 20 20" Margin="100 10 100 10">
+        <Border Grid.Row="1" CornerRadius="20 20 0 0" Margin="70 10 70 0" >
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.6"></SolidColorBrush>
             </Border.Background>
-            <ListView Margin="30 30 30 0" Background="Transparent"></ListView>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
+            <ListView Margin="10 10 10 0" Background="Transparent"></ListView>
         </Border>
         
     </Grid>
