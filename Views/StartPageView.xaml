@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels"
+      DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
       Title="StartPageView">
@@ -22,7 +24,7 @@
             </Grid.Effect>
             <Grid Background="White" Opacity="0.2"></Grid>
         </Grid>
-        <Border Opacity="0.6" Width="1740" Height="100" VerticalAlignment="Bottom" CornerRadius="50">
+        <Border Opacity="1" Width="1740" Height="100" VerticalAlignment="Bottom" CornerRadius="50">
             <Border.Background>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
                     <GradientStop Color="#FF292929"/>
@@ -38,7 +40,7 @@
 
         <Border Grid.Row="1" VerticalAlignment="Bottom" Height="900" Width="1660" CornerRadius="20 20 0 0">
             <Border.Background>
-                <SolidColorBrush Color="Black" Opacity="0.6"></SolidColorBrush>
+                <SolidColorBrush Color="Black" Opacity="1"></SolidColorBrush>
             </Border.Background>
             <ListView Margin="30 30 30 0" Background="Transparent"></ListView>
         </Border>
