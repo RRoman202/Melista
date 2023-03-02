@@ -8,17 +8,9 @@
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Style="{DynamicResource Background}">
         
-        <Border>
-            <Border.Background>
-                <ImageBrush ImageSource="/Resources/Gradient.png"/>
-            </Border.Background>
-            <Border.Effect>
-                <BlurEffect Radius="20"></BlurEffect>
-            </Border.Effect>
-            <Grid Background="White" Opacity="0.13"></Grid>
-        </Border>
+
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
     </Grid>

@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Melista.Models
 {
-    class Audiocs
+    public class Audio
     {
+        public string NameAudio { get; set; }
+        public string DescriptionAudio { get; set; }
+        public DateTime DateAudio { get; set; }
+        public int DurationAudio { get; set; }
+        public int ViewsAudio { get; set; }
     }
 }
