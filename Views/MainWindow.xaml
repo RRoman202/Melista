@@ -3,15 +3,23 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:Melista.ViewModels"
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
+        DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Gradient.png"/>
-        </Grid.Background>
+        
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Gradient.png"/>
+            </Border.Background>
+            <Border.Effect>
+                <BlurEffect Radius="20"></BlurEffect>
+            </Border.Effect>
+            <Grid Background="White" Opacity="0.13"></Grid>
+        </Border>
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
-
     </Grid>
 </Window>
