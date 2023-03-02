@@ -3,7 +3,7 @@
 
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontFamily" Value="/Resources/Fonts/#Montserrat"/>
+        <Setter Property="FontFamily" Value="{StaticResource Font}"/>
         <Setter Property="FontWeight" Value="Light"/>
     </Style>
 </ResourceDictionary>

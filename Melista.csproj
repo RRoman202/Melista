@@ -25,7 +25,6 @@
     <Resource Include="Resources\Images\Gradient.png" />
     <Resource Include="Resources\Images\Light Theme.png" />
     <Folder Include="Models\" />
-    <Resource Include="Resources\Gradient.png" />
   </ItemGroup>
 
   <ItemGroup>
