@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\Montserrat.ttf" />
     <None Remove="Resources\Gradient.png" />
+    <None Remove="Resources\Images\Dark Theme.png" />
+    <None Remove="Resources\Images\Light Theme.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Gradient.png" />
+    <Resource Include="Resources\Fonts\Montserrat.ttf" />
+    <Resource Include="Resources\Images\Dark Theme.png" />
+    <Resource Include="Resources\Images\Gradient.png" />
+    <Resource Include="Resources\Images\Light Theme.png" />
     <Folder Include="Models\" />
   </ItemGroup>
 
