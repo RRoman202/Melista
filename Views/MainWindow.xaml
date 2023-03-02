@@ -21,7 +21,5 @@
         </Border>
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
-
-        <Button Width="170" Height="35" Background="White" Opacity="0.5" Content="123aaa"  FontFamily="/Resources/Fonts/#Montserrat" FontWeight="Light"></Button>
     </Grid>
 </Window>
