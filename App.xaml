@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
+            
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>

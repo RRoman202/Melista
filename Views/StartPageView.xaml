@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:placeholdertextboxcontrol="clr-namespace:PlaceHolderTextBoxControl;assembly=PlaceHolderTextBoxControl"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -19,7 +19,11 @@
 
         <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" Margin="40,0,40,0" VerticalAlignment="Center">
             <Grid>
-                <iconPacks:PackIconMaterial Kind="Magnify" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White" Height="30" Width="30" Margin="0,0,30,0"/>
+                <placeholdertextboxcontrol:PlaceHolderTextBox
+                    PlaceHolderText="Search"
+                    FontSize="30">
+                    
+                </placeholdertextboxcontrol:PlaceHolderTextBox>
             </Grid>
         </Border>
 
