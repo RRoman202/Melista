@@ -16,7 +16,7 @@
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
-        <Border Opacity="0.6" Grid.Row="0"  Margin="40 10 40 0" CornerRadius="50">
+        <Border Opacity="0.6" Grid.Row="0"  Margin="40 10 40 0" CornerRadius="20">
             <Border.Background>
                 <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
                     <GradientStop Color="#FF292929"/>
