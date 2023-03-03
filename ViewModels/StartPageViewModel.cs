@@ -1,4 +1,14 @@
-﻿namespace Melista.ViewModels
+
+﻿using Microsoft.Win32;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
+﻿using GongSolutions.Wpf.DragDrop;
+using System.Collections.ObjectModel;
+
+using System.Windows;
+
+namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
@@ -33,6 +43,7 @@
                 foreach (var file in files)
                 {
                     Medias.Add(file);
+                    Process.Start(new ProcessStartInfo() { FileName = file, UseShellExecute = true });
 
                 }
             }
@@ -45,11 +56,12 @@
                 OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
                 if (OpenFile.ShowDialog() == true)
                 {
+                    Medias.Add(OpenFile.FileName);
                     Process.Start(new ProcessStartInfo() { FileName = OpenFile.FileName, UseShellExecute = true });
                 }
             });
         }, bool () => true);
-        
-       
+
+
     }
 }
