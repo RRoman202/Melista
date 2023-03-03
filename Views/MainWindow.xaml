@@ -7,19 +7,11 @@
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        Title="MainWindow" Height="1080" Width="1920">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Style="{DynamicResource Background}">
         
-        <Border>
-            <Border.Background>
-                <ImageBrush ImageSource="/Resources/Gradient.png"/>
-            </Border.Background>
-            <Border.Effect>
-                <BlurEffect Radius="20"></BlurEffect>
-            </Border.Effect>
-        </Border>
+
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}"></Frame>
-        
     </Grid>
 </Window>

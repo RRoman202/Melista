@@ -15,8 +15,8 @@ namespace Melista
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
             ViewModelLocator.Init();
+            base.OnStartup(e);
         }
     }
 }

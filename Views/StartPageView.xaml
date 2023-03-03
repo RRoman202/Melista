@@ -4,51 +4,40 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:placeholdertextboxcontrol="clr-namespace:PlaceHolderTextBoxControl;assembly=PlaceHolderTextBoxControl"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="StartPageView">
 
-    <Grid Margin="10 15 10 15">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="52*"/>
+            <RowDefinition Height="337*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
-           
-            <Grid.Effect>
-                <BlurEffect Radius="80"/>
-            </Grid.Effect>
-            
-        </Grid>
-        <Border Opacity="0.6" Grid.Row="0" CornerRadius="50">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-                    <GradientStop Color="#FF292929"/>
-                    <GradientStop Color="Black" Offset="0.4"/>
-                    <GradientStop Color="#FF292929" Offset="1"/>
-                    <GradientStop Color="Black" Offset="0.7"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
-            <StackPanel>
 
+        <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" Margin="40,0,40,0" VerticalAlignment="Center">
+            <Grid>
+                <placeholdertextboxcontrol:PlaceHolderTextBox
+                    PlaceHolderText="Search"
+                    FontSize="30">
+                    
+                </placeholdertextboxcontrol:PlaceHolderTextBox>
+            </Grid>
+        </Border>
+
+        <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" Grid.RowSpan="2" >
+            <ListView Margin="10 10 10 0" Background="Transparent"></ListView>
+        </Border>
+
+        <Grid Style="{DynamicResource BottomPanel}" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Width="200" Content="История" Margin="0 0 40 0"/>
+                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Width="200" Content="Загрузить"/>
             </StackPanel>
-        </Border>
+        </Grid>
 
-        <Border Grid.Row="1" CornerRadius="20 20 20 20" Margin="100 10 100 10">
-            <Border.Background>
-                <SolidColorBrush Color="Black" Opacity="0.6"></SolidColorBrush>
-            </Border.Background>
-            <ListView Margin="30 30 30 0" Background="Transparent"></ListView>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
-        </Border>
-        
     </Grid>
-    
+
 </Page>
