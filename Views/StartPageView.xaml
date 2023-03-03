@@ -34,40 +34,22 @@
                 </ComboBox>
                 <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
                 <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
-
-        
-        <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" Margin="40,0,40,0" VerticalAlignment="Center">
-            <Grid>
-                <local1:PlaceHolderTextBox PlaceHolderText="rrr"
-                                           Background="Transparent"
-                                           BorderBrush="Transparent"
-                                           Foreground="Black"
-                                           FontFamily="{StaticResource Font}"
-                                           FontSize="30"
-                                           Margin="8 4 0 0"></local1:PlaceHolderTextBox>
-                
-                
-
             </Grid>
         </Border>
 
         <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" Grid.RowSpan="2" >
 
-            <ListView Style="{DynamicResource ListViewItems}" Margin="10 10 10 0" >
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
-
-            <ListView Margin="10 10 10 0" Background="Transparent"
-                      ItemsSource="{Binding Medias}"
+                    <ListView Style="{DynamicResource ListViewItems}" Margin="10 10 10 0" 
+                        ItemsSource="{Binding Medias}"
                       dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.DropHandler="{Binding}"
-                      ></ListView>
-
-        </Border>
+                      dd:DragDrop.DropHandler="{Binding}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Border>
 
         
         <Grid Style="{DynamicResource BottomPanel}" Grid.Row="2">
@@ -78,7 +60,7 @@
                         Height="40" 
                         Width="200" 
                         Content="Загрузить"
-                        Command="{Binding LoadNewFileCommand, IsAsync=True}"/>
+                        Command="{Binding LoadNewFile}"/>
             </StackPanel>
         </Grid>
 

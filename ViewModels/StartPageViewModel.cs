@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
 using System.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Melista.ViewModels
 {
@@ -48,20 +49,17 @@ namespace Melista.ViewModels
                 }
             }
         }
-        public AsyncCommand LoadNewFileCommand => new(async () =>
+
+        public DelegateCommand LoadNewFile => new(() => LoadFile());
+
+        public void LoadFile() 
         {
-            await Task.Run(async () =>
+            OpenFileDialog OpenFile = new OpenFileDialog();
+            OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            if (OpenFile.ShowDialog() == true)
             {
-                OpenFileDialog OpenFile = new OpenFileDialog();
-                OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
-                if (OpenFile.ShowDialog() == true)
-                {
-                    Medias.Add(OpenFile.FileName);
-                    Process.Start(new ProcessStartInfo() { FileName = OpenFile.FileName, UseShellExecute = true });
-                }
-            });
-        }, bool () => true);
-
-
+                Medias.Add(OpenFile.FileName);
+            }
+        }
     }
 }
