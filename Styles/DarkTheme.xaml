@@ -143,9 +143,9 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border Background="#414141" CornerRadius="16" Height="120" Width="171">
+                    <Border Background="#414141" CornerRadius="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <StackPanel>
-                            <Border CornerRadius="16" Width="171" Height="96">
+                            <Border CornerRadius="16" Height="150"  HorizontalAlignment="Stretch">
                                 <Border.Background>
                                     <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
                                 </Border.Background>
