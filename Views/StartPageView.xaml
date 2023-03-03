@@ -42,10 +42,12 @@
                     <ListView Style="{DynamicResource ListViewItems}" Margin="10 10 10 0" 
                         ItemsSource="{Binding Medias}"
                       dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.DropHandler="{Binding}">
+                      dd:DragDrop.DropHandler="{Binding}"
+                              HorizontalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
