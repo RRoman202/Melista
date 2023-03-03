@@ -3,7 +3,7 @@
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="/Resources/Images/Dark Theme.png"/>
+                <ImageBrush ImageSource="/Resources/Dark/Dark Theme.png"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -55,5 +55,79 @@
     </Style>
     <Style x:Key="BottomPanel" TargetType="Grid">
         <Setter Property="Background" Value="#4C000000"/>
+    </Style>
+
+    <Style x:Key="SearchBox" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="/Resources/Fonts/#Montserrat"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style x:Key="Search Icon" TargetType="Image">
+        <Setter Property="Source" Value="/Resources/Dark/search.png"/>
+    </Style>
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="/Resources/Fonts/#Montserrat"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                    <ToggleButton.Template>
+                                        <ControlTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*" />
+                                                    <ColumnDefinition Width="2*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Path x:Name="Arrow" Grid.Column="1"  Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                                                    <Setter TargetName="Arrow" Property="Fill" Value="DimGray" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                                <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                                <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                            <Grid Style="{DynamicResource DropDownGrid}" Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border x:Name="DropDownBorder" Background="Transparent"  BorderThickness="0" CornerRadius="0 0 30 30"/>
+                                        <ScrollViewer SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                </Style.Triggers>
+            </Style>
+    <Style x:Key="DropDownGrid" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="DropDownText" TargetType="ComboBoxItem">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="#7F000000"/>
+                
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

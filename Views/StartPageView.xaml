@@ -17,10 +17,21 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" Margin="40,0,40,0" VerticalAlignment="Center">
+        <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" 
+                Margin="40,0,40,0" VerticalAlignment="Center">
             <Grid>
-                <local1:PlaceHolderTextBox PlaceHolderText="rrr"></local1:PlaceHolderTextBox>
-                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox  VerticalAlignment="Center" Margin="20 0 0 0">
+                    <ComboBoxItem>Музыка</ComboBoxItem>
+                    <ComboBoxItem>Видео</ComboBoxItem>
+                </ComboBox>
+                <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
+                <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
             </Grid>
         </Border>
 
