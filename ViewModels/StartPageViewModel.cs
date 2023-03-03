@@ -1,6 +1,13 @@
+
+﻿using Microsoft.Win32;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
 ﻿using GongSolutions.Wpf.DragDrop;
 using System.Collections.ObjectModel;
+
 using System.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Melista.ViewModels
 {
@@ -10,7 +17,6 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
         public StartPageViewModel(PageService pageService)
         {
-            
             _pageService = pageService;
             Medias = new ObservableCollection<string>();
         }
@@ -38,8 +44,20 @@ namespace Melista.ViewModels
                 foreach (var file in files)
                 {
                     Medias.Add(file);
+                    Process.Start(new ProcessStartInfo() { FileName = file, UseShellExecute = true });
 
                 }
+            }
+        }
+        public DelegateCommand LoadNewFile => new(() => LoadFile());
+
+        public void LoadFile() 
+        {
+            OpenFileDialog OpenFile = new OpenFileDialog();
+            OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            if (OpenFile.ShowDialog() == true)
+            {
+                Medias.Add(OpenFile.FileName);
             }
         }
     }
