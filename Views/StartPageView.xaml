@@ -48,7 +48,7 @@
                         Height="40" 
                         Width="200" 
                         Content="Загрузить"
-                        Command="{Binding LoadNewFileCommand, IsAsync=True}"/>
+                        Command="{Binding LoadNewFile}"/>
             </StackPanel>
         </Grid>
 
