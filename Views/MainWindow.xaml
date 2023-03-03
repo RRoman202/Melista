@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:Melista.ViewModels"
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
+        DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Style="{DynamicResource Background}">
+        
 
+        <Frame NavigationUIVisibility="Hidden"
+               Content="{Binding PageSource}"></Frame>
     </Grid>
 </Window>
