@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local1="clr-namespace:Melista"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -19,6 +19,7 @@
 
         <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" Margin="40,0,40,0" VerticalAlignment="Center">
             <Grid>
+                <local1:PlaceHolderTextBox PlaceHolderText="rrr"></local1:PlaceHolderTextBox>
                 
             </Grid>
         </Border>
