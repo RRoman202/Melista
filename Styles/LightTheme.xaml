@@ -55,4 +55,5 @@
     <Style x:Key="BottomPanel" TargetType="Grid">
         <Setter Property="Background" Value="#4CFFFFFF"/>
     </Style>
+   
 </ResourceDictionary>
