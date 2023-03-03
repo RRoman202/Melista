@@ -13,7 +13,7 @@
         <Setter Property="FontWeight" Value="Light"/>
     </Style>
     <Style x:Key="TextStyle2" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="#414141"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource Font}"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="14"/>
