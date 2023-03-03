@@ -4,51 +4,66 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels"
+      xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local1="clr-namespace:Melista"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="1080" d:DesignWidth="1920"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="StartPageView">
 
-    <Grid Margin="10 15 10 15">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="52*"/>
+            <RowDefinition Height="337*"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
-           
-            <Grid.Effect>
-                <BlurEffect Radius="80"/>
-            </Grid.Effect>
-            
-        </Grid>
-        <Border Opacity="0.6" Grid.Row="0" CornerRadius="50">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-                    <GradientStop Color="#FF292929"/>
-                    <GradientStop Color="Black" Offset="0.4"/>
-                    <GradientStop Color="#FF292929" Offset="1"/>
-                    <GradientStop Color="Black" Offset="0.7"/>
-                </LinearGradientBrush>
-            </Border.Background>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
-            <StackPanel>
 
-            </StackPanel>
+
+        <Border Style="{DynamicResource SearchPanel}" CornerRadius="30" Height="50" 
+                Margin="40,0,40,0" VerticalAlignment="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox  VerticalAlignment="Center" Margin="20 0 0 0">
+                    <ComboBoxItem>Музыка</ComboBoxItem>
+                    <ComboBoxItem>Видео</ComboBoxItem>
+                </ComboBox>
+                <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
+                <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
+            </Grid>
         </Border>
 
-        <Border Grid.Row="1" CornerRadius="20 20 20 20" Margin="100 10 100 10">
-            <Border.Background>
-                <SolidColorBrush Color="Black" Opacity="0.6"></SolidColorBrush>
-            </Border.Background>
-            <ListView Margin="30 30 30 0" Background="Transparent"></ListView>
-            <Border.Effect>
-                <DropShadowEffect Color="DarkBlue"></DropShadowEffect>
-            </Border.Effect>
-        </Border>
+        <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" Grid.RowSpan="2" >
+
+                    <ListView Style="{DynamicResource ListViewItems}" Margin="10 10 10 0" 
+                        ItemsSource="{Binding Medias}"
+                      dd:DragDrop.IsDropTarget="True"
+                      dd:DragDrop.DropHandler="{Binding}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Border>
+
         
+        <Grid Style="{DynamicResource BottomPanel}" Grid.Row="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Width="200" Content="История" Margin="0 0 40 0"/>
+                <Button Style="{DynamicResource ButtonOne}" 
+                        Grid.Row="1" 
+                        Height="40" 
+                        Width="200" 
+                        Content="Загрузить"
+                        Command="{Binding LoadNewFile}"/>
+            </StackPanel>
+        </Grid>
+
     </Grid>
-    
+
 </Page>
