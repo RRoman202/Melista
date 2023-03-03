@@ -49,6 +49,7 @@ namespace Melista.ViewModels
                 }
             }
         }
+
         public DelegateCommand LoadNewFile => new(() => LoadFile());
 
         public void LoadFile() 
