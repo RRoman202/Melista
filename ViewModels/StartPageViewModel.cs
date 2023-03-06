@@ -20,9 +20,6 @@ namespace Melista.ViewModels
             _pageService = pageService;
             Medias = new ObservableCollection<string>();
         }
-        
-
-        
 
         public void DragOver(IDropInfo dropInfo)
         {
