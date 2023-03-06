@@ -73,10 +73,12 @@
     <Style x:Key="Search Icon" TargetType="Image">
         <Setter Property="Source" Value="/Resources/Light/search.png"/>
     </Style>
-    <Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Foreground" Value="#414141"/>
+
+    <Style x:Key="ComboBoxTest2" TargetType="{x:Type ComboBox}">
+        <Setter x:Name="Fore" Property="Foreground" Value="#414141"/>
         <Setter Property="FontFamily" Value="/Resources/Fonts/#Montserrat"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="SelectedIndex" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -87,13 +89,15 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="5*" />
-                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Path x:Name="Arrow" Grid.Column="1"  Fill="#414141" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        <Border x:Name="Border" CornerRadius="11 0 0 11" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0" />
+                                        <Border Grid.Column="0" Margin="1"  Background="Transparent"  BorderThickness="0" />
+                                        <Path x:Name="Arrow" Grid.Column="1"  Fill="#414141" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                                            <Setter TargetName="Arrow" Property="Fill" Value="DimGray" />
+                                            <Setter TargetName="Border" Property="Background" Value="#33000000" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -103,7 +107,7 @@
                         <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" IsReadOnly="{TemplateBinding IsReadOnly}"/>
                         <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
                             <Grid Style="{DynamicResource DropDownGrid}" Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border x:Name="DropDownBorder" Background="Transparent"  BorderThickness="0" CornerRadius="0 0 30 30"/>
+                                <Border x:Name="DropDownBorder" Background="Transparent"  BorderThickness="0"/>
                                 <ScrollViewer SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" />
                                 </ScrollViewer>
@@ -116,6 +120,20 @@
         <Style.Triggers>
         </Style.Triggers>
     </Style>
+
+    <!--<Style TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="Red"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+
     <Style x:Key="DropDownGrid" TargetType="Grid">
         <Setter Property="Background" Value="Transparent"/>
         <Style.Triggers>
@@ -139,10 +157,10 @@
     <Style x:Key="ListViewItems" TargetType="ListView">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="ItemTemplate">
+        <!--<Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border Background="White" CornerRadius="16" Height="120" Width="171">
+                    <Border x:Name="FirstBord" Background="White" CornerRadius="16" Height="120" Width="171">
                         <StackPanel>
                             <Border CornerRadius="16" Width="171" Height="96">
                                 <Border.Background>
@@ -154,6 +172,105 @@
                     </Border>
                 </DataTemplate>
             </Setter.Value>
+        </Setter>-->
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border x:Name="FirstBord" Background="White" CornerRadius="16" Height="120" Width="171">
+                                    <StackPanel>
+                                        <Border CornerRadius="16" Width="171" Height="96">
+                                            <Border.Background>
+                                                <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock Style="{DynamicResource TextStyle2}" FontSize="8" Margin="6 6 6 0" Text="Billie Eilish - when the party's over"/>
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <!--<Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#ddd"/>
+                        </Trigger>-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFC34D"/>
+                        </Trigger>
+                    </Style.Triggers>
+
+                </Style>
+            </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type ListView}">
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="transparent"/>
+        <Setter Property="Foreground" Value="#414141"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <!--ListViewItem template-->
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Height" Value="120"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="16">
+                                    <!--<GridViewRowPresenter Content="{TemplateBinding Content}"
+                                                          Columns="{TemplateBinding GridView.ColumnCollection}"/>-->
+                                    <StackPanel>
+                                        <Border CornerRadius="16" Width="171" Height="96">
+                                            <Border.Background>
+                                                <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" FontSize="8" Margin="6 6 6 0" Text="Billie Eilish - when the party's over"/>
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#414141"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style x:Key="LVItem" TargetType="{x:Type ListViewItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border x:Name="Bd" Background="Transparent" BorderThickness="0">
+                        <ContentPresenter Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    --><!--<ControlTemplate.Triggers>
+                        <Trigger Property="Border.IsMouseOver" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>--><!--
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
 </ResourceDictionary>
