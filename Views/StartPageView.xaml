@@ -51,7 +51,9 @@
                               HorizontalContentAlignment="Stretch">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                                <UniformGrid Columns="3"  VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    
+                                </UniformGrid>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
