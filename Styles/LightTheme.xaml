@@ -232,9 +232,9 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}" MaxHeight="350" MaxWidth="300" CornerRadius="16" Margin="15" x:Name="border">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}" MaxHeight="350" MaxWidth="300" 
+                                        CornerRadius="16" Margin="15" x:Name="border">
                                     <!--<GridViewRowPresenter Content="{TemplateBinding Content}"
                                                           Columns="{TemplateBinding GridView.ColumnCollection}"/>-->
                                     <StackPanel>
