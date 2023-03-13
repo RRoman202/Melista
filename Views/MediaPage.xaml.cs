@@ -28,14 +28,20 @@ namespace Melista.Views
 
         private void Media_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (a != 0)
-            {
-                var height = MediaGrid.ActualHeight;
-                int wh = (int)height / 9;
-                Media.Height = wh * 9;
-                Media.Width = wh * 16;
-            }
-            a = a+1;
+        //    if (a != 0)
+        //    {
+        //        var height = MediaGrid.ActualHeight;
+        //        int wh = (int)height / 9;
+        //        Media.Height = wh * 9;
+        //        Media.Width = wh * 16;
+        //    }
+        //    a = a+1;
+        }
+
+        private void MediaGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            A1.Text = MediaGrid.ActualWidth.ToString();
+            A2.Text = MediaEl.ActualWidth.ToString();
         }
     }
 }

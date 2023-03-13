@@ -20,11 +20,14 @@
                 <RowDefinition Height="0.5*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="MediaGrid" Grid.Row="0" SizeChanged="Media_SizeChanged" >
-                <Border x:Name="Media" Height="270" Width="480" BorderBrush="Red" BorderThickness="4">
+            <Grid x:Name="MediaGrid" Grid.Row="0" Margin="15" SizeChanged="MediaGrid_SizeChanged">
+                <Border x:Name="MediaEl"  Height="{Binding Path=ActualHeight,ElementName=MediaGrid,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=MediaGrid, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="Orange" BorderThickness="4">
                     <MediaElement></MediaElement>
                 </Border>
-                <TextBlock x:Name="MediaGridq">dddd</TextBlock>
+                <StackPanel>
+                    <TextBlock x:Name="A1"></TextBlock>
+                    <TextBlock x:Name="A2"></TextBlock>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
