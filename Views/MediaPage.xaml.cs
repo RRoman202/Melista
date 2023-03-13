@@ -18,7 +18,7 @@ namespace Melista.Views
     /// <summary>
     /// Логика взаимодействия для MediaPage.xaml
     /// </summary>
-    public partial class MediaPage : Page
+    public partial class MediaPage : Page, IMediaService
     {
         int a = 0;
         public MediaPage()
@@ -43,5 +43,31 @@ namespace Melista.Views
             A1.Text = MediaGrid.ActualWidth.ToString();
             A2.Text = MediaEl.ActualWidth.ToString();
         }
+
+        void IMediaService.FastForward()
+        {
+            this.mediaElement.Position += TimeSpan.FromSeconds(10);
+        }
+
+        void IMediaService.Pause()
+        {
+            this.mediaElement.Pause();
+        }
+
+        void IMediaService.Play()
+        {
+            this.mediaElement.Play();
+        }
+
+        void IMediaService.Rewind()
+        {
+            this.mediaElement.Position -= TimeSpan.FromSeconds(10);
+        }
+
+        void IMediaService.Stop()
+        {
+            this.mediaElement.Stop();
+        }
+
     }
 }

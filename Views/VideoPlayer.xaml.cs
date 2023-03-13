@@ -18,11 +18,37 @@ namespace Melista.Views
     /// <summary>
     /// Логика взаимодействия для VideoPlayer.xaml
     /// </summary>
-    public partial class VideoPlayer : Page
+    public partial class VideoPlayer : Page, IMediaService
     {
         public VideoPlayer()
         {
             InitializeComponent();
         }
+
+        void IMediaService.FastForward()
+        {
+            this.video.Position += TimeSpan.FromSeconds(10);
+        }
+
+        void IMediaService.Pause()
+        {
+            this.video.Pause();
+        }
+
+        void IMediaService.Play()
+        {
+            this.video.Play();
+        }
+
+        void IMediaService.Rewind()
+        {
+            this.video.Position -= TimeSpan.FromSeconds(10);
+        }
+
+        void IMediaService.Stop()
+        {
+            this.video.Stop();
+        }
     }
+
 }

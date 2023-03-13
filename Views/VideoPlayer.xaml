@@ -13,7 +13,8 @@
         <MediaElement x:Name="video"
                           LoadedBehavior="Manual"
                           ScrubbingEnabled="True"
-                      Source="{Binding Media}"/>
+                      Source="{Binding Media}"
+                      />
         <Grid x:Name="panel" Height="70" VerticalAlignment="Bottom" Margin="0,0,0,0" Background="MediumAquamarine"/>
         <!--MouseMove="Grid_MouseMove"-->
         <!--<Slider x:Name="slider" Height="20" Width="auto" VerticalAlignment="Top" Orientation="Horizontal" Foreground="#FFECECEC" 
