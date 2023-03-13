@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:Melista.Converters">
 
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
@@ -206,11 +206,12 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <converters:ListItemWidthConverter x:Key="ListItemWidthConverter"></converters:ListItemWidthConverter>
+    <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
     <Style TargetType="{x:Type ListView}">
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
-        <Setter Property="Background" Value="transparent"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#414141"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="SelectionMode" Value="Single"/>
@@ -224,26 +225,27 @@
                     
                     
                     <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Background" Value="White"/>
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}" MaxHeight="350" MaxWidth="300" CornerRadius="16" x:Name="border">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}" MaxHeight="350" MaxWidth="300" 
+                                        CornerRadius="16" Margin="15" x:Name="border">
                                     <!--<GridViewRowPresenter Content="{TemplateBinding Content}"
                                                           Columns="{TemplateBinding GridView.ColumnCollection}"/>-->
                                     <StackPanel>
-                                        <Border CornerRadius="16" Width="{Binding Path=ActualWidth, ElementName=border}" Height="{Binding Path=ActualWidth, ElementName=border}">
+                                        <Border CornerRadius="16"  Height="{Binding Path=ActualWidth, ElementName=border,Converter={StaticResource ListItemHeightConverter}}" Width="{Binding Path=ActualWidth, ElementName=border}">
                                             <Border.Background>
                                                 <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
                                             </Border.Background>
                                         </Border>
                                         <TextBlock Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" FontSize="8" Margin="6 6 6 0" Text="Billie Eilish - when the party's over"/>
                                     </StackPanel>
+
                                 </Border>
                             </ControlTemplate>
                         </Setter.Value>
