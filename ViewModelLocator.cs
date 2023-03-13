@@ -10,6 +10,7 @@
 
             services.AddTransient<MainViewModel>();
             services.AddTransient<StartPageViewModel>();
+            services.AddTransient<VideoPlayerViewModel>();
 
             services.AddSingleton<PageService>();
 
@@ -21,5 +22,6 @@
         }
         public MainViewModel MainViewModel => _provider.GetRequiredService<MainViewModel>();
         public StartPageViewModel StartPageViewModel => _provider.GetRequiredService<StartPageViewModel>();
+        public VideoPlayerViewModel VideoPlayerViewModel => _provider.GetRequiredService<VideoPlayerViewModel>();
     }
 }
