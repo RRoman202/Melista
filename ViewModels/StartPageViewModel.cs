@@ -53,9 +53,14 @@ namespace Melista.ViewModels
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            OpenFile.Multiselect = true;
             if (OpenFile.ShowDialog() == true)
             {
-                Medias.Add(new Video { NameVideo = RemoveFormatString(OpenFile.SafeFileName) });
+                foreach (string file in OpenFile.FileNames)
+                { 
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                }
+                
             }
         }
         public string RemoveFormatString(string stringForRemove) 
