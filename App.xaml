@@ -1,12 +1,13 @@
 ﻿<Application x:Class="Melista.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Melista"
+             xmlns:local="clr-namespace:Melista" xmlns:converters="clr-namespace:Melista.Converters"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
-            
+            <converters:ScreenRatioConverter x:Key="ScreenRatioConverter"></converters:ScreenRatioConverter>
+            <converters:ScreenRatioHeightConvert x:Key="ScreenRatioHeightConvert"></converters:ScreenRatioHeightConvert>
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
