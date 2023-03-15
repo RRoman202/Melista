@@ -23,10 +23,19 @@ namespace Melista.ViewModels
         public ObservableCollection<Video> Medias { get; set; }
 
         private readonly PageService _pageService;
-        public StartPageViewModel(PageService pageService)
+        private readonly MediaService _mediaService;
+        public StartPageViewModel(PageService pageService, MediaService mediaService)
         {
             _pageService = pageService;
-            Medias = new ObservableCollection<Video>();
+            _mediaService = mediaService;
+            Task.Run(async () =>
+            {
+                
+                Medias = await _mediaService.GetMedia();
+               
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+            
         }
 
         public void DragOver(IDropInfo dropInfo)

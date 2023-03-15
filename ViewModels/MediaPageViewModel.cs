@@ -10,5 +10,9 @@ namespace Melista.ViewModels
         {
             _pageService = pageService;
         }
+        public DelegateCommand Back => new(() =>
+        {
+            _pageService.ChangePage(new StartPageView());
+        });
     }
 }

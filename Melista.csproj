@@ -61,11 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Resources\Light\search.png" />
     <Resource Include="Resources\Fonts\Montserrat.ttf" />
     <Resource Include="Resources\Dark\Dark Theme.png" />
