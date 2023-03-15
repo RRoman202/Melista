@@ -10,7 +10,7 @@
         {
             _pageService = pageService;
             _pageService.onPageChanged += (page) => PageSource = page;
-            _pageService.ChangePage(new VideoPlayer());
+            _pageService.ChangePage(new StartPageView());
         }
     }
 }

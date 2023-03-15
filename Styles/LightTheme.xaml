@@ -168,8 +168,8 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}" MaxHeight="350" MaxWidth="300" 
-                                        CornerRadius="16" Margin="15" x:Name="border">
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        CornerRadius="19" Margin="15" x:Name="border">
                                     <StackPanel>
                                         <Border CornerRadius="16"  Height="{Binding Path=ActualWidth, ElementName=border,Converter={StaticResource ListItemHeightConverter}}" Width="{Binding Path=ActualWidth, ElementName=border}">
                                             <Border.Background>
