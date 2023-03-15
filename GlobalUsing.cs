@@ -6,3 +6,4 @@ global using Melista.Views;
 global using DevExpress.Mvvm;
 global using System.Windows.Controls;
 global using System;
+global using PropertyChanged;
