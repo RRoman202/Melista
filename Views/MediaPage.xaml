@@ -27,7 +27,11 @@
                     <Grid>
                         <MediaElement></MediaElement>
                         <Grid>
-                            <Button Height="25" Width="25"></Button>
+                            <Button Height="25" Width="25">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
+                                </Button.Background>
+                            </Button>
                             <Grid VerticalAlignment="Bottom" Margin="20 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -36,15 +40,39 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25"></Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/play.png"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Height="25" Width="25">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/next.png"/>
+                                        </Button.Background>
+                                    </Button>
                                 </StackPanel>
                                 <Slider Grid.Column="1" Margin="20 0"></Slider>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25"></Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Height="25" Width="25">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="/Resources/Icons/size.png"/>
+                                        </Button.Background>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </Grid>
