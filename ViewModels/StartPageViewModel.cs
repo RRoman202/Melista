@@ -59,6 +59,8 @@ namespace Melista.ViewModels
 
         public DelegateCommand GoVid => new(() => _pageService.ChangePage(new MediaPage()));
 
+        public DelegateCommand ClickMedia => new(() => _pageService.ChangePage(new MediaPage()));
+
         public void LoadFile() 
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
