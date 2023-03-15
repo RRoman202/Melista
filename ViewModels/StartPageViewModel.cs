@@ -8,21 +8,19 @@ using System.Collections.ObjectModel;
 
 using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
+using Melista.Models;
 
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
-        public ObservableCollection<string> Medias { get; set; }
+        public ObservableCollection<Video> Medias { get; set; }
         private readonly PageService _pageService;
         public StartPageViewModel(PageService pageService)
         {
             _pageService = pageService;
-            Medias = new ObservableCollection<string>();
+            Medias = new ObservableCollection<Video>();
         }
-        
-
-        
 
         public void DragOver(IDropInfo dropInfo)
         {
@@ -43,8 +41,7 @@ namespace Melista.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    Medias.Add(file);
-                    Process.Start(new ProcessStartInfo() { FileName = file, UseShellExecute = true });
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
 
                 }
             }
@@ -56,10 +53,26 @@ namespace Melista.ViewModels
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            OpenFile.Multiselect = true;
             if (OpenFile.ShowDialog() == true)
             {
-                Medias.Add(OpenFile.FileName);
+                foreach (string file in OpenFile.FileNames)
+                { 
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                }
+                
             }
+        }
+        public string RemoveFormatString(string stringForRemove) 
+        {
+
+            if (stringForRemove.Contains('\\')) 
+            { 
+               string[] strings = stringForRemove.Split('\\');
+                stringForRemove = strings[strings.Length - 1];
+            }
+            string[] strings_1 = stringForRemove.Split('.');
+            return strings_1[0];
         }
     }
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
       xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local1="clr-namespace:Melista"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista"
       DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -23,14 +23,18 @@
                 Margin="40,0,40,0" VerticalAlignment="Center">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.1*"></ColumnDefinition>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox  VerticalAlignment="Center" Margin="20 0 0 0">
+                <ComboBox Style="{DynamicResource ComboBoxTest2}" 
+                          VerticalAlignment="Center" Margin="20 0 0 0" Width="140" 
+                          HorizontalAlignment="Left">
                     <ComboBoxItem>Музыка</ComboBoxItem>
                     <ComboBoxItem>Видео</ComboBoxItem>
+                    <ComboBoxItem>Плейлисты видео</ComboBoxItem>
+                    <ComboBoxItem>Плейлисты музыка</ComboBoxItem>
                 </ComboBox>
                 <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
                 <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
@@ -39,7 +43,7 @@
 
         <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" Grid.RowSpan="2" >
 
-                    <ListView Style="{DynamicResource ListViewItems}" Margin="10 10 10 0" 
+                    <ListView Margin="10 10 10 0"
                         ItemsSource="{Binding Medias}"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
@@ -47,7 +51,9 @@
                               HorizontalContentAlignment="Stretch">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                                    
+                                </UniformGrid>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
@@ -56,13 +62,10 @@
         
         <Grid Style="{DynamicResource BottomPanel}" Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Width="200" Content="История" Margin="0 0 40 0"/>
-                <Button Style="{DynamicResource ButtonOne}" 
-                        Grid.Row="1" 
-                        Height="40" 
-                        Width="200" 
-                        Content="Загрузить"
-                        Command="{Binding LoadNewFile}"/>
+                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                        Width="200" Content="История" Margin="0 0 40 0"/>
+                <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                        Width="200" Content="Загрузить" Command="{Binding LoadNewFile}"/>
             </StackPanel>
         </Grid>
 

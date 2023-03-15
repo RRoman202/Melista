@@ -1,0 +1,91 @@
+﻿<Page x:Class="Melista.Views.MediaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Melista.Views"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista"
+      DataContext="{Binding StartPageViewModel, Source={StaticResource ViewModelLocator}}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900"
+      Title="MediaPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0.2*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
+                <Border x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=MediaGrid,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=MediaGrid, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
+                    <Grid>
+                        <MediaElement></MediaElement>
+                        <Grid>
+                            <Button Height="25" Width="25"></Button>
+                            <Grid VerticalAlignment="Bottom" Margin="20 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
+                                    <Button Height="25" Width="25"></Button>
+                                </StackPanel>
+                                <Slider Grid.Column="1" Margin="20 0"></Slider>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
+                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
+                                    <Button Height="25" Width="25"></Button>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
+                <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}">
+                    <StackPanel Margin="20">
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+        </Grid>
+        <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" MaxWidth="270">
+            <StackPanel>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
+                <Grid Background="White" Height="0.5" Margin="20 0"></Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Margin="0 20 0 0">
+                    <ListView Margin="10 10 10 0" ItemsSource="{Binding Medias}"
+                              HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+
+                                </UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </ScrollViewer>
+            </StackPanel>
+            <Grid x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
+                <StackPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=buttons}">
+                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="История" Margin="40 20"/>
+                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="К музыке" Margin="40 0 40 20"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

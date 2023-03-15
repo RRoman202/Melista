@@ -1,5 +1,4 @@
-﻿using Melista.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +16,11 @@ using System.Windows.Shapes;
 namespace Melista.Views
 {
     /// <summary>
-    /// Логика взаимодействия для StartPageView.xaml
+    /// Логика взаимодействия для MediaPage.xaml
     /// </summary>
-    public partial class StartPageView : Page
+    public partial class MediaPage : Page
     {
-        public StartPageView()
+        public MediaPage()
         {
             InitializeComponent();
         }
