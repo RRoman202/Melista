@@ -8,17 +8,18 @@ using System.Collections.ObjectModel;
 
 using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
+using Melista.Models;
 
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
-        public ObservableCollection<string> Medias { get; set; }
+        public ObservableCollection<Video> Medias { get; set; }
         private readonly PageService _pageService;
         public StartPageViewModel(PageService pageService)
         {
             _pageService = pageService;
-            Medias = new ObservableCollection<string>();
+            Medias = new ObservableCollection<Video>();
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -40,7 +41,7 @@ namespace Melista.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    Medias.Add(file);
+                    Medias.Add(new Video { NameVideo = file });
                     Process.Start(new ProcessStartInfo() { FileName = file, UseShellExecute = true });
 
                 }
@@ -55,7 +56,7 @@ namespace Melista.ViewModels
             OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
             if (OpenFile.ShowDialog() == true)
             {
-                Medias.Add(OpenFile.FileName);
+                Medias.Add(new Video { NameVideo = OpenFile.SafeFileName });
             }
         }
     }
