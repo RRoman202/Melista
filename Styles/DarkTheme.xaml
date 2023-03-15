@@ -176,7 +176,9 @@
                                                 <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
                                             </Border.Background>
                                         </Border>
-                                        <TextBlock Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" FontSize="8" Margin="6 6 6 0" Text="Billie Eilish - when the party's over"/>
+                                        <Grid Height="30" Margin="10 0 10 0">
+                                            <TextBlock Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" FontSize="10" Text="{Binding NameVideo}"/>
+                                        </Grid>
                                     </StackPanel>
 
                                 </Border>
