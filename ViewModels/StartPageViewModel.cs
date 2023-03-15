@@ -10,11 +10,16 @@ using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using Melista.Models;
 
+using System.IO;
+
+using IWshRuntimeLibrary;
+
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
         public ObservableCollection<Video> Medias { get; set; }
+
         private readonly PageService _pageService;
         public StartPageViewModel(PageService pageService)
         {
@@ -42,7 +47,6 @@ namespace Melista.ViewModels
                 foreach (var file in files)
                 {
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
-
                 }
             }
         }
@@ -57,7 +61,8 @@ namespace Melista.ViewModels
             if (OpenFile.ShowDialog() == true)
             {
                 foreach (string file in OpenFile.FileNames)
-                { 
+                {
+                    CreateShortCut(file, RemoveFormatString(file));
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
                 }
                 
@@ -73,6 +78,20 @@ namespace Melista.ViewModels
             }
             string[] strings_1 = stringForRemove.Split('.');
             return strings_1[0];
+        }
+        public void CreateShortCut(string Pathh, string shortPath) {
+
+            WshShell shell = new WshShell();
+
+            string shortcutPath = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+
+            shortcut.Description = "Ярлык для текстового редактора";
+
+            shortcut.TargetPath = Pathh;
+
+            shortcut.Save();
         }
     }
 }
