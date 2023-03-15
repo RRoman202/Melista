@@ -13,6 +13,8 @@ using Melista.Models;
 using System.IO;
 
 using IWshRuntimeLibrary;
+using System.Text.RegularExpressions;
+using System.Windows.Controls.Primitives;
 
 namespace Melista.ViewModels
 {
@@ -47,11 +49,15 @@ namespace Melista.ViewModels
                 foreach (var file in files)
                 {
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                    CreateShortCut(file, RemoveFormatString(file));
+                    Process.Start(new ProcessStartInfo() { FileName = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
                 }
+
             }
         }
-
         public DelegateCommand LoadNewFile => new(() => LoadFile());
+
+        public DelegateCommand GoVid => new(() => _pageService.ChangePage(new MediaPage()));
 
         public void LoadFile() 
         {
@@ -93,5 +99,6 @@ namespace Melista.ViewModels
 
             shortcut.Save();
         }
+
     }
 }
