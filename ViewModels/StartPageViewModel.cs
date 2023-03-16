@@ -10,16 +10,32 @@ using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using Melista.Models;
 
+using System.IO;
+
+using IWshRuntimeLibrary;
+using System.Text.RegularExpressions;
+using System.Windows.Controls.Primitives;
+
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
         public ObservableCollection<Video> Medias { get; set; }
+
         private readonly PageService _pageService;
-        public StartPageViewModel(PageService pageService)
+        private readonly MediaService _mediaService;
+        public StartPageViewModel(PageService pageService, MediaService mediaService)
         {
             _pageService = pageService;
-            Medias = new ObservableCollection<Video>();
+            _mediaService = mediaService;
+            Task.Run(async () =>
+            {
+                
+                Medias = await _mediaService.GetMedia();
+               
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+            
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -41,23 +57,59 @@ namespace Melista.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    Medias.Add(new Video { NameVideo = file });
-                    Process.Start(new ProcessStartInfo() { FileName = file, UseShellExecute = true });
-
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                    CreateShortCut(file, RemoveFormatString(file));
+                    Process.Start(new ProcessStartInfo() { FileName = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
                 }
+
             }
         }
-
         public DelegateCommand LoadNewFile => new(() => LoadFile());
+
+        public DelegateCommand GoVid => new(() => _pageService.ChangePage(new MediaPage()));
+
+        public DelegateCommand ClickMedia => new(() => _pageService.ChangePage(new MediaPage()));
 
         public void LoadFile() 
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
             OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            OpenFile.Multiselect = true;
             if (OpenFile.ShowDialog() == true)
             {
-                Medias.Add(new Video { NameVideo = OpenFile.SafeFileName });
+                foreach (string file in OpenFile.FileNames)
+                {
+                    CreateShortCut(file, RemoveFormatString(file));
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                }
+                
             }
         }
+        public string RemoveFormatString(string stringForRemove) 
+        {
+
+            if (stringForRemove.Contains('\\')) 
+            { 
+               string[] strings = stringForRemove.Split('\\');
+                stringForRemove = strings[strings.Length - 1];
+            }
+            string[] strings_1 = stringForRemove.Split('.');
+            return strings_1[0];
+        }
+        public void CreateShortCut(string Pathh, string shortPath) {
+
+            WshShell shell = new WshShell();
+
+            string shortcutPath = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+
+            shortcut.Description = "Ярлык для текстового редактора";
+
+            shortcut.TargetPath = Pathh;
+
+            shortcut.Save();
+        }
+
     }
 }
