@@ -17,6 +17,12 @@ namespace Melista.ViewModels
             {
                 LoadedBehavior = MediaState.Manual,
             };
+            string path = GetPathFromLink(Global.CurrentMedia.Path);
+            if (path != null)
+            {
+                Player.Source = new Uri(path);
+                Player.Play();
+            }
         }
         public MediaElement Player { get; set; }
         public DelegateCommand Back => new(() =>
