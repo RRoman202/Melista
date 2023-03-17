@@ -22,7 +22,8 @@ namespace Melista.Services
                     FileInfo[] files = dir.GetFiles();
                     foreach(FileInfo f in files)
                     {
-                        medias.Add(new Video { NameVideo = RemoveFormatString(f.Name)});
+                        medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), Path=f.FullName});
+                        
                     }
                 }
                 catch { }

@@ -24,6 +24,18 @@ namespace Melista.ViewModels
 
         private readonly PageService _pageService;
         private readonly MediaService _mediaService;
+        public Video _selectedMedia { get; set; }
+        public Video SelectedMedia
+        {
+            get { return _selectedMedia; }
+            set {
+                _selectedMedia = value;
+                RaisePropertiesChanged(nameof(SelectedMedia));
+                Global.CurrentMedia = SelectedMedia;
+
+            }
+        }
+
         public StartPageViewModel(PageService pageService, MediaService mediaService)
         {
             _pageService = pageService;
@@ -66,9 +78,13 @@ namespace Melista.ViewModels
         }
         public DelegateCommand LoadNewFile => new(() => LoadFile());
 
-        public DelegateCommand GoVid => new(() => _pageService.ChangePage(new MediaPage()));
+        public DelegateCommand GoVid => new(() =>
+        {
+            _pageService.ChangePage(new MediaPage());
+        });
 
-        public DelegateCommand ClickMedia => new(() => _pageService.ChangePage(new MediaPage()));
+        public DelegateCommand ClickMedia => new(() =>
+            _pageService.ChangePage(new MediaPage()));
 
         public void LoadFile() 
         {
