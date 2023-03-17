@@ -13,5 +13,6 @@ namespace Melista.Models
         public DateTime DateVideo { get; set; }
         public int DurationVideo { get; set; }
         public int ViewsVideo { get; set; }
+        public string Path { get; set; }
     }
 }
