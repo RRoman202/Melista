@@ -8,27 +8,27 @@
       DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
-      Title="MediaPage">
+      Title="MediaPage" x:Name="window">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="0.2*"></RowDefinition>
-            </Grid.RowDefinitions>
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                </Grid.RowDefinitions>
 
             <Grid x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
                 <Border x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=MediaGrid,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=MediaGrid, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
                     <Grid>
-                        <ContentControl Content="{Binding Player}"></ContentControl>
-                        <MediaElement Source="{Binding Source={StaticResource ViewModelLocator}, Path=StartPageViewModel.SelectedMedia.Path}"></MediaElement>
+                        <MediaElement></MediaElement>
                         <Grid>
-                            <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}"></Button>
+                            <Button Height="25" Width="25"></Button>
                             <Grid VerticalAlignment="Bottom" Margin="20 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -36,33 +36,75 @@
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25"></Button>
-                                </StackPanel>
-                                <Slider Grid.Column="1" Margin="20 0"></Slider>
-                                <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25" Margin="0 0 20 0"></Button>
-                                    <Button Height="25" Width="25"></Button>
-                                </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/play.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button Height="25" Width="25">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/next.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+                                    <Slider Grid.Column="1" Margin="20 0"></Slider>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                        <Button Height="25" Width="25">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="/Resources/Icons/size.png"/>
+                                            </Button.Background>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
-            </Grid>
+                    </Border>
+                </Grid>
 
-            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
-                <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}">
+                <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
+                            Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
                     <StackPanel Margin="20">
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24"> Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White">Информация</TextBlock>
                         <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
                         <TextBlock Foreground="White">Информация</TextBlock>
                     </StackPanel>
                 </Border>
-            </ScrollViewer>
-        </Grid>
-        <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" MaxWidth="270">
+            </Grid>
+        </ScrollViewer>
+        <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" Width="270" HorizontalAlignment="Right">
             <StackPanel>
                 <TextBlock Foreground="White" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
                 <Grid Background="White" Height="0.5" Margin="20 0"></Grid>
