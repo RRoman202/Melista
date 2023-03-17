@@ -11,6 +11,7 @@
     <None Remove="Resources\Dark\search.png" />
     <None Remove="Resources\Fonts\Montserrat.ttf" />
     <None Remove="Resources\Gradient.png" />
+    <None Remove="Resources\Icons\melista.png" />
     <None Remove="Resources\Icons\next.png" />
     <None Remove="Resources\Icons\pause.png" />
     <None Remove="Resources\Icons\play.png" />
@@ -37,6 +38,9 @@
 
   <ItemGroup>
     <Folder Include="Resources\ShortCuts\" />
+    <Content Include="Resources\Icons\melista.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\next.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
