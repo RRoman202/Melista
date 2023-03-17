@@ -46,6 +46,7 @@
 
                     <ListView Margin="10 10 10 0"
                         ItemsSource="{Binding Medias}"
+                              SelectedItem="{Binding SelectedMedia}"
                       dd:DragDrop.IsDropTarget="True"
                       dd:DragDrop.DropHandler="{Binding}"
                               HorizontalAlignment="Stretch"

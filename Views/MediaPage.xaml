@@ -26,9 +26,10 @@
                 <Grid x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
                     <Border x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
                         <Grid>
-                            <MediaElement></MediaElement>
+                            <ContentControl Content="{Binding Player}"></ContentControl>
+                            <MediaElement Source="{Binding Source={StaticResource ViewModelLocator}, Path=StartPageViewModel.SelectedMedia}"></MediaElement>
                             <Grid>
-                                <Button Height="25" Width="25">
+                                <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
                                     </Button.Background>
