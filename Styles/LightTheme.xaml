@@ -65,7 +65,13 @@
     <Style x:Key="BottomPanel" TargetType="Grid">
         <Setter Property="Background" Value="#4CFFFFFF"/>
     </Style>
-
+    <Style x:Key="RightPanel" TargetType="Grid">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="White" Opacity="0.6"></SolidColorBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="SearchBox" TargetType="TextBox">
         <Setter Property="Background" Value="Transparent"/>

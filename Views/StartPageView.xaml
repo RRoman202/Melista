@@ -42,7 +42,7 @@
             </Grid>
         </Border>
 
-        <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" Grid.RowSpan="2" >
+        <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" >
 
                     <ListView Margin="10 10 10 0"
                         ItemsSource="{Binding Medias}"
