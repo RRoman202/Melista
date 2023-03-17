@@ -27,8 +27,6 @@ namespace Melista.ViewModels
         {
             Player.Source = new Uri("C:\\Users\\Роман\\Videos\\osu!\\osu! 2022.10.16 - 22.50.55.01.mp4");
             Player.Play();
-            
-            
         });
     }
 }
