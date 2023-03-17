@@ -11,7 +11,7 @@
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
-                <!--<ResourceDictionary Source="Styles/LightTheme.xaml"/>-->
+                <ResourceDictionary Source="Styles/LightTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

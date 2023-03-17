@@ -9,5 +9,6 @@ namespace Melista
     public static class Global
     {
         public static string CurrentMedia { get; set; }
+        public static List<string> MediaList { get; set; } = new List<string>();
     }
 }

@@ -13,7 +13,8 @@ namespace Melista.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var height = (double)value;
-            int height2 = (int)(height / 9) * 9;
+            int percent = (int)height * 80 / 100;
+            int height2 = (percent / 9) * 9;
             return new string(height2.ToString());
         }
 
