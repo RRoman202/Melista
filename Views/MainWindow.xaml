@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        Title="MainWindow" MinHeight="450" MinWidth="800">
+        Title="MainWindow" MinHeight="450" MinWidth="800" Icon="/Resources/Icons/melista.png">
     <Grid Style="{DynamicResource Background}">
         
 

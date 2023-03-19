@@ -152,6 +152,15 @@ namespace Melista.ViewModels
             shortcut.TargetPath = Pathh;
 
             shortcut.Save();
+
+            Task.Run(async () =>
+            {
+
+                Medias = await _mediaService.GetMedia();
+
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+
         }
 
     }
