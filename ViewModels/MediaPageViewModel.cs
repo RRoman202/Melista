@@ -1,5 +1,7 @@
-﻿using Melista.Models;
+﻿using IWshRuntimeLibrary;
+using Melista.Models;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 
 namespace Melista.ViewModels
@@ -7,7 +9,7 @@ namespace Melista.ViewModels
     public class MediaPageViewModel : BindableBase
     {
         private readonly PageService _pageService;
-        
+
         public MediaPageViewModel(PageService pageService)
         {
             _pageService = pageService;
@@ -15,8 +17,12 @@ namespace Melista.ViewModels
             {
                 LoadedBehavior = MediaState.Manual,
             };
-
-
+            string path = GetPathFromLink(Global.CurrentMedia.Path);
+            if (path != null)
+            {
+                Player.Source = new Uri(path);
+                Player.Play();
+            }
         }
         public MediaElement Player { get; set; }
         public DelegateCommand Back => new(() =>
@@ -25,8 +31,29 @@ namespace Melista.ViewModels
         });
         public DelegateCommand PlayVideoCommand => new(() =>
         {
-            Player.Source = new Uri("C:\\Users\\Роман\\Videos\\osu!\\osu! 2022.10.16 - 22.50.55.01.mp4");
-            Player.Play();
+            string path = GetPathFromLink(Global.CurrentMedia.Path);
+            if(path != null)
+            {
+                Player.Source = new Uri(path);
+                Player.Play();
+            }
+            else
+            {
+                MessageBox.Show("Файл недопустим");
+            }
         });
+        public string GetPathFromLink(string linkPathName)
+        {
+            if (System.IO.File.Exists(linkPathName))
+            {
+                WshShell shell = new WshShell();
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(linkPathName);
+                return link.TargetPath;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
