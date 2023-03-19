@@ -10,24 +10,30 @@
       d:DesignHeight="450" d:DesignWidth="900"
       Title="MediaPage" x:Name="window">
 
-    <Grid>
+    <Grid ClipToBounds="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
-            <Grid>
+            <Grid ClipToBounds="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="0.2*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
-                    <Border x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
-                        <Grid>
-                            <ContentControl Content="{Binding Player}"></ContentControl>
-                            <MediaElement Source="{Binding Source={StaticResource ViewModelLocator}, Path=StartPageViewModel.SelectedMedia}"></MediaElement>
+                <Grid ClipToBounds="True" x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
+                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
+                        <Grid ClipToBounds="True">
+
+                            <ContentControl Content="{Binding Player}">
+                                <ContentControl.Clip>
+                                    <RectangleGeometry RadiusX="20" RadiusY="20" Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
+                                </ContentControl.Clip>
+                            </ContentControl>
+                           
+                            
                             <Grid>
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>

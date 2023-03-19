@@ -8,6 +8,7 @@
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
             <converters:ScreenRatioConverter x:Key="ScreenRatioConverter"></converters:ScreenRatioConverter>
             <converters:ScreenRatioHeightConvert x:Key="ScreenRatioHeightConvert"></converters:ScreenRatioHeightConvert>
+            <converters:ContentControlConverter x:Key="ContentControlConverter"></converters:ContentControlConverter>
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>

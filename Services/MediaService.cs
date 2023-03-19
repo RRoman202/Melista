@@ -1,4 +1,5 @@
-﻿using Melista.Models;
+﻿using IWshRuntimeLibrary;
+using Melista.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Melista.Services
 {
@@ -22,7 +24,15 @@ namespace Melista.Services
                     FileInfo[] files = dir.GetFiles();
                     foreach(FileInfo f in files)
                     {
-                        medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), Path=f.FullName});
+                        
+                        if (CheckLink(f.FullName) == true)
+                        {
+                            medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), Path = f.FullName });
+                        }
+                        else
+                        {
+                            System.IO.File.Delete(f.FullName);
+                        }
                         
                     }
                 }
@@ -40,6 +50,26 @@ namespace Melista.Services
             }
             string[] strings_1 = stringForRemove.Split('.');
             return strings_1[0];
+        }
+        bool CheckLink(string linkPathName)
+        {
+            if (System.IO.File.Exists(linkPathName))
+            {
+                WshShell shell = new WshShell();
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(linkPathName);
+                if (System.IO.File.Exists(link.TargetPath))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
