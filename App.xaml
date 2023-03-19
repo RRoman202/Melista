@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Melista" xmlns:converters="clr-namespace:Melista.Converters"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        
+        
+        
         <ResourceDictionary>
             <local:ViewModelLocator x:Key="ViewModelLocator"/>
             <converters:ScreenRatioConverter x:Key="ScreenRatioConverter"></converters:ScreenRatioConverter>
@@ -12,8 +15,12 @@
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
-                <ResourceDictionary Source="Styles/LightTheme.xaml"/>
+                <!--<ResourceDictionary Source="Styles/LightTheme.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
+
+            
         </ResourceDictionary>
+
+        
     </Application.Resources>
 </Application>
