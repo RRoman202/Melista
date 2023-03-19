@@ -15,6 +15,10 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
+using System.Linq;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Melista.ViewModels
 {
@@ -71,7 +75,7 @@ namespace Melista.ViewModels
                 {
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
                     CreateShortCut(file, RemoveFormatString(file));
-                    Process.Start(new ProcessStartInfo() { FileName = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo() { FileName = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
                 }
 
             }
@@ -95,8 +99,31 @@ namespace Melista.ViewModels
             {
                 foreach (string file in OpenFile.FileNames)
                 {
+                    TagLib.File filik = TagLib.File.Create(file);
+                    var mStream = new MemoryStream();
+
+                   
+                    var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                    //if (firstPicture != null) 
+                    //{
+                    //   // Bitmap bitmap = AsfImage.FromFile(file).AtOffset(15);
+                    //    filik.Tag.Pictures = new TagLib.IPicture[]
+                    //    {
+                    //        new TagLib.Picture(new TagLib.ByteVector((byte[])new System.Drawing.ImageConverter().ConvertTo(bitmap, typeof(byte[]))))
+                    //    };
+                    //    filik.Save();
+                    //}
+                    BitmapImage bm = new BitmapImage();
+                    if (firstPicture != null)
+                    {
+                        byte[] pData = firstPicture.Data.Data;
+                        bm.BeginInit();
+                        bm.StreamSource = new MemoryStream(pData);
+                        bm.EndInit();
+
+                    }
                     CreateShortCut(file, RemoveFormatString(file));
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file), ImageVideo = bm });
                 }
                 
             }
@@ -116,7 +143,7 @@ namespace Melista.ViewModels
 
             WshShell shell = new WshShell();
 
-            string shortcutPath = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+            string shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
 
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
 
