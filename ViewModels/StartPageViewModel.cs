@@ -99,31 +99,32 @@ namespace Melista.ViewModels
             {
                 foreach (string file in OpenFile.FileNames)
                 {
-                    TagLib.File filik = TagLib.File.Create(file);
-                    var mStream = new MemoryStream();
+                    //TagLib.File filik = TagLib.File.Create(file);
+                    //var mStream = new MemoryStream();
 
-                   
-                    var firstPicture = filik.Tag.Pictures.FirstOrDefault();
-                    //if (firstPicture != null) 
+
+                    //var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                    //if (firstPicture != null)
                     //{
-                    //   // Bitmap bitmap = AsfImage.FromFile(file).AtOffset(15);
+                    //    // Bitmap bitmap = AsfImage.FromFile(file).AtOffset(15);
                     //    filik.Tag.Pictures = new TagLib.IPicture[]
                     //    {
                     //        new TagLib.Picture(new TagLib.ByteVector((byte[])new System.Drawing.ImageConverter().ConvertTo(bitmap, typeof(byte[]))))
                     //    };
                     //    filik.Save();
                     //}
-                    BitmapImage bm = new BitmapImage();
-                    if (firstPicture != null)
-                    {
-                        byte[] pData = firstPicture.Data.Data;
-                        bm.BeginInit();
-                        bm.StreamSource = new MemoryStream(pData);
-                        bm.EndInit();
+                    //BitmapImage bm = new BitmapImage();
+                    //if (firstPicture != null)
+                    //{
+                    //    byte[] pData = firstPicture.Data.Data;
+                    //    bm.BeginInit();
+                    //    bm.StreamSource = new MemoryStream(pData);
+                    //    bm.EndInit();
 
-                    }
+                    //}
+
                     CreateShortCut(file, RemoveFormatString(file));
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file), ImageVideo = bm });
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file)});
                 }
                 
             }
