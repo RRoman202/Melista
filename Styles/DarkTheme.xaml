@@ -354,11 +354,11 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Border Background="{StaticResource SliderBackground}"/>
-                        <Border x:Name="BordRad" Grid.ColumnSpan="2" CornerRadius="4"  Background="{StaticResource SliderBackground}" Width="15"/>
+                        <Border x:Name="BordRad" Grid.ColumnSpan="2" CornerRadius="100"  Background="{StaticResource SliderBackground}" Width="15"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BordRad" Property="CornerRadius" Value="100"/>
+                            <Setter TargetName="BordRad" Property="CornerRadius" Value="4"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

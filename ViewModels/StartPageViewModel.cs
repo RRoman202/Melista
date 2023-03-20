@@ -71,9 +71,7 @@ namespace Melista.ViewModels
                 {
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
                     CreateShortCut(file, RemoveFormatString(file));
-                    Process.Start(new ProcessStartInfo() { FileName = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
                 }
-
             }
         }
         public DelegateCommand LoadNewFile => new(() => LoadFile());

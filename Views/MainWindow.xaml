@@ -7,11 +7,14 @@
         xmlns:local="clr-namespace:Melista"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        Title="MainWindow" MinHeight="450" MinWidth="800" Icon="/Resources/Icons/melista.png">
+        MinHeight="450" MinWidth="800" Icon="/Resources/Icons/melista.png">
     <Grid Style="{DynamicResource Background}">
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="204*"/>
+        </Grid.RowDefinitions>
 
         <Frame NavigationUIVisibility="Hidden"
-               Content="{Binding PageSource}"></Frame>
+               Content="{Binding PageSource}" Grid.Row="1"></Frame>
     </Grid>
 </Window>
