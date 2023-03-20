@@ -9,11 +9,13 @@ namespace Melista.ViewModels
     public class MediaPageViewModel : BindableBase
     {
         private readonly PageService _pageService;
+        public string MediaName { get; set; }
 
         public MediaPageViewModel(PageService pageService)
         {
             
             _pageService = pageService;
+            MediaName = Global.CurrentMedia.NameVideo;
             Player = new MediaElement()
             {
                 LoadedBehavior = MediaState.Manual,
