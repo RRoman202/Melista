@@ -13,7 +13,9 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="204*"/>
         </Grid.RowDefinitions>
-
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button/>
+        </StackPanel>
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}" Grid.Row="1"></Frame>
     </Grid>

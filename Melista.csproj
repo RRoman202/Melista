@@ -21,6 +21,9 @@
     <None Remove="Resources\Icons\volume.png" />
     <None Remove="Resources\Images\Dark Theme.png" />
     <None Remove="Resources\Images\Light Theme.png" />
+    <None Remove="Resources\Light\close.png" />
+    <None Remove="Resources\Light\minimize.png" />
+    <None Remove="Resources\Light\rollup.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,14 +65,23 @@
     <Content Include="Resources\Icons\volume.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Light\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Light\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Light\rollup.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Light\search.png" />
+    <Content Include="Resources\Light\search.png" />
     <Resource Include="Resources\Fonts\Montserrat.ttf" />
     <Resource Include="Resources\Dark\Dark Theme.png" />
     <Resource Include="Resources\Images\Gradient.png" />
-    <Resource Include="Resources\Light\Light Theme.png" />
+    <Content Include="Resources\Light\Light Theme.png" />
     <Resource Include="Resources\Dark\search.png" />
     <Folder Include="Models\" />
   </ItemGroup>
