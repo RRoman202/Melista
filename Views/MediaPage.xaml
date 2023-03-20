@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
@@ -32,14 +32,19 @@
                             
 
                             <ContentControl Content="{Binding Player}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <ContentControl.Clip>
                                     <RectangleGeometry RadiusX="20" RadiusY="20" 
                                                        Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
                                 </ContentControl.Clip>
                             </ContentControl>
-                           
-                            
-                            <Grid>
+
+
+                            <Grid Visibility="{Binding InterfaceVisible}">
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
