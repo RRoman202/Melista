@@ -1,6 +1,6 @@
 ![1KeP_5x23Is](https://user-images.githubusercontent.com/92420080/226293083-866948e1-e66b-4bbd-b76b-9536529d0280.jpg)
 
-# Melista!
+# Melista
 
 
 <b>Melista</b> - это соединение двух слов Media и Listen.
