@@ -15,6 +15,7 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
+using System.Threading;
 
 namespace Melista.ViewModels
 {
@@ -24,6 +25,10 @@ namespace Melista.ViewModels
 
         private readonly PageService _pageService;
         private readonly MediaService _mediaService;
+
+        public Visibility ProgVis { get; set; }
+        public string ProgVal { get; set; }
+
         public Video _selectedMedia { get; set; }
         public Video SelectedMedia
         {
@@ -42,8 +47,13 @@ namespace Melista.ViewModels
             _mediaService = mediaService;
             Task.Run(async () =>
             {
-                
+                ProgVis = Visibility.Visible;
+                for(int i = 0; i < 101; i++)
+                {
+                    ProgVal = i.ToString();
+                }
                 Medias = await _mediaService.GetMedia();
+                ProgVis = Visibility.Hidden;
                
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);

@@ -41,7 +41,10 @@
                 <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
             </Grid>
         </Border>
-
+        <ProgressBar Grid.Row="1" Height="50" Width="200" Foreground="blue" Value="{Binding ProgVal}" Visibility="{Binding ProgVis}" Background="LightBlue">
+            
+        </ProgressBar>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Font}" Text="Загрузка..." Foreground="White" Visibility="{Binding ProgVis}"></TextBlock>
         <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" >
 
                     <ListView Margin="10 10 10 0"
