@@ -205,30 +205,22 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="White"/>
-                            <Setter Property="Foreground" Value="#414141"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation To="White" 
-                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="Stop" 
-                                    Duration="0:0:1"/>
+                                        <ColorAnimation To="White" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
+                                                         Duration="0:0:0.8"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation To="#414141" 
-                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                    FillBehavior="Stop" 
-                                    Duration="0:0:1"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#414141"/>
+                        </Trigger>
+                        
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="#414141"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
@@ -332,7 +324,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RepeatButton">
-                    <Border Background="{StaticResource SliderBackground}"  CornerRadius="5 0 0 5"/>
+                    <Border Background="{StaticResource SliderBackground}" CornerRadius="5 0 0 5"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -362,17 +354,21 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Border Background="{StaticResource SliderBackground}"/>
-                        <Border Grid.ColumnSpan="2" CornerRadius="4"  Background="{StaticResource SliderBackground}" Width="15">
-                        </Border>
+                        <Border x:Name="BordRad" Grid.ColumnSpan="2" CornerRadius="4"  Background="{StaticResource SliderBackground}" Width="15"/>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="BordRad" Property="CornerRadius" Value="100"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-
     <Style x:Key="Slider_CustomStyle" TargetType="Slider">
         <Setter Property="Focusable" Value="false" />
+        <Setter Property="Height" Value="5"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Slider">
@@ -380,19 +376,24 @@
                         <Border Grid.Column="1" CornerRadius="10">
                             <Track Grid.Column="1" Name="PART_Track">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Style="{StaticResource Slider_RepeatButton}"  
+                                    <RepeatButton Height="5" Style="{StaticResource Slider_RepeatButton}"  
                                 Command="Slider.DecreaseLarge"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Style="{StaticResource Slider_RepeatButton1}"  
+                                    <RepeatButton Height="5" Style="{StaticResource Slider_RepeatButton1}"  
                                 Command="Slider.IncreaseLarge"/>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Style="{StaticResource Slider_Thumb}"/>
+                                    <Thumb x:Name="ThumbHeig" Height="5" Style="{StaticResource Slider_Thumb}"/>
                                 </Track.Thumb>
                             </Track>
                         </Border>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="ThumbHeig" Property="Height" Value="15"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

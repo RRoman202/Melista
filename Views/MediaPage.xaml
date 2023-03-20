@@ -67,7 +67,7 @@
                                             </Button.Background>
                                         </Button>
                                     </StackPanel>
-                                    <Slider Style="{DynamicResource Slider_CustomStyle}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
+                                    <Slider Style="{DynamicResource Slider_CustomStyle}" Height="20" Grid.Column="1" Margin="20 0"></Slider>
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
