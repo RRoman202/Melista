@@ -22,13 +22,7 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         DispatcherTimer timer;
-        public MediaPageViewModel(PageService pageService)
-        {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) }; // 1 секунда
-            timer.Tick += Timer_Tick;
-
-            _pageService = pageService;
-            InterfaceVisible = Visibility.Hidden;
+        
 
         public string MediaName { get; set; }
 
@@ -42,7 +36,11 @@ namespace Melista.ViewModels
 
         public MediaPageViewModel(PageService pageService)
         {
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) }; // 1 секунда
+            timer.Tick += Timer_Tick;
+
             
+            InterfaceVisible = Visibility.Hidden;
             _pageService = pageService;
             play = true;
             MediaName = Global.CurrentMedia.NameVideo;
