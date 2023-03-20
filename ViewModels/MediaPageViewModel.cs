@@ -12,6 +12,7 @@ namespace Melista.ViewModels
 
         public MediaPageViewModel(PageService pageService)
         {
+            
             _pageService = pageService;
             Player = new MediaElement()
             {
