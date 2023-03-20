@@ -96,7 +96,7 @@
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
                     <StackPanel Margin="20">
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
                     </StackPanel>
                 </Border>
@@ -120,9 +120,9 @@
             </StackPanel>
             <Grid Grid.Row="1" x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
                 <StackPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=buttons}" >
-                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Command="{Binding Back}" 
-                            Content="История" Margin="40 20"/>
                     <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="История" Margin="40 20"/>
+                    <Button Style="{DynamicResource ButtonOne}" Command="{Binding Back}"  Grid.Row="1" Height="40" 
                             Content="К музыке" Margin="40 0 40 20"/>
                 </StackPanel>
             </Grid>
