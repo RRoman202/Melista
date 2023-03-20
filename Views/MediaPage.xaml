@@ -53,23 +53,23 @@
                                     </Grid.ColumnDefinitions>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/play.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <Button Height="25" Width="25">
+                                        <Button Height="25" Width="25" Command="{Binding FastForward}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                             </Button.Background>
                                         </Button>
                                     </StackPanel>
-                                    <Slider Style="{DynamicResource Slider_CustomStyle}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
+                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
