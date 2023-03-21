@@ -74,6 +74,7 @@
                                             </Button.Background>
                                         </Button>
                                     </StackPanel>
+                                    <TextBlock Grid.Column="1" Margin="0 0 0 30" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" HorizontalAlignment="Center"></TextBlock>
                                     <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
                                         <Button Height="25" Width="25" Margin="0 0 20 0">

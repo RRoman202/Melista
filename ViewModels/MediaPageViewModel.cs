@@ -22,19 +22,17 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         DispatcherTimer timer;
-        public MediaPageViewModel(PageService pageService)
-        {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) }; // 1 секунда
-            timer.Tick += Timer_Tick;
-
-            _pageService = pageService;
-            InterfaceVisible = Visibility.Hidden;
+        
 
         public string MediaName { get; set; }
 
         public string MediaDur { get; set; }
 
+        public string DurText { get; set; }
+
         public string MaxDur { get; set; }
+
+        public double MaxDurDouble { get; set; }
 
         public double SliderVal { get; set; }
 
@@ -42,7 +40,11 @@ namespace Melista.ViewModels
 
         public MediaPageViewModel(PageService pageService)
         {
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) }; // 1 секунда
+            timer.Tick += Timer_Tick;
+
             
+            InterfaceVisible = Visibility.Hidden;
             _pageService = pageService;
             play = true;
             MediaName = Global.CurrentMedia.NameVideo;
@@ -54,38 +56,44 @@ namespace Melista.ViewModels
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
-
-
+                SliderVal = 0;
+                MediaDur = SliderVal.ToString();
                 Player.Source = new Uri(path);
                 Player.Play();
 
 
 
-                //TotalTime = Player.NaturalDuration.TimeSpan;
-
-                //MessageBox.Show(TotalTime.ToString());
-                //DispatcherTimer timerVideoTime = new DispatcherTimer();
-                //timerVideoTime.Interval = TimeSpan.FromSeconds(1);
-                //timerVideoTime.Tick += new EventHandler(timer_Tick);
-                //timerVideoTime.Start();
+                
 
             }
             
+            DispatcherTimer timer2 = new DispatcherTimer();
+            timer2.Interval = TimeSpan.FromSeconds(1);
+            timer2.Tick += timer_Tick2;
+            timer2.Start();
+
         }
         
-        void timer_Tick(object sender, EventArgs e)
+        void timer_Tick2(object sender, EventArgs e)
         {
+            
             // Check if the movie finished calculate it's total time
-            if (Player.NaturalDuration.TimeSpan.TotalSeconds > 0)
+            if (Player.Source != null)
             {
-                if (TotalTime.TotalSeconds > 0)
+                if (Player.NaturalDuration.HasTimeSpan)
                 {
-                    // Updating time slider
-                    SliderVal = Player.Position.TotalSeconds /
-                                       TotalTime.TotalSeconds;
-                    MediaDur = SliderVal.ToString();
+                    MaxDurDouble = Player.NaturalDuration.TimeSpan.TotalSeconds;
+                    MaxDur = MaxDurDouble.ToString();
+                    DurText = String.Format("{0} / {1}", Player.Position.ToString(@"mm\:ss"), Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+                    if (play)
+                    {
+                        SliderVal++;
+                        MediaDur = SliderVal.ToString();
+                    }
+                    
                 }
             }
+            
         }
         public MediaElement Player { get; set; }
         public Visibility InterfaceVisible { get; set; }
@@ -113,16 +121,27 @@ namespace Melista.ViewModels
         });
         public DelegateCommand FastForward => new(() =>
         {
-            MaxDur = Player.NaturalDuration.TimeSpan.TotalSeconds.ToString();
-            TotalTime = Player.NaturalDuration.TimeSpan;
+            
+            
             Player.Position += TimeSpan.FromSeconds(10);
-            SliderVal = Player.Position.TotalSeconds;
+            SliderVal = SliderVal + 10;
             MediaDur = SliderVal.ToString();
+            
             
         });
         public DelegateCommand Rewind => new(() =>
         {
             Player.Position -= TimeSpan.FromSeconds(10);
+            if(SliderVal + 10 > MaxDurDouble)
+            {
+                SliderVal = SliderVal - 10;
+                MediaDur = SliderVal.ToString();
+            }
+            else
+            {
+                SliderVal = 0;
+                MediaDur = SliderVal.ToString();
+            }
         });
 
         public string GetPathFromLink(string linkPathName)
