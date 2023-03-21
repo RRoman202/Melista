@@ -20,6 +20,11 @@ using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using System.Drawing;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
@@ -99,36 +104,51 @@ namespace Melista.ViewModels
             {
                 foreach (string file in OpenFile.FileNames)
                 {
-                    //TagLib.File filik = TagLib.File.Create(file);
-                    //var mStream = new MemoryStream();
+                    TagLib.File filik = TagLib.File.Create(file);
+                    var mStream = new MemoryStream();
 
 
-                    //var firstPicture = filik.Tag.Pictures.FirstOrDefault();
-                    //if (firstPicture != null)
-                    //{
-                    //    // Bitmap bitmap = AsfImage.FromFile(file).AtOffset(15);
-                    //    filik.Tag.Pictures = new TagLib.IPicture[]
-                    //    {
-                    //        new TagLib.Picture(new TagLib.ByteVector((byte[])new System.Drawing.ImageConverter().ConvertTo(bitmap, typeof(byte[]))))
-                    //    };
-                    //    filik.Save();
-                    //}
-                    //BitmapImage bm = new BitmapImage();
-                    //if (firstPicture != null)
-                    //{
-                    //    byte[] pData = firstPicture.Data.Data;
-                    //    bm.BeginInit();
-                    //    bm.StreamSource = new MemoryStream(pData);
-                    //    bm.EndInit();
-
-                    //}
-
+                    var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                    if (firstPicture == null)
+                    {
+                        string kek = "C:\\Users\\petro\\Desktop\\aboba.png";
+                        var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                        ffMpeg.GetVideoThumbnail(file, kek);
+                        Bitmap btr = new Bitmap(kek);
+                        filik.Tag.Pictures = new TagLib.IPicture[]
+                        {
+                            new TagLib.Picture(new TagLib.ByteVector((byte[])new System.Drawing.ImageConverter().ConvertTo(btr, typeof(byte[]))))
+                        };
+                        filik.Save();
+                    }
+                    BitmapImage bm = new BitmapImage();
+                    if (filik.Tag.Pictures.Length >= 1)
+                    {
+                        var bin = (byte[])(filik.Tag.Pictures[0].Data.Data);
+                        mStream.Write(bin, 0, Convert.ToInt32(bin.Length));
+                        var bmp = new Bitmap(mStream, false);
+                        mStream.Dispose();
+                        bm = ConvertBit(bmp);
+                    }
                     CreateShortCut(file, RemoveFormatString(file));
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file)});
+                    Medias.Add(new Video { NameVideo = RemoveFormatString(file), ImageVideo = bm});
                 }
                 
             }
         }
+
+        public BitmapImage ConvertBit(Bitmap src)
+        {
+            MemoryStream ms = new MemoryStream();
+            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            ms.Seek(0, SeekOrigin.Begin);
+            image.StreamSource = ms;
+            image.EndInit();
+            return image;
+        }
+
         public string RemoveFormatString(string stringForRemove) 
         {
 
@@ -147,9 +167,6 @@ namespace Melista.ViewModels
             string shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
 
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-
-            shortcut.Description = "Ярлык для текстового редактора";
-
             shortcut.TargetPath = Pathh;
 
             shortcut.Save();
