@@ -24,12 +24,12 @@
                 </Grid.RowDefinitions>
 
                 <Grid ClipToBounds="True" x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
-                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" 
+                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20"  Background="Black"
                             Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
 
-                            <ContentControl Content="{Binding Player}">
+                            <ContentControl x:Name="Video" Content="{Binding Player}">
                                 <ContentControl.Clip>
                                     <RectangleGeometry RadiusX="20" RadiusY="20" 
                                                        Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>

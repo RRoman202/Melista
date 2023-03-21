@@ -5,17 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:Melista.ViewModels"
         xmlns:local="clr-namespace:Melista"
+        xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
         mc:Ignorable="d"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        MinHeight="450" MinWidth="800" Icon="/Resources/Icons/melista.png">
-    <Grid Style="{DynamicResource Background}">
+        MinHeight="450" MinWidth="800" Icon="/Resources/Icons/melista.png" WindowStyle="None">
+    <Grid x:Name="OuterBlurContainer" Style="{DynamicResource Background}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="204*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button/>
-        </StackPanel>
+        <controls:BlurryUserControl Width="auto" 
+                                    Grid.RowSpan="2"
+                                    Height="20"
+                                    VerticalAlignment="Top"
+                                    Background="#000000"
+                                    Opacity="0.6"
+                                    BorderThickness="0"
+                                    Panel.ZIndex="100"
+                                    BlurContainer="{Binding ElementName=OuterBlurContainer}"
+                                    BlurRadius="45"
+                                    Magnification="0.25">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="50" Height="18" Command="{Binding RollupCommand}" Style="{DynamicResource RollupButton}"/>
+                <Button Width="50" Height="18" Command="{Binding MinimizeCommand}" Style="{DynamicResource SizeButton}"/>
+                <Button Width="50" Height="18" Command="{Binding CloseCommand}" Style="{DynamicResource CloseButton}"/>
+            </StackPanel>
+        </controls:BlurryUserControl>
+        
         <Frame NavigationUIVisibility="Hidden"
                Content="{Binding PageSource}" Grid.Row="1"></Frame>
     </Grid>

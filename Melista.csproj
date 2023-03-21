@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Dark\close.png" />
+    <None Remove="Resources\Dark\minimize.png" />
+    <None Remove="Resources\Dark\rollup.png" />
     <None Remove="Resources\Dark\search.png" />
     <None Remove="Resources\Fonts\Montserrat.ttf" />
     <None Remove="Resources\Gradient.png" />
@@ -41,6 +44,15 @@
 
   <ItemGroup>
     <Folder Include="Resources\ShortCuts\" />
+    <Content Include="Resources\Dark\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Dark\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Dark\rollup.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icons\melista.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -87,6 +99,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BlurryControls" Version="1.0.24" />
     <PackageReference Include="DevExpressMvvm" Version="22.1.3" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
