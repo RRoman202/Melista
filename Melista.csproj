@@ -86,6 +86,7 @@
     <Content Include="Resources\Light\rollup.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Folder Include="Resources\ShortCuts\" />
   </ItemGroup>
 
   <ItemGroup>
