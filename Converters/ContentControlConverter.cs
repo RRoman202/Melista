@@ -22,7 +22,8 @@ namespace Melista.Converters
             int width = (percent2 / 9) * 16;
             if(height2 >= 5 && width >= 5)
             {
-                return new Rect(0, 0, width - 5, height2 - 5);
+                //return new Rect(0, 0, width - 5, height2 - 5);
+                return new Rect(0, 0, width, height2);
             }
             else
             {
