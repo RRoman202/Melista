@@ -69,7 +69,6 @@ namespace Melista.ViewModels
                
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-            
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -158,12 +157,9 @@ namespace Melista.ViewModels
                         filik.Save();
                         
                     }
-                   
-                    CreateShortCut(file, RemoveFormatString(file));
                   
-                    
-                }
-                
+                    CreateShortCut(file, RemoveFormatString(file));
+                }          
             }
         }
 
@@ -195,8 +191,6 @@ namespace Melista.ViewModels
 
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-
         }
-
     }
 }
