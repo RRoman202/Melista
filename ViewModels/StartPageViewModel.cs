@@ -15,6 +15,9 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
+
+using System.Threading;
+
 using System.Linq;
 using System.Drawing;
 using System.Windows.Media.Imaging;
@@ -25,6 +28,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
+
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
@@ -33,6 +37,10 @@ namespace Melista.ViewModels
 
         private readonly PageService _pageService;
         private readonly MediaService _mediaService;
+
+        public Visibility ProgVis { get; set; }
+        public string ProgVal { get; set; }
+
         public Video _selectedMedia { get; set; }
         public Video SelectedMedia
         {
@@ -51,8 +59,13 @@ namespace Melista.ViewModels
             _mediaService = mediaService;
             Task.Run(async () =>
             {
-                
+                ProgVis = Visibility.Visible;
+                for(int i = 0; i < 101; i++)
+                {
+                    ProgVal = i.ToString();
+                }
                 Medias = await _mediaService.GetMedia();
+                ProgVis = Visibility.Hidden;
                
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
@@ -72,17 +85,27 @@ namespace Melista.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
+            int k = 0;
             var dataObject = dropInfo.Data as DataObject;
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
-                    CreateShortCut(file, RemoveFormatString(file));
-                    Process.Start(new ProcessStartInfo() { FileName = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + "\\" + RemoveFormatString(file), UseShellExecute = true });
-                }
 
+                    if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
+                    {
+                        Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                        CreateShortCut(file, RemoveFormatString(file));
+                        k++;
+                    }
+                    
+                }
+                if(k == 0)
+                {
+                    MessageBox.Show("Недопустимый формат файла");
+
+                }
             }
         }
         public DelegateCommand LoadNewFile => new(() => LoadFile());

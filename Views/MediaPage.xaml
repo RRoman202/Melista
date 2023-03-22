@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
+      xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="900"
       Title="MediaPage" x:Name="window">
@@ -22,50 +23,95 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="0.2*"></RowDefinition>
                 </Grid.RowDefinitions>
+                
 
                 <Grid ClipToBounds="True" x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
-                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" BorderBrush="#414141" BorderThickness="2">
-                        <Grid ClipToBounds="True">
+                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20"  Background="Black"
+                            Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
+                            Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
+                        <Grid x:Name="Video2" ClipToBounds="True">
 
-                            <ContentControl Content="{Binding Player}">
+
+
+                            <ContentControl x:Name="Video" Content="{Binding Player}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
                                 <ContentControl.Clip>
-                                    <RectangleGeometry RadiusX="20" RadiusY="20" Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
+                                    <RectangleGeometry RadiusX="20" RadiusY="20" 
+                                                           Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
                                 </ContentControl.Clip>
                             </ContentControl>
-                           
-                            
-                            <Grid>
+
+                            <Grid Visibility="{Binding InterfaceVisible}">
+
+                                <Border VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=aboba}" CornerRadius="20">
+                                    <controls:BlurryUserControl
+                                    Background="Transparent"
+                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurRadius="45"
+                                    Magnification="0.25">
+                                        <controls:BlurryUserControl.Clip>
+                                            <RectangleGeometry RadiusX="20" RadiusY="20" 
+                                                           Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource BlurPanelConverter}}"></RectangleGeometry>
+                                        </controls:BlurryUserControl.Clip>
+                                    </controls:BlurryUserControl>
+                                </Border>
+
+                                <Border HorizontalAlignment="Center" Height="75" Width="75">
+                                    <controls:BlurryUserControl
+                                    Background="Transparent"
+                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurRadius="45"
+                                    Magnification="0.25">
+                                        <controls:BlurryUserControl.Clip>
+                                            <RectangleGeometry RadiusX="100" RadiusY="100" 
+                                                           Rect="0 0 75 75"></RectangleGeometry>
+                                        </controls:BlurryUserControl.Clip>
+                                    </controls:BlurryUserControl>
+                                </Border>
+
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>
                                         <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
                                     </Button.Background>
                                 </Button>
-                                <Grid VerticalAlignment="Bottom" Margin="20 0">
+                                <Grid VerticalAlignment="Bottom" Margin="20 0 20 0" x:Name="aboba">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
+                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/play.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <Button Height="25" Width="25">
+                                        <Button Height="25" Width="25" Command="{Binding FastForward}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                             </Button.Background>
                                         </Button>
+                                        <!--Вот тут-->
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                     </StackPanel>
-                                    <Slider Grid.Column="1" Margin="20 0"></Slider>
-                                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+
+
+                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
+
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
+                                        <!--И вот тут-->
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
@@ -91,52 +137,33 @@
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
                     <StackPanel Margin="20">
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24"> Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
-                        <TextBlock Foreground="White" FontSize="24">Название</TextBlock>
-                        <TextBlock Foreground="White">Информация</TextBlock>
+                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
+                        <TextBlock Foreground="White">Описание</TextBlock>
                     </StackPanel>
                 </Border>
             </Grid>
         </ScrollViewer>
         <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" Width="270" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
             <StackPanel>
                 <TextBlock Foreground="White" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
                 <Grid Background="White" Height="0.5" Margin="20 0"></Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Margin="0 20 0 0">
-                    <ListView Margin="10 10 10 0" ItemsSource="{Binding Medias}"
-                              HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="1" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-
-                                </UniformGrid>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </ScrollViewer>
+                <ListView Margin="10 30 10 0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
             </StackPanel>
-            <Grid x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
+            <Grid Grid.Row="1" x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
                 <StackPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=buttons}" >
-                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" Command="{Binding Back}" 
-                            Content="История" Margin="40 20"/>
                     <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="История" Margin="40 20"/>
+                    <Button Style="{DynamicResource ButtonOne}" Command="{Binding Back}"  Grid.Row="1" Height="40" 
                             Content="К музыке" Margin="40 0 40 20"/>
                 </StackPanel>
             </Grid>
