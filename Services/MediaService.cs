@@ -35,19 +35,6 @@ namespace Melista.Services
                             TagLib.File filik = TagLib.File.Create(put);
 
                             var firstPicture = filik.Tag.Pictures.FirstOrDefault();
-                            if (firstPicture == null)
-                            {
-                                string kek = System.IO.Path.GetFullPath("aboba.jpeg");
-                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                                ffMpeg.GetVideoThumbnail(put, kek, 5);
-                                Bitmap btr = new Bitmap(kek);
-                                filik.Tag.Pictures = new TagLib.IPicture[]
-                                {
-                                    new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
-                                };
-                                filik.Save();
-                                System.IO.File.Delete(System.IO.Path.GetFullPath("aboba.jpeg"));
-                            }
                             BitmapImage bm = new BitmapImage();
                             if (filik.Tag.Pictures.Length >= 1)
                             {
@@ -58,6 +45,7 @@ namespace Melista.Services
                                 bm.Freeze();
 
                             }
+                            
                             medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), ImageVideo = bm, Path = f.FullName });
                         }
                         else
@@ -73,13 +61,16 @@ namespace Melista.Services
         }
         public string RemoveFormatString(string stringForRemove)
         {
-
+            
             if (stringForRemove.Contains('\\'))
             {
                 string[] strings = stringForRemove.Split('\\');
                 stringForRemove = strings[strings.Length - 1];
+                
             }
+            
             string[] strings_1 = stringForRemove.Split('.');
+            
             return strings_1[0];
         }
         bool CheckLink(string linkPathName)

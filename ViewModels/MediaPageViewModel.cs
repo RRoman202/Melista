@@ -26,17 +26,10 @@ namespace Melista.ViewModels
         public double Position { get; set; } // Текущая позиция mediapleer(а) в секундах
         public double Duration { get; set; } // Длительность файла mediapleer(а) в секундах
         public bool isPlaying { get; set; }
-
         int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
-        public string MediaDur { get; set; }
-
-        public string DurText { get; set; }
         public string DurText2 { get; set; }
-
-        public string MaxDur { get; set; }
-
-
+        public Double MaxDurDouble { get; set;}
         public MediaPageViewModel(PageService pageService)
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
@@ -76,18 +69,14 @@ namespace Melista.ViewModels
             {
                 if (Player.NaturalDuration.HasTimeSpan)
                 {
-                    DurText = String.Format("{0} / {1}", Player.Position.ToString(@"mm\:ss"), Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
                     Position = Player.Position.TotalSeconds;
                     MaxDurDouble = Player.NaturalDuration.TimeSpan.TotalSeconds;
-                    MaxDur = MaxDurDouble.ToString();
                     DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
                     DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-                    if (play)
+                    if (isPlaying)
                     {
-                        SliderVal++;
-                        MediaDur = SliderVal.ToString();
+                        Position = Player.Position.TotalSeconds;
                     }
-                    
                 }
             }
         }
@@ -121,14 +110,12 @@ namespace Melista.ViewModels
                 Player.Pause();
             }
             Position = Player.Position.TotalSeconds;
-            DurText = String.Format("{0} / {1}", Player.Position.ToString(@"mm\:ss"), Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
         });
 
         public DelegateCommand Rewind => new(() =>
         {
             Player.Position -= TimeSpan.FromSeconds(10);
             Position = Player.Position.TotalSeconds;
-            DurText = String.Format("{0} / {1}", Player.Position.ToString(@"mm\:ss"), Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
         });
 
         public string GetPathFromLink(string linkPathName)
