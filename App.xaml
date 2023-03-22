@@ -12,6 +12,7 @@
             <converters:ScreenRatioConverter x:Key="ScreenRatioConverter"></converters:ScreenRatioConverter>
             <converters:ScreenRatioHeightConvert x:Key="ScreenRatioHeightConvert"></converters:ScreenRatioHeightConvert>
             <converters:ContentControlConverter x:Key="ContentControlConverter"></converters:ContentControlConverter>
+            <converters:BlurPanelConverter x:Key="BlurPanelConverter"></converters:BlurPanelConverter>
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
