@@ -61,7 +61,7 @@
                                     </controls:BlurryUserControl>
                                 </Border>
 
-                                <Border HorizontalAlignment="Center" Height="100" Width="100">
+                                <Border HorizontalAlignment="Center" Height="75" Width="75">
                                     <controls:BlurryUserControl
                                     Background="Transparent"
                                     BlurContainer="{Binding ElementName=Video}"
@@ -69,7 +69,7 @@
                                     Magnification="0.25">
                                         <controls:BlurryUserControl.Clip>
                                             <RectangleGeometry RadiusX="100" RadiusY="100" 
-                                                           Rect="0 0 100 100"></RectangleGeometry>
+                                                           Rect="0 0 75 75"></RectangleGeometry>
                                         </controls:BlurryUserControl.Clip>
                                     </controls:BlurryUserControl>
                                 </Border>
