@@ -58,6 +58,7 @@ namespace Melista.Services
                                 bm.Freeze();
 
                             }
+                            
                             medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), ImageVideo = bm, Path = f.FullName });
                         }
                         else
@@ -73,13 +74,16 @@ namespace Melista.Services
         }
         public string RemoveFormatString(string stringForRemove)
         {
-
+            
             if (stringForRemove.Contains('\\'))
             {
                 string[] strings = stringForRemove.Split('\\');
                 stringForRemove = strings[strings.Length - 1];
+                
             }
+            
             string[] strings_1 = stringForRemove.Split('.');
+            
             return strings_1[0];
         }
         bool CheckLink(string linkPathName)

@@ -31,10 +31,16 @@ namespace Melista.ViewModels
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string MediaDur { get; set; }
 
-        public string DurText { get; set; }
+        
         public string DurText2 { get; set; }
 
         public string MaxDur { get; set; }
+
+        public Double MaxDurDouble { get; set;}
+
+        public Double SliderVal { get; set; }
+
+        public bool play { get; set; }
 
 
         public MediaPageViewModel(PageService pageService)
