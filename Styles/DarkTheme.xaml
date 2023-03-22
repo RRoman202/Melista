@@ -2,7 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:Melista.Converters">
     <converters:ListItemWidthConverter x:Key="ListItemWidthConverter"></converters:ListItemWidthConverter>
     <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
-    
+
+    <Color x:Key="pwsPrimaryColor">#ffffff</Color>
+    <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
+
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
             <Setter.Value>

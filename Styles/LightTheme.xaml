@@ -3,7 +3,10 @@
     
     <converters:ListItemWidthConverter x:Key="ListItemWidthConverter"></converters:ListItemWidthConverter>
     <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
-    
+
+    <Color x:Key="pwsPrimaryColor">#000000</Color>
+    <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
+
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
             <Setter.Value>

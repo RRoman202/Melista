@@ -77,11 +77,12 @@
                                         </Button>
                                     </StackPanel>
 
-                                    <Slider Style="{DynamicResource Slider_CustomStyle}" Height="20" Grid.Column="1" Margin="20 0"></Slider>
 
-                                    <TextBlock Grid.Column="1" Margin="0 0 0 30" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" HorizontalAlignment="Center"></TextBlock>
-                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
-
+                                    <StackPanel Grid.Column="1" Margin="0 0" Orientation="Horizontal">
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                        <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5"></Slider>
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                    </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
