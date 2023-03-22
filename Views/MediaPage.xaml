@@ -84,7 +84,7 @@
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
                                         <!--И вот тут-->
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
