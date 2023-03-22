@@ -35,19 +35,6 @@ namespace Melista.Services
                             TagLib.File filik = TagLib.File.Create(put);
 
                             var firstPicture = filik.Tag.Pictures.FirstOrDefault();
-                            if (firstPicture == null)
-                            {
-                                string kek = System.IO.Path.GetFullPath("aboba.jpeg");
-                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                                ffMpeg.GetVideoThumbnail(put, kek, 5);
-                                Bitmap btr = new Bitmap(kek);
-                                filik.Tag.Pictures = new TagLib.IPicture[]
-                                {
-                                    new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
-                                };
-                                filik.Save();
-                                System.IO.File.Delete(System.IO.Path.GetFullPath("aboba.jpeg"));
-                            }
                             BitmapImage bm = new BitmapImage();
                             if (filik.Tag.Pictures.Length >= 1)
                             {

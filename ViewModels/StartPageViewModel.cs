@@ -95,7 +95,22 @@ namespace Melista.ViewModels
 
                     if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
                     {
-                        Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                        TagLib.File filik = TagLib.File.Create(file);
+
+                        var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                        if (firstPicture == null)
+                        {
+                            string kek = System.IO.Path.GetFullPath("aboba.jpeg");
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            ffMpeg.GetVideoThumbnail(file, kek, 5);
+                            Bitmap btr = new Bitmap(kek);
+                            filik.Tag.Pictures = new TagLib.IPicture[]
+                            {
+                            new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
+                            };
+                            filik.Save();
+
+                        }
                         CreateShortCut(file, RemoveFormatString(file));
                         k++;
                     }
@@ -143,18 +158,9 @@ namespace Melista.ViewModels
                         filik.Save();
                         
                     }
-                    BitmapImage bm = new BitmapImage();
-                    if (filik.Tag.Pictures.Length >= 1)
-                    {
-                        var bin = (byte[])(filik.Tag.Pictures[0].Data.Data);
-                        bm.BeginInit();
-                        bm.StreamSource = new MemoryStream(bin);
-                        bm.EndInit();
-                        bm.Freeze();
-                        
-                    }
+                   
                     CreateShortCut(file, RemoveFormatString(file));
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file), ImageVideo = bm});
+                  
                     
                 }
                 
