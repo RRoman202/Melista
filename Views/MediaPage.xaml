@@ -144,13 +144,7 @@
                         <TextBlock Foreground="White">Описание</TextBlock>
                     </StackPanel>
 
-                    <Grid>
-                        <Button HorizontalAlignment="Right">Изменить</Button>
-                        <StackPanel Margin="20">
-                            <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
-                            <TextBlock Foreground="White">Описание</TextBlock>
-                        </StackPanel>
-                    </Grid>
+                    
 
                 </Border>
             </Grid>
