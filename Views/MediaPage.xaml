@@ -137,7 +137,7 @@
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
                     <StackPanel Margin="20">
-                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
+                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
                     </StackPanel>
                 </Border>
