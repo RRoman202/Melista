@@ -22,7 +22,6 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="0.2*"></RowDefinition>
                 </Grid.RowDefinitions>
-                
 
                 <Grid ClipToBounds="True" x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
                     <i:Interaction.Triggers>
