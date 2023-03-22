@@ -29,6 +29,7 @@ namespace Melista.ViewModels
         public string MediaDur { get; set; }
 
         public string DurText { get; set; }
+        public string DurText2 { get; set; }
 
         public string MaxDur { get; set; }
 
@@ -84,7 +85,8 @@ namespace Melista.ViewModels
                 {
                     MaxDurDouble = Player.NaturalDuration.TimeSpan.TotalSeconds;
                     MaxDur = MaxDurDouble.ToString();
-                    DurText = String.Format("{0} / {1}", Player.Position.ToString(@"mm\:ss"), Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+                    DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
+                    DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
                     if (play)
                     {
                         SliderVal++;
