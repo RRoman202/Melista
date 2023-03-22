@@ -109,7 +109,7 @@
 
 
 
-                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
+                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
                                         <!--И вот тут-->
