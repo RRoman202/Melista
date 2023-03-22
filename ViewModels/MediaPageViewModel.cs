@@ -42,25 +42,18 @@ namespace Melista.ViewModels
             {
                 LoadedBehavior = MediaState.Manual,
             };
-            Player.MediaOpened += new RoutedEventHandler(MediaOpened());
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
                 Player.Source = new Uri(path);
                 Player.Play();
-
             }
 
             DispatcherTimer timer2 = new DispatcherTimer();
             timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
             timer2.Start();
-        }
-
-        public void MediaOpened()
-        {
-            MessageBox.Show("");
         }
         
         void timer_Tick2(object sender, EventArgs e)
@@ -121,11 +114,7 @@ namespace Melista.ViewModels
                 IWshShortcut link = (IWshShortcut)shell.CreateShortcut(linkPathName);
                 return link.TargetPath;
             }
-            else
-            {
-                MessageBox.Show("Файл не найден");
-            }
-            return "";
+            return null;
         }
 
         public DelegateCommand NavigateCommand => new(() => InterfaceisVisible());
