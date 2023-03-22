@@ -104,18 +104,17 @@ namespace Melista.ViewModels
         public DelegateCommand FastForward => new(() =>
         {
             Player.Position += TimeSpan.FromSeconds(10);
-            if (!isPlaying)
-            {
-                Player.Play();
-                Player.Pause();
-            }
             Position = Player.Position.TotalSeconds;
+            DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
+            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+
         });
 
         public DelegateCommand Rewind => new(() =>
         {
             Player.Position -= TimeSpan.FromSeconds(10);
             Position = Player.Position.TotalSeconds;
+
         });
 
         public string GetPathFromLink(string linkPathName)
