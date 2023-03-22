@@ -48,7 +48,7 @@
 
                             <Grid Visibility="{Binding InterfaceVisible}">
 
-                                <Border VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=aboba}" CornerRadius="20">
+                                <Border VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}" CornerRadius="20">
                                     <controls:BlurryUserControl
                                     Background="Transparent"
                                     BlurContainer="{Binding ElementName=Video}"
@@ -67,7 +67,7 @@
                                     BlurContainer="{Binding ElementName=Video}"
                                     BlurRadius="45"
                                     Magnification="0.25">
-                                        <controls:BlurryUserControl.Clip>
+                                        <controls:BlurryUserControl.Clip>       
                                             <RectangleGeometry RadiusX="100" RadiusY="100" 
                                                            Rect="0 0 75 75"></RectangleGeometry>
                                         </controls:BlurryUserControl.Clip>
@@ -79,7 +79,7 @@
                                         <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
                                     </Button.Background>
                                 </Button>
-                                <Grid VerticalAlignment="Bottom" Margin="20 0 20 0" x:Name="aboba">
+                                <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -136,10 +136,13 @@
 
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
-                    <StackPanel Margin="20">
-                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
-                        <TextBlock Foreground="White">Описание</TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Button HorizontalAlignment="Right">Изменить</Button>
+                        <StackPanel Margin="20">
+                            <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
+                            <TextBlock Foreground="White">Описание</TextBlock>
+                        </StackPanel>
+                    </Grid>
                 </Border>
             </Grid>
         </ScrollViewer>
