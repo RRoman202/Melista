@@ -34,7 +34,7 @@
                             Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
-                            <ContentControl Content="{Binding Player, Mode=TwoWay}">
+                            <ContentControl x:Name="Video" Content="{Binding Player, Mode=TwoWay}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseMove">
                                         <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
