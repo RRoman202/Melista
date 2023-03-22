@@ -75,14 +75,16 @@
                                                 <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                             </Button.Background>
                                         </Button>
+                                        <!--Вот тут-->
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                     </StackPanel>
 
-                                    <Slider Style="{DynamicResource Slider_CustomStyle}" Height="20" Grid.Column="1" Margin="20 0"></Slider>
 
-                                    <TextBlock Grid.Column="1" Margin="0 0 0 30" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" HorizontalAlignment="Center"></TextBlock>
-                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="20 0"></Slider>
+                                    <Slider Maximum="{Binding MaxDur}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding MediaDur}" Height="5" Grid.Column="1" Margin="10 0"></Slider>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                        <!--И вот тут-->
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
