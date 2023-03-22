@@ -421,7 +421,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/close.png" Stretch="Uniform"/>
                             </Border.Background>
@@ -443,7 +443,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/minimize.png" Stretch="Uniform"/>
                             </Border.Background>
@@ -465,7 +465,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/rollup.png" Stretch="Uniform"/>
                             </Border.Background>

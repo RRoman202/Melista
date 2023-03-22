@@ -41,10 +41,12 @@ namespace Melista.Services
                                 var bin = (byte[])(filik.Tag.Pictures[0].Data.Data);
                                 bm.BeginInit();
                                 bm.StreamSource = new MemoryStream(bin);
+                                bm.DecodePixelHeight = 240;
                                 bm.EndInit();
                                 bm.Freeze();
 
                             }
+                            
                             medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), ImageVideo = bm, Path = f.FullName });
                         }
                         else
@@ -60,13 +62,16 @@ namespace Melista.Services
         }
         public string RemoveFormatString(string stringForRemove)
         {
-
+            
             if (stringForRemove.Contains('\\'))
             {
                 string[] strings = stringForRemove.Split('\\');
                 stringForRemove = strings[strings.Length - 1];
+                
             }
+            
             string[] strings_1 = stringForRemove.Split('.');
+            
             return strings_1[0];
         }
         bool CheckLink(string linkPathName)

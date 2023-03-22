@@ -12,12 +12,12 @@
         Title="Melista">
     <Grid x:Name="OuterBlurContainer" Style="{DynamicResource Background}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="204*"/>
         </Grid.RowDefinitions>
         <controls:BlurryUserControl Width="auto" 
                                     Grid.RowSpan="2"
-                                    Height="20"
+                                    Height="32"
                                     VerticalAlignment="Top"
                                     Background="#000000"
                                     Opacity="0.6"
@@ -27,9 +27,9 @@
                                     BlurRadius="45"
                                     Magnification="0.25">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Width="50" Height="18" Command="{Binding RollupCommand}" Style="{DynamicResource RollupButton}"/>
-                <Button Width="50" Height="18" Command="{Binding MinimizeCommand}" Style="{DynamicResource SizeButton}"/>
-                <Button Width="50" Height="18" Command="{Binding CloseCommand}" Style="{DynamicResource CloseButton}"/>
+                <Button Width="50" Height="32" Command="{Binding RollupCommand}" Style="{DynamicResource RollupButton}"/>
+                <Button Width="50" Height="32" Command="{Binding MinimizeCommand}" Style="{DynamicResource SizeButton}"/>
+                <Button Width="50" Height="32" Command="{Binding CloseCommand}" Style="{DynamicResource CloseButton}"/>
             </StackPanel>
         </controls:BlurryUserControl>
         
