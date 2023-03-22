@@ -33,32 +33,28 @@ namespace Melista.Services
                             string put = GetPathFromLink(f.FullName);
 
                             TagLib.File filik = TagLib.File.Create(put);
-                            var mStream = new MemoryStream();
+
                             var firstPicture = filik.Tag.Pictures.FirstOrDefault();
-                            Debug.WriteLine("FirstFazaNice");
                             if (firstPicture == null)
                             {
-                                
-                                Debug.WriteLine("Kartinki net");
-                                string kek = "C:\\Users\\petro\\Desktop\\aboba.png";
+                                string kek = System.IO.Path.GetFullPath("aboba.jpeg");
                                 var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                                ffMpeg.GetVideoThumbnail(put, kek);
+                                ffMpeg.GetVideoThumbnail(put, kek, 5);
                                 Bitmap btr = new Bitmap(kek);
                                 filik.Tag.Pictures = new TagLib.IPicture[]
                                 {
-                                    new TagLib.Picture(new TagLib.ByteVector((byte[])new System.Drawing.ImageConverter().ConvertTo(btr, typeof(byte[]))))
+                                    new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                                 };
                                 filik.Save();
+                                System.IO.File.Delete(System.IO.Path.GetFullPath("aboba.jpeg"));
                             }
                             BitmapImage bm = new BitmapImage();
-                            
-                            if (firstPicture != null)
+                            if (filik.Tag.Pictures.Length >= 1)
                             {
-                                byte[] pData = firstPicture.Data.Data;
-                                mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-                                var bmp = new Bitmap(mStream, false);
-                                mStream.Dispose();
-                                bm = ConvertBit(bmp);
+                                var bin = (byte[])(filik.Tag.Pictures[0].Data.Data);
+                                bm.BeginInit();
+                                bm.StreamSource = new MemoryStream(bin);
+                                bm.EndInit();
                                 bm.Freeze();
 
                             }
@@ -68,7 +64,6 @@ namespace Melista.Services
                         {
                             System.IO.File.Delete(f.FullName);
                         }
-                        Debug.WriteLine("Разщмер медиаса - " + medias.Count);
                     }
                 }
                 catch { }
@@ -113,18 +108,6 @@ namespace Melista.Services
             WshShell shell = new WshShell();
             IWshShortcut link = (IWshShortcut)shell.CreateShortcut(path);
             return link.TargetPath;
-        }
-
-        public BitmapImage ConvertBit(Bitmap src)
-        {
-            MemoryStream ms = new MemoryStream();
-            ((System.Drawing.Bitmap)src).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            ms.Seek(0, SeekOrigin.Begin);
-            image.StreamSource = ms;
-            image.EndInit();
-            return image;
         }
     }
 }

@@ -105,13 +105,11 @@ namespace Melista.ViewModels
                 foreach (string file in OpenFile.FileNames)
                 {
                     TagLib.File filik = TagLib.File.Create(file);
-                    var mStream = new MemoryStream();
-
 
                     var firstPicture = filik.Tag.Pictures.FirstOrDefault();
                     if (firstPicture == null)
                     {
-                        string kek = "C:\\Users\\petro\\Desktop\\aboba.jpeg";
+                        string kek = System.IO.Path.GetFullPath("aboba.jpeg");
                         var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
                         ffMpeg.GetVideoThumbnail(file, kek, 5);
                         Bitmap btr = new Bitmap(kek);
@@ -120,6 +118,7 @@ namespace Melista.ViewModels
                             new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                         };
                         filik.Save();
+                        
                     }
                     BitmapImage bm = new BitmapImage();
                     if (filik.Tag.Pictures.Length >= 1)
@@ -133,6 +132,7 @@ namespace Melista.ViewModels
                     }
                     CreateShortCut(file, RemoveFormatString(file));
                     Medias.Add(new Video { NameVideo = RemoveFormatString(file), ImageVideo = bm});
+                    
                 }
                 
             }
@@ -157,16 +157,15 @@ namespace Melista.ViewModels
 
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
             shortcut.TargetPath = Pathh;
-
             shortcut.Save();
 
-            //Task.Run(async () =>
-            //{
+            Task.Run(async () =>
+            {
 
-            //    Medias = await _mediaService.GetMedia();
+                Medias = await _mediaService.GetMedia();
 
-            //}).WaitAsync(TimeSpan.FromMilliseconds(10))
-            //.ConfigureAwait(false);
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
 
         }
 
