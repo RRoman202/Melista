@@ -13,13 +13,17 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 using System.Windows.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace Melista.ViewModels
 {
     public class MediaPageViewModel : BindableBase
     {
         private readonly PageService _pageService;
-
+        Thumb thumb = new Thumb();
+        
+        public MediaElement Player { get; set; }
+        public Slider SliderMedia { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
         public string DurText { get; set; } // Текст с отчётом времени {1:02}
@@ -29,7 +33,9 @@ namespace Melista.ViewModels
         int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
-        public Double MaxDurDouble { get; set;}
+        public Double MaxDurDouble { get; set; }
+
+
         public MediaPageViewModel(PageService pageService)
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
@@ -45,6 +51,8 @@ namespace Melista.ViewModels
                 LoadedBehavior = MediaState.Manual,
             };
             Player.MediaOpened += MediaOpened;
+
+
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
@@ -54,11 +62,11 @@ namespace Melista.ViewModels
             }
 
             DispatcherTimer timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromSeconds(1);
+            timer2.Interval = TimeSpan.FromMilliseconds(50000);
             timer2.Tick += timer_Tick2;
             timer2.Start();
         }
-        
+
         public void MediaOpened(object sender, RoutedEventArgs e)
         {
             Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
@@ -80,7 +88,7 @@ namespace Melista.ViewModels
                 }
             }
         }
-        public MediaElement Player { get; set; }
+
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
         {
@@ -90,11 +98,11 @@ namespace Melista.ViewModels
         public DelegateCommand PlayVideoCommand => new(() =>
         {
             if (!isPlaying)
-            { 
+            {
                 Player.Play();
                 isPlaying = true;
             }
-            else if(isPlaying)
+            else if (isPlaying)
             {
                 Player.Pause();
                 isPlaying = false;
@@ -150,6 +158,26 @@ namespace Melista.ViewModels
             {
                 NavigateTimer--;
             }
+        }
+
+        public DelegateCommand SliderDragStartedCommand => new(() => OnSliderDragStarted());
+        public DelegateCommand SliderDragCompletedCommand => new(() => OnSliderDragCompleted());
+        public DelegateCommand SliderValueChangedCommand => new(() => OnSliderValueChanged());
+        private void OnSliderDragStarted()
+        {
+            // Обработка события "Thumb.DragStarted"
+            MessageBox.Show("");
+        }
+
+        private void OnSliderDragCompleted()
+        {
+            // Обработка события "Thumb.DragCompleted"
+            MessageBox.Show("");
+        }
+
+        private void OnSliderValueChanged()
+        {
+            // Обработка события "ValueChanged"
         }
     }
 }
