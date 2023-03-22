@@ -27,7 +27,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-
+using Path = System.IO.Path;
 
 namespace Melista.ViewModels
 {
