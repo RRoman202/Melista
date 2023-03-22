@@ -73,14 +73,24 @@ namespace Melista.ViewModels
 
         public void Drop(IDropInfo dropInfo)
         {
+            int k = 0;
             var dataObject = dropInfo.Data as DataObject;
             if (dataObject != null && dataObject.ContainsFileDropList())
             {
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
-                    CreateShortCut(file, RemoveFormatString(file));
+                    if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
+                    {
+                        Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                        CreateShortCut(file, RemoveFormatString(file));
+                        k++;
+                    }
+                    
+                }
+                if(k == 0)
+                {
+                    MessageBox.Show("Недопустимый формат файла");
                 }
             }
         }
