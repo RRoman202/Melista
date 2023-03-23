@@ -109,7 +109,19 @@
 
 
 
-                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
+                                    <Slider Maximum="{Binding Duration}"
+                                            Style="{DynamicResource Slider_CustomStyle}"
+                                            Value="{Binding Position}"
+                                            Height="5" Grid.Column="1"
+                                            Margin="10 20 0 20"
+                                            Thumb.DragStarted="Slider_DragStarted"
+                                            Thumb.DragCompleted="Slider_DragCompleted">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="ValueChanged">
+                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Slider>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
                                         <!--И вот тут-->
