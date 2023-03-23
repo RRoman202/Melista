@@ -30,6 +30,7 @@ namespace Melista.ViewModels
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
         public Double MaxDurDouble { get; set;}
+        DispatcherTimer timer2 = new DispatcherTimer();
         public MediaPageViewModel(PageService pageService)
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
@@ -53,8 +54,7 @@ namespace Melista.ViewModels
                 Player.Play();
             }
 
-            DispatcherTimer timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromSeconds(1);
+            timer2.Interval = TimeSpan.FromSeconds(0.05);
             timer2.Tick += timer_Tick2;
             timer2.Start();
         }
@@ -151,5 +151,28 @@ namespace Melista.ViewModels
                 NavigateTimer--;
             }
         }
+
+        bool thumbIsDraging = false;
+        public DelegateCommand SliderDragStartedCommand => new(() =>
+        {
+            thumbIsDraging = true;
+            Player.Pause();
+            timer2.Stop();
+        });
+
+        public DelegateCommand SliderDragCompletedCommand => new(() =>
+        {
+            Player.Position = TimeSpan.FromSeconds(Position);
+            thumbIsDraging = false;
+            Player.Play();
+            timer2.Start();
+        });
+        public DelegateCommand SliderValueChangedCommand => new(() =>
+        {
+            if (!thumbIsDraging)
+            {
+                Player.Position = TimeSpan.FromSeconds(Position);
+            }
+        });
     }
 }
