@@ -35,6 +35,12 @@
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
                             <ContentControl x:Name="Video" Content="{Binding Player, Mode=TwoWay}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
                                 <ContentControl.Clip>
                                     <RectangleGeometry RadiusX="20" RadiusY="20" 
                                                            Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
@@ -101,27 +107,9 @@
                                         <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                     </StackPanel>
 
-                                    <Thumb> </Thumb>
-                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Thumb.DragStarted">
-                                                <i:InvokeCommandAction Command="{Binding SliderDragStartedCommand}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="Thumb.DragCompleted">
-                                                <i:InvokeCommandAction Command="{Binding SliderDragCompletedCommand}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="ValueChanged">
-                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Slider>
 
-                                    <ContentControl Content="{Binding Player, Mode=TwoWay}" Height="5" Grid.Column="1" Margin="10 20 0 20">
-                                        <ContentControl.Clip>
-                                            <RectangleGeometry RadiusX="20" RadiusY="20" 
-                                                           Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
-                                        </ContentControl.Clip>
-                                    </ContentControl>
+
+                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
                                         <!--И вот тут-->
