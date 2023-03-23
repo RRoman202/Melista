@@ -1,4 +1,4 @@
-﻿<Page x:Class="Melista.Views.MediaPage"
+<Page x:Class="Melista.Views.MediaPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,6 +35,12 @@
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
                             <ContentControl x:Name="Video" Content="{Binding Player, Mode=TwoWay}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
                                 <ContentControl.Clip>
                                     <RectangleGeometry RadiusX="20" RadiusY="20" 
                                                            Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
@@ -101,27 +107,9 @@
                                         <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                     </StackPanel>
 
-                                    <Thumb> </Thumb>
-                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Thumb.DragStarted">
-                                                <i:InvokeCommandAction Command="{Binding SliderDragStartedCommand}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="Thumb.DragCompleted">
-                                                <i:InvokeCommandAction Command="{Binding SliderDragCompletedCommand}" />
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="ValueChanged">
-                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Slider>
 
-                                    <ContentControl Content="{Binding Player, Mode=TwoWay}" Height="5" Grid.Column="1" Margin="10 20 0 20">
-                                        <ContentControl.Clip>
-                                            <RectangleGeometry RadiusX="20" RadiusY="20" 
-                                                           Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
-                                        </ContentControl.Clip>
-                                    </ContentControl>
+
+                                    <Slider Maximum="{Binding Duration}" Style="{DynamicResource Slider_CustomStyle}" Value="{Binding Position}" Height="5" Grid.Column="1" Margin="10 20 0 20"></Slider>
 
                                     <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
                                         <!--И вот тут-->
@@ -150,13 +138,14 @@
 
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
-                    <Grid>
-                        <Button HorizontalAlignment="Right">Изменить</Button>
-                        <StackPanel Margin="20">
-                            <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}"></TextBlock>
-                            <TextBlock Foreground="White">Описание</TextBlock>
-                        </StackPanel>
-                    </Grid>
+
+                    <StackPanel Margin="20">
+                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Foreground="White">Описание</TextBlock>
+                    </StackPanel>
+
+                    
+
                 </Border>
             </Grid>
         </ScrollViewer>

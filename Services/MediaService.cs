@@ -41,6 +41,7 @@ namespace Melista.Services
                                 var bin = (byte[])(filik.Tag.Pictures[0].Data.Data);
                                 bm.BeginInit();
                                 bm.StreamSource = new MemoryStream(bin);
+                                bm.DecodePixelHeight = 240;
                                 bm.EndInit();
                                 bm.Freeze();
 
