@@ -3,7 +3,10 @@
     
     <converters:ListItemWidthConverter x:Key="ListItemWidthConverter"></converters:ListItemWidthConverter>
     <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
-    
+
+    <Color x:Key="pwsPrimaryColor">#000000</Color>
+    <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
+
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
             <Setter.Value>
@@ -179,7 +182,7 @@
                                     <StackPanel>
                                         <Border CornerRadius="16"  Height="{Binding Path=ActualWidth, ElementName=border,Converter={StaticResource ListItemHeightConverter}}" Width="{Binding Path=ActualWidth, ElementName=border}">
                                             <Border.Background>
-                                                <ImageBrush  ImageSource="/Resources/Dark/Dark Theme.png" Stretch="UniformToFill"/>
+                                                <ImageBrush  ImageSource="{Binding ImageVideo}" Stretch="UniformToFill"/>
                                             </Border.Background>
                                         </Border>
                                         <Grid Height="30" Margin="10 0 10 0">
@@ -381,7 +384,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/close.png" Stretch="Uniform"/>
                             </Border.Background>
@@ -403,7 +406,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/minimize.png" Stretch="Uniform"/>
                             </Border.Background>
@@ -425,7 +428,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="GridBg" Background="Transparent">
-                        <Border>
+                        <Border Height="18">
                             <Border.Background>
                                 <ImageBrush ImageSource="/Resources/Dark/rollup.png" Stretch="Uniform"/>
                             </Border.Background>
