@@ -152,7 +152,9 @@
                     <StackPanel Margin="20">
                         <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
+                        <Button Content="изменить"></Button>
                     </StackPanel>
+                    
                 </Border>
             </Grid>
         </ScrollViewer>
