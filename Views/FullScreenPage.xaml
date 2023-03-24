@@ -28,7 +28,7 @@
                     </ContentControl>
 
                     <Grid Visibility="{Binding InterfaceVisible}">
-                        <Border VerticalAlignment="Bottom" Height="100">
+                        <Border VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}">
                             <controls:BlurryUserControl
                                     Background="Transparent"
                                     BlurContainer="{Binding ElementName=Video}"
@@ -36,7 +36,7 @@
                                     Magnification="0.25">
                             </controls:BlurryUserControl>
                         </Border>
-                        <Grid VerticalAlignment="Bottom" Height="100">
+                        <Grid VerticalAlignment="Bottom">
                             <Grid x:Name="VideoPanel" VerticalAlignment="Center" Margin="20 0 20 0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -60,7 +60,6 @@
                                             <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                         </Button.Background>
                                     </Button>
-                                    <!--Вот тут-->
                                     <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                 </StackPanel>
 
@@ -81,7 +80,6 @@
                                 </Slider>
 
                                 <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
-                                    <!--И вот тут-->
                                     <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
                                     <Button Height="35" Width="35" Margin="0 0 20 0">
                                         <Button.Background>

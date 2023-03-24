@@ -88,7 +88,7 @@
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20">
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
                                         <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
@@ -104,8 +104,7 @@
                                                 <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <!--Вот тут-->
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                     </StackPanel>
 
 
@@ -124,9 +123,8 @@
                                         </i:Interaction.Triggers>
                                     </Slider>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
-                                        <!--И вот тут-->
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
