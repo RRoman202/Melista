@@ -54,6 +54,8 @@ namespace Melista.ViewModels
                 LoadedBehavior = MediaState.Manual,
             };
             Player.MediaOpened += MediaOpened;
+            Player.MediaEnded += MediaEnded;
+
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
@@ -75,6 +77,7 @@ namespace Melista.ViewModels
 
         public void MediaEnded(object sender, RoutedEventArgs e)
         {
+            isPlaying = false;
             PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
         }
         void timer_Tick2(object sender, EventArgs e)
@@ -159,7 +162,7 @@ namespace Melista.ViewModels
 
         private void Timer_Tick(object sender, object e)
         {
-            if (NavigateTimer == 0)
+            if (NavigateTimer == 0 && !thumbIsDraging)
             {
                 InterfaceVisible = Visibility.Hidden;
             }
