@@ -356,12 +356,13 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Border Background="{StaticResource SliderBackground}"/>
-                        <Border x:Name="BordRad" Grid.ColumnSpan="2" CornerRadius="100"  Background="{StaticResource SliderBackground}" Width="15"/>
+                        <Border Background="{StaticResource SliderBackground}" Width="5" Height="5"/>
+                        <Ellipse x:Name="BordRad" Grid.ColumnSpan="2" Fill="{StaticResource SliderBackground}" Width="{Binding Path=ActualWidth, ElementName=ThumbHeig}" Height="{Binding Path=ActualWidth, ElementName=ThumbHeig}" VerticalAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BordRad" Property="CornerRadius" Value="4"/>
+                            <Setter TargetName="BordRad" Property="Height" Value="15"/>
+                            <Setter TargetName="BordRad" Property="Width" Value="15"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -387,7 +388,7 @@
                                 Command="Slider.IncreaseLarge"/>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb x:Name="ThumbHeig" Height="5" Style="{StaticResource Slider_Thumb}"/>
+                                    <Thumb x:Name="ThumbHeig" Height="15" Width="15" Style="{StaticResource Slider_Thumb}"/>
                                 </Track.Thumb>
                             </Track>
                         </Border>
@@ -395,6 +396,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="ThumbHeig" Property="Height" Value="15"/>
+                            <Setter TargetName="ThumbHeig" Property="Width" Value="15"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

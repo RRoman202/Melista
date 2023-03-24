@@ -112,7 +112,7 @@
                                     <Slider Maximum="{Binding Duration}"
                                             Style="{DynamicResource Slider_CustomStyle}"
                                             Value="{Binding Position}"
-                                            Height="5" Grid.Column="1"
+                                            Height="20" Grid.Column="1"
                                             Margin="10 20 0 20"
                                             Thumb.DragStarted="Slider_DragStarted"
                                             Thumb.DragCompleted="Slider_DragCompleted">
@@ -150,14 +150,10 @@
 
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
-
                     <StackPanel Margin="20">
                         <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
                     </StackPanel>
-
-                    
-
                 </Border>
             </Grid>
         </ScrollViewer>
