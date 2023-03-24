@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Melista.ViewModels
 {
@@ -8,13 +9,15 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         public Page PageSource { get; set; }
-
+        int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
+        DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public MainViewModel(PageService pageService)
         {
             _pageService = pageService;
             _pageService.onPageChanged += (page) => PageSource = page;
             _pageService.ChangePage(new StartPageView());
         }
+
         public DelegateCommand CloseCommand => new (() =>{
             Application.Current.MainWindow.Close();
         }); 
@@ -31,5 +34,18 @@ namespace Melista.ViewModels
         public DelegateCommand RollupCommand => new (() =>{
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         });
+        public int InterfaceVisible { get; set; }
+        public DelegateCommand NavigateCommand => new(() => InterfaceisVisible());
+
+        public void InterfaceisVisible()
+        {
+            InterfaceVisible = 32;
+        }
+        public DelegateCommand NavigateCommand2 => new(() => InterfaceisVisible2());
+
+        public void InterfaceisVisible2()
+        {
+            InterfaceVisible = 2;
+        }
     }
 }

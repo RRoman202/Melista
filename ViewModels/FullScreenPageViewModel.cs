@@ -1,4 +1,4 @@
-using IWshRuntimeLibrary;
+﻿using IWshRuntimeLibrary;
 using Melista.Models;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -16,10 +16,9 @@ using System.Windows.Threading;
 
 namespace Melista.ViewModels
 {
-    public class MediaPageViewModel : BindableBase
+    public class FullScreenPageViewModel : BindableBase
     {
         private readonly PageService _pageService;
-
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
         public string DurText { get; set; } // Текст с отчётом времени {1:02}
@@ -29,9 +28,9 @@ namespace Melista.ViewModels
         int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
-        public Double MaxDurDouble { get; set;}
-        DispatcherTimer timer2 = new DispatcherTimer();
-        public MediaPageViewModel(PageService pageService)
+        public Double MaxDurDouble { get; set; }
+        DispatcherTimer timer2 = new DispatcherTimer(); 
+        public FullScreenPageViewModel(PageService pageService)
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
@@ -58,7 +57,7 @@ namespace Melista.ViewModels
             timer2.Tick += timer_Tick2;
             timer2.Start();
         }
-        
+
         public void MediaOpened(object sender, RoutedEventArgs e)
         {
             Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
@@ -90,11 +89,11 @@ namespace Melista.ViewModels
         public DelegateCommand PlayVideoCommand => new(() =>
         {
             if (!isPlaying)
-            { 
+            {
                 Player.Play();
                 isPlaying = true;
             }
-            else if(isPlaying)
+            else if (isPlaying)
             {
                 Player.Pause();
                 isPlaying = false;
@@ -109,7 +108,7 @@ namespace Melista.ViewModels
             DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
 
         });
-
+        
         public DelegateCommand Rewind => new(() =>
         {
             Player.Position -= TimeSpan.FromSeconds(10);
@@ -174,7 +173,7 @@ namespace Melista.ViewModels
                 Player.Position = TimeSpan.FromSeconds(Position);
             }
         });
-        public DelegateCommand FullScreen => new(() =>
-           _pageService.ChangePage(new FullScreenPage()));
+        public DelegateCommand MiniScreenCommand => new(() =>
+           _pageService.ChangePage(new MediaPage()));
     }
 }

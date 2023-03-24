@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Melista
+namespace Melista.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для FullScreenPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FullScreenPage : Page
     {
-        public MainWindow()
+        public FullScreenPage()
         {
             InitializeComponent();
         }

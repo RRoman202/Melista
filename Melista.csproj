@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Resources\Dark\close.png" />
     <None Remove="Resources\Dark\minimize.png" />
+    <None Remove="Resources\Dark\MiniScreen.png" />
     <None Remove="Resources\Dark\rollup.png" />
     <None Remove="Resources\Dark\search.png" />
     <None Remove="Resources\Fonts\Montserrat.ttf" />
@@ -26,6 +27,7 @@
     <None Remove="Resources\Images\Light Theme.png" />
     <None Remove="Resources\Light\close.png" />
     <None Remove="Resources\Light\minimize.png" />
+    <None Remove="Resources\Light\MiniScreen.png" />
     <None Remove="Resources\Light\rollup.png" />
   </ItemGroup>
 
@@ -48,6 +50,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Dark\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Dark\MiniScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Dark\rollup.png">
@@ -81,6 +86,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Light\minimize.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Light\MiniScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Light\rollup.png">
