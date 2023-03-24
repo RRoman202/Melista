@@ -9,7 +9,7 @@
         mc:Ignorable="d" MinHeight="450" MinWidth="800"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        Icon="/Resources/Icons/melista.png" WindowStyle="None" ShowInTaskbar="False">
+        Icon="/Resources/Icons/melista.png" WindowStyle="None">
     <Grid x:Name="OuterBlurContainer" Style="{DynamicResource Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
