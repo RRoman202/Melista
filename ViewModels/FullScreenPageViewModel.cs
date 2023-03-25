@@ -29,9 +29,15 @@ namespace Melista.ViewModels
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
         public Double MaxDurDouble { get; set; }
-        DispatcherTimer timer2 = new DispatcherTimer(); 
-        public FullScreenPageViewModel(PageService pageService)
+        DispatcherTimer timer2 = new DispatcherTimer();
+        public Uri PlayPauseImage { get; set; }
+
+        string[] PlayPauseImagePaths;
+        public FullScreenPageViewModel(PageService pageService, MediaPageViewModel mediaPageViewModel)
         {
+            PlayPauseImagePaths = new string[] { "Resources\\Icons\\play.png", "Resources\\Icons\\pause.png" };
+            PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
+
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
 
@@ -48,7 +54,7 @@ namespace Melista.ViewModels
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
-                Position = 0;
+                Position = (double)(mediaPageViewModel.Position);
                 Player.Source = new Uri(path);
                 Player.Play();
             }
@@ -90,11 +96,17 @@ namespace Melista.ViewModels
         {
             if (!isPlaying)
             {
+                if (Position == Duration)
+                {
+                    Player.Position = TimeSpan.FromSeconds(0);
+                }
                 Player.Play();
                 isPlaying = true;
+                PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             }
             else if (isPlaying)
             {
+                PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
                 Player.Pause();
                 isPlaying = false;
             }
