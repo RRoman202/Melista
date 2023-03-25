@@ -16,6 +16,7 @@ namespace Melista.ViewModels
             _pageService = pageService;
             _pageService.onPageChanged += (page) => PageSource = page;
             _pageService.ChangePage(new StartPageView());
+            InterfaceVisible = 10;
         }
 
         public DelegateCommand CloseCommand => new (() =>{
@@ -45,7 +46,7 @@ namespace Melista.ViewModels
 
         public void InterfaceisVisible2()
         {
-            InterfaceVisible = 2;
+            InterfaceVisible = 10;
         }
     }
 }
