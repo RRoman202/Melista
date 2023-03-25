@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 using System.Windows.Threading;
+using System.Windows.Documents;
 
 namespace Melista.ViewModels
 {
@@ -20,21 +21,28 @@ namespace Melista.ViewModels
     {
         private readonly PageService _pageService;
 
+        public Uri PlayPauseImage { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
         public string DurText { get; set; } // Текст с отчётом времени {1:02}
         public double Position { get; set; } // Текущая позиция mediapleer(а) в секундах
         public double Duration { get; set; } // Длительность файла mediapleer(а) в секундах
-        public bool isPlaying { get; set; }
         int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
         DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
-        public Double MaxDurDouble { get; set;}
+
         DispatcherTimer timer2 = new DispatcherTimer();
+        public bool isPlaying;
+
+        string[] PlayPauseImagePaths;
+
         public MediaPageViewModel(PageService pageService)
         {
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
+
+            PlayPauseImagePaths = new string[] {"Resources\\Icons\\play.png", "Resources\\Icons\\pause.png"};
+            PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
 
             InterfaceVisible = Visibility.Hidden;
             _pageService = pageService;
@@ -46,6 +54,8 @@ namespace Melista.ViewModels
                 LoadedBehavior = MediaState.Manual,
             };
             Player.MediaOpened += MediaOpened;
+            Player.MediaEnded += MediaEnded;
+
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
@@ -62,6 +72,13 @@ namespace Melista.ViewModels
         public void MediaOpened(object sender, RoutedEventArgs e)
         {
             Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
+            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+        }
+
+        public void MediaEnded(object sender, RoutedEventArgs e)
+        {
+            isPlaying = false;
+            PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
         }
         void timer_Tick2(object sender, EventArgs e)
         {
@@ -70,9 +87,7 @@ namespace Melista.ViewModels
                 if (Player.NaturalDuration.HasTimeSpan)
                 {
                     Position = Player.Position.TotalSeconds;
-                    MaxDurDouble = Player.NaturalDuration.TimeSpan.TotalSeconds;
                     DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
-                    DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
                     if (isPlaying)
                     {
                         Position = Player.Position.TotalSeconds;
@@ -91,11 +106,17 @@ namespace Melista.ViewModels
         {
             if (!isPlaying)
             { 
+                if(Position == Duration)
+                {
+                    Player.Position = TimeSpan.FromSeconds(0);
+                }
                 Player.Play();
                 isPlaying = true;
+                PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             }
             else if(isPlaying)
             {
+                PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
                 Player.Pause();
                 isPlaying = false;
             }
@@ -141,7 +162,7 @@ namespace Melista.ViewModels
 
         private void Timer_Tick(object sender, object e)
         {
-            if (NavigateTimer == 0)
+            if (NavigateTimer == 0 && !thumbIsDraging)
             {
                 InterfaceVisible = Visibility.Hidden;
             }
@@ -164,11 +185,15 @@ namespace Melista.ViewModels
         {
             Player.Position = TimeSpan.FromSeconds(Position);
             thumbIsDraging = false;
-            Player.Play();
-            timer2.Start();
+            if (isPlaying)
+            {
+                Player.Play();
+                timer2.Start();
+            }
         });
         public DelegateCommand SliderValueChangedCommand => new(() =>
         {
+            DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
             if (!thumbIsDraging)
             {
                 Player.Position = TimeSpan.FromSeconds(Position);

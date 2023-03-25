@@ -78,7 +78,7 @@
 
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
+                                        <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                     </Button.Background>
                                 </Button>
                                 <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
@@ -96,7 +96,7 @@
                                         </Button>
                                         <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
                                             <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/play.png"/>
+                                                <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                             </Button.Background>
                                         </Button>
                                         <Button Height="25" Width="25" Command="{Binding FastForward}">
@@ -152,7 +152,9 @@
                     <StackPanel Margin="20">
                         <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
+                        <Button Content="изменить"></Button>
                     </StackPanel>
+                    
                 </Border>
             </Grid>
         </ScrollViewer>
