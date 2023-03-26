@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Melista.Views"
       xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" 
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      DataContext="{Binding FullScreenPageViewModel, Source={StaticResource ViewModelLocator}}"
+      DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
       xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" x:Name="window" Background="Black">
 
@@ -69,9 +69,9 @@
                                             Style="{DynamicResource Slider_CustomStyle}"
                                             Value="{Binding Position}"
                                             Height="20" Grid.Column="1"
-                                            Margin="10 20 0 20">
-                                    <!--Thumb.DragStarted="Slider_DragStarted"
-                                            Thumb.DragCompleted="Slider_DragCompleted"-->
+                                            Margin="10 20 0 20" Thumb.DragStarted="Slider_DragStarted"
+                                            Thumb.DragCompleted="Slider_DragCompleted">
+                                    
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="ValueChanged">
                                             <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
