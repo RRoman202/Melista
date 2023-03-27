@@ -4,10 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Melista.Views"
-      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
       xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="900"
       Title="MediaPage" x:Name="window">
 
@@ -30,7 +31,7 @@
                             <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" 
+                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" Background="Black"
                             Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
@@ -77,7 +78,7 @@
 
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="/Resources/Icons/pause.png"/>
+                                        <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                     </Button.Background>
                                 </Button>
                                 <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
@@ -87,7 +88,7 @@
                                         <ColumnDefinition Width="auto"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20">
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
                                         <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
@@ -95,7 +96,7 @@
                                         </Button>
                                         <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
                                             <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/play.png"/>
+                                                <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                             </Button.Background>
                                         </Button>
                                         <Button Height="25" Width="25" Command="{Binding FastForward}">
@@ -103,8 +104,7 @@
                                                 <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <!--Вот тут-->
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                     </StackPanel>
 
 
@@ -112,7 +112,7 @@
                                     <Slider Maximum="{Binding Duration}"
                                             Style="{DynamicResource Slider_CustomStyle}"
                                             Value="{Binding Position}"
-                                            Height="5" Grid.Column="1"
+                                            Height="20" Grid.Column="1"
                                             Margin="10 20 0 20"
                                             Thumb.DragStarted="Slider_DragStarted"
                                             Thumb.DragCompleted="Slider_DragCompleted">
@@ -123,9 +123,8 @@
                                         </i:Interaction.Triggers>
                                     </Slider>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20">
-                                        <!--И вот тут-->
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}"></TextBlock>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
+                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                         <Button Height="25" Width="25" Margin="0 0 20 0">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
@@ -136,7 +135,7 @@
                                                 <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
                                             </Button.Background>
                                         </Button>
-                                        <Button Height="25" Width="25">
+                                        <Button Height="25" Width="25" Command="{Binding FullScreen}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icons/size.png"/>
                                             </Button.Background>
@@ -150,14 +149,12 @@
 
                 <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
                             Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
-
                     <StackPanel Margin="20">
                         <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
+                        <Button Content="изменить"></Button>
                     </StackPanel>
-
                     
-
                 </Border>
             </Grid>
         </ScrollViewer>
