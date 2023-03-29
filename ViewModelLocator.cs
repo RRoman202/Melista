@@ -1,4 +1,6 @@
-﻿namespace Melista
+﻿using Melista.Views;
+
+namespace Melista
 {
     public class ViewModelLocator
     {
@@ -11,6 +13,7 @@
             services.AddTransient<MainViewModel>();
             services.AddTransient<StartPageViewModel>();
             services.AddTransient<MediaPageViewModel>();
+            
 
             services.AddSingleton<PageService>();
             services.AddSingleton<MediaService>();
@@ -24,5 +27,6 @@
         public MainViewModel MainViewModel => _provider.GetRequiredService<MainViewModel>();
         public StartPageViewModel StartPageViewModel => _provider.GetRequiredService<StartPageViewModel>();
         public MediaPageViewModel MediaPageViewModel => _provider.GetRequiredService<MediaPageViewModel>();
+        
     }
 }

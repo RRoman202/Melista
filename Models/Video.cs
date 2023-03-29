@@ -16,5 +16,6 @@ namespace Melista.Models
         public int ViewsVideo { get; set; }
         public string Path { get; set; }
         public BitmapImage ImageVideo { get; internal set; }
+        public TimeSpan CurrentTime { get; set; }
     }
 }
