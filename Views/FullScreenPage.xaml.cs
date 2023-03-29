@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Melista.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MediaPage.xaml
+    /// Логика взаимодействия для FullScreenPage.xaml
     /// </summary>
-    public partial class MediaPage : Page
+    public partial class FullScreenPage : Page
     {
-        public MediaPage()
+        public FullScreenPage()
         {
             InitializeComponent();
         }

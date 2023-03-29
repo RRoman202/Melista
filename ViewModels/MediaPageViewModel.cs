@@ -10,10 +10,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 using System.Windows.Threading;
+using System.Windows.Documents;
 
 namespace Melista.ViewModels
 {
@@ -21,81 +21,81 @@ namespace Melista.ViewModels
     {
         private readonly PageService _pageService;
 
-        DispatcherTimer timer;
-        
-
+        public Uri PlayPauseImage { get; set; }
+        TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
-
-        public string MediaDur { get; set; }
-
-        public string DurText { get; set; }
+        public string DurText { get; set; } // Текст с отчётом времени {1:02}
+        public double Position { get; set; } // Текущая позиция mediapleer(а) в секундах
+        public double Duration { get; set; } // Длительность файла mediapleer(а) в секундах
+        int NavigateTimer = 0; // Отсчёт таймера для сокрытия интерфейса
+        DispatcherTimer timer; // Таймер для сокрытия интерфейса
         public string DurText2 { get; set; }
 
-        public string MaxDur { get; set; }
+        DispatcherTimer timer2 = new DispatcherTimer();
+        public bool isPlaying;
 
-        public double MaxDurDouble { get; set; }
-
-        public double SliderVal { get; set; }
-
-        public TimeSpan TotalTime { get; set; }
+        string[] PlayPauseImagePaths;
 
         public MediaPageViewModel(PageService pageService)
         {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) }; // 1 секунда
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
 
-            
+            PlayPauseImagePaths = new string[] {"Resources\\Icons\\play.png", "Resources\\Icons\\pause.png"};
+            PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
+
             InterfaceVisible = Visibility.Hidden;
             _pageService = pageService;
-            play = true;
+            isPlaying = true;
             MediaName = Global.CurrentMedia.NameVideo;
 
             Player = new MediaElement()
             {
                 LoadedBehavior = MediaState.Manual,
             };
+            Player.MediaOpened += MediaOpened;
+            Player.MediaEnded += MediaEnded;
+
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
-                SliderVal = 0;
-                MediaDur = SliderVal.ToString();
+                Position = 0;
                 Player.Source = new Uri(path);
                 Player.Play();
-
-
-
-                
-
             }
-            
-            DispatcherTimer timer2 = new DispatcherTimer();
-            timer2.Interval = TimeSpan.FromSeconds(1);
+
+            timer2.Interval = TimeSpan.FromSeconds(0.05);
             timer2.Tick += timer_Tick2;
             timer2.Start();
-
         }
         
+        public void MediaOpened(object sender, RoutedEventArgs e)
+        {
+            Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
+            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+            Player.Position = Global.CurrentMedia.CurrentTime;
+        }
+
+        public void MediaEnded(object sender, RoutedEventArgs e)
+        {
+            isPlaying = false;
+            PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
+        }
         void timer_Tick2(object sender, EventArgs e)
         {
-            
-            // Check if the movie finished calculate it's total time
             if (Player.Source != null)
             {
                 if (Player.NaturalDuration.HasTimeSpan)
                 {
-                    MaxDurDouble = Player.NaturalDuration.TimeSpan.TotalSeconds;
-                    MaxDur = MaxDurDouble.ToString();
+                    Position = Player.Position.TotalSeconds;
                     DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
-                    DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-                    if (play)
+                    if (isPlaying)
                     {
-                        SliderVal++;
-                        MediaDur = SliderVal.ToString();
+                        Position = Player.Position.TotalSeconds;
+                        
                     }
-                    
                 }
             }
-            
         }
         public MediaElement Player { get; set; }
         public Visibility InterfaceVisible { get; set; }
@@ -104,46 +104,42 @@ namespace Melista.ViewModels
             _pageService.ChangePage(new StartPageView());
         });
 
-
-
-        public bool play { get; set; }
-
         public DelegateCommand PlayVideoCommand => new(() =>
         {
-            if (!play)
+            if (!isPlaying)
             { 
+                if(Position == Duration)
+                {
+                    Player.Position = TimeSpan.FromSeconds(0);
+                }
                 Player.Play();
-                play = true;
+                isPlaying = true;
+                PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             }
-            else if(play)
+            else if(isPlaying)
             {
+                PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
                 Player.Pause();
-                play = false;
+                isPlaying = false;
             }
         });
+
         public DelegateCommand FastForward => new(() =>
         {
-            
-            
             Player.Position += TimeSpan.FromSeconds(10);
-            SliderVal = SliderVal + 10;
-            MediaDur = SliderVal.ToString();
-            
-            
+            Position = Player.Position.TotalSeconds;
+            DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
+            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+
         });
+
         public DelegateCommand Rewind => new(() =>
         {
             Player.Position -= TimeSpan.FromSeconds(10);
-            if(SliderVal + 10 > MaxDurDouble)
-            {
-                SliderVal = SliderVal - 10;
-                MediaDur = SliderVal.ToString();
-            }
-            else
-            {
-                SliderVal = 0;
-                MediaDur = SliderVal.ToString();
-            }
+            Position = Player.Position.TotalSeconds;
+            DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
+            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+
         });
 
         public string GetPathFromLink(string linkPathName)
@@ -154,15 +150,11 @@ namespace Melista.ViewModels
                 IWshShortcut link = (IWshShortcut)shell.CreateShortcut(linkPathName);
                 return link.TargetPath;
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public DelegateCommand NavigateCommand => new(() => InterfaceisVisible());
 
-        int NavigateTimer = 0;
         public void InterfaceisVisible()
         {
             InterfaceVisible = Visibility.Visible;
@@ -172,7 +164,7 @@ namespace Melista.ViewModels
 
         private void Timer_Tick(object sender, object e)
         {
-            if (NavigateTimer == 0)
+            if (NavigateTimer == 0 && !thumbIsDraging)
             {
                 InterfaceVisible = Visibility.Hidden;
             }
@@ -183,5 +175,45 @@ namespace Melista.ViewModels
             }
         }
 
+        bool thumbIsDraging = false;
+        public DelegateCommand SliderDragStartedCommand => new(() =>
+        {
+            thumbIsDraging = true;
+            Player.Pause();
+            timer2.Stop();
+        });
+
+        public DelegateCommand SliderDragCompletedCommand => new(() =>
+        {
+            Player.Position = TimeSpan.FromSeconds(Position);
+            thumbIsDraging = false;
+            if (isPlaying)
+            {
+                Player.Play();
+                timer2.Start();
+            }
+        });
+        public DelegateCommand SliderValueChangedCommand => new(() =>
+        {
+            DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
+            if (!thumbIsDraging)
+            {
+                Player.Position = TimeSpan.FromSeconds(Position);
+            }
+        });
+        public DelegateCommand FullScreen => new(() =>
+        {
+            Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
+            _pageService.ChangePage(new FullScreenPage());
+            
+        });
+
+        public DelegateCommand MiniScreenCommand => new(() =>
+        {
+            Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
+            _pageService.ChangePage(new MediaPage());
+            
+        });
+           
     }
 }

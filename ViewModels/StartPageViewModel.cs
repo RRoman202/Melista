@@ -15,7 +15,19 @@ using System.IO;
 using IWshRuntimeLibrary;
 using System.Text.RegularExpressions;
 using System.Windows.Controls.Primitives;
+
 using System.Threading;
+
+using System.Linq;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+using System.Drawing;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using Path = System.IO.Path;
 
 namespace Melista.ViewModels
 {
@@ -80,9 +92,25 @@ namespace Melista.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
+
                     if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
                     {
-                        Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                        TagLib.File filik = TagLib.File.Create(file);
+
+                        var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                        if (firstPicture == null)
+                        {
+                            string kek = System.IO.Path.GetFullPath("aboba.jpeg");
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            ffMpeg.GetVideoThumbnail(file, kek, 5);
+                            Bitmap btr = new Bitmap(kek);
+                            filik.Tag.Pictures = new TagLib.IPicture[]
+                            {
+                            new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
+                            };
+                            filik.Save();
+
+                        }
                         CreateShortCut(file, RemoveFormatString(file));
                         k++;
                     }
@@ -91,6 +119,7 @@ namespace Melista.ViewModels
                 if(k == 0)
                 {
                     MessageBox.Show("Недопустимый формат файла");
+
                 }
             }
         }
@@ -113,12 +142,31 @@ namespace Melista.ViewModels
             {
                 foreach (string file in OpenFile.FileNames)
                 {
+                    TagLib.File filik = TagLib.File.Create(file);
+
+                    var firstPicture = filik.Tag.Pictures.FirstOrDefault();
+                    if (firstPicture == null)
+                    {
+                        string kek = System.IO.Path.GetFullPath("aboba.jpeg");
+                        var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                        ffMpeg.GetVideoThumbnail(file, kek, 5);
+                        Bitmap btr = new Bitmap(kek);
+                        filik.Tag.Pictures = new TagLib.IPicture[]
+                        {
+                            new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
+                        };
+                        filik.Save();
+                        
+                    }
+                   
                     CreateShortCut(file, RemoveFormatString(file));
-                    Medias.Add(new Video { NameVideo = RemoveFormatString(file) });
+                  
+                    
                 }
                 
             }
         }
+
         public string RemoveFormatString(string stringForRemove) 
         {
 
@@ -134,14 +182,10 @@ namespace Melista.ViewModels
 
             WshShell shell = new WshShell();
 
-            string shortcutPath = Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+            string shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
 
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-
-            shortcut.Description = "Ярлык для текстового редактора";
-
             shortcut.TargetPath = Pathh;
-
             shortcut.Save();
 
             Task.Run(async () =>
