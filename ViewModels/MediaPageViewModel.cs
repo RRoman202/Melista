@@ -228,7 +228,8 @@ namespace Melista.ViewModels
         public DelegateCommand FullScreen => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+            Player.SourceProvider.MediaPlayer.Pause();
+            //Player = new Vlc.DotNet.Wpf.VlcControl();
             
             _pageService.ChangePage(new FullScreenPage());
             
@@ -238,7 +239,8 @@ namespace Melista.ViewModels
         public DelegateCommand MiniScreenCommand => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+            Player.SourceProvider.MediaPlayer.Pause();
+            //Player = new Vlc.DotNet.Wpf.VlcControl();
             
             _pageService.ChangePage(new MediaPage());
 
