@@ -35,7 +35,7 @@ namespace Melista.ViewModels
                     if (theme == "Светлая")
                     {
                         ResourceDictionary dict = new ResourceDictionary();
-                        dict.Source = new Uri(@"style/light.xaml", UriKind.Relative);
+                        dict.Source = new Uri(@"themes/light.xaml", UriKind.Relative);
 
                         Application.Current.Resources.MergedDictionaries[0] = dict;
                         SelectedTheme = "Светлая";
@@ -43,7 +43,7 @@ namespace Melista.ViewModels
                     if (theme == "Темная")
                     {
                         ResourceDictionary dict = new ResourceDictionary();
-                        dict.Source = new Uri(@"style/dark.xaml", UriKind.Relative);
+                        dict.Source = new Uri(@"themes/dark.xaml", UriKind.Relative);
 
                         Application.Current.Resources.MergedDictionaries[0] = dict;
                         SelectedTheme = "Темная";
@@ -56,7 +56,7 @@ namespace Melista.ViewModels
             if (SelectedTheme == "Светлая")
             {
                 ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"style/light.xaml", UriKind.Relative);
+                dict.Source = new Uri(@"themes/light.xaml", UriKind.Relative);
 
                 Application.Current.Resources.MergedDictionaries[0] = dict;
                 List<Theme> _theme = new List<Theme>();
@@ -73,7 +73,7 @@ namespace Melista.ViewModels
             if (SelectedTheme == "Темная")
             {
                 ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"style/dark.xaml", UriKind.Relative);
+                dict.Source = new Uri(@"themes/dark.xaml", UriKind.Relative);
 
                 Application.Current.Resources.MergedDictionaries[0] = dict;
                 List<Theme> _theme = new List<Theme>();
