@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Melista.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SettingPageWindow.xaml
+    /// Логика взаимодействия для MediaSettingWindow.xaml
     /// </summary>
-    public partial class SettingPageWindow : Window
+    public partial class MediaSettingWindow : Window
     {
-        public SettingPageWindow()
+        public MediaSettingWindow()
         {
             InitializeComponent();
         }

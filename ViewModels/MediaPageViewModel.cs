@@ -73,7 +73,7 @@ namespace Melista.ViewModels
         {
             Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
             DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-           // Player.Position = Global.CurrentMedia.CurrentTime;
+            Player.Position = Global.CurrentMedia.CurrentTime;
         }
 
         public void MediaEnded(object sender, RoutedEventArgs e)
@@ -212,8 +212,6 @@ namespace Melista.ViewModels
         {
             Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
             _pageService.ChangePage(new MediaPage());
-            
         });
-           
     }
 }
