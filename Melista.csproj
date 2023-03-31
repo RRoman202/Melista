@@ -98,11 +98,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Light\search.png" />
+    <Resource Include="Resources\Light\search.png" />
     <Resource Include="Resources\Fonts\Montserrat.ttf" />
     <Resource Include="Resources\Dark\Dark Theme.png" />
     <Resource Include="Resources\Images\Gradient.png" />
-    <Content Include="Resources\Light\Light Theme.png" />
+    <Resource Include="Resources\Light\Light Theme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Dark\search.png" />
     <Folder Include="Models\" />
   </ItemGroup>
