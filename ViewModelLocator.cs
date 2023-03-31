@@ -13,10 +13,12 @@ namespace Melista
             services.AddTransient<MainViewModel>();
             services.AddTransient<StartPageViewModel>();
             services.AddTransient<MediaPageViewModel>();
+            services.AddTransient<EditMediaWindowViewModel>();
             
 
             services.AddSingleton<PageService>();
             services.AddSingleton<MediaService>();
+            services.AddSingleton<WindowService>();
 
             _provider = services.BuildServiceProvider();
             foreach (var service in services)
@@ -27,6 +29,8 @@ namespace Melista
         public MainViewModel MainViewModel => _provider.GetRequiredService<MainViewModel>();
         public StartPageViewModel StartPageViewModel => _provider.GetRequiredService<StartPageViewModel>();
         public MediaPageViewModel MediaPageViewModel => _provider.GetRequiredService<MediaPageViewModel>();
+
+        public EditMediaWindowViewModel EditMediaWindowViewModel => _provider.GetRequiredService<EditMediaWindowViewModel>();
         
     }
 }

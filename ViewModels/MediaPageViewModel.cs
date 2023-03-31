@@ -14,6 +14,7 @@ using System.Windows.Controls;
 
 using System.Windows.Threading;
 using System.Windows.Documents;
+using DevExpress.Mvvm.POCO;
 
 namespace Melista.ViewModels
 {
@@ -21,6 +22,7 @@ namespace Melista.ViewModels
     {
         private readonly PageService _pageService;
 
+        private readonly WindowService _windowService;
         public Uri PlayPauseImage { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
@@ -36,8 +38,11 @@ namespace Melista.ViewModels
 
         string[] PlayPauseImagePaths;
 
-        public MediaPageViewModel(PageService pageService)
+        public MediaPageViewModel(PageService pageService, WindowService windowService)
         {
+
+            _windowService = windowService;
+
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
 
@@ -213,6 +218,11 @@ namespace Melista.ViewModels
             Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
             _pageService.ChangePage(new MediaPage());
             
+        });
+
+        public DelegateCommand OpenEditMediaWindow => new(() =>
+        {
+            _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel());
         });
            
     }
