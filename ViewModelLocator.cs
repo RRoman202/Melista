@@ -31,8 +31,6 @@ namespace Melista
         public StartPageViewModel StartPageViewModel => _provider.GetRequiredService<StartPageViewModel>();
         public MediaPageViewModel MediaPageViewModel => _provider.GetRequiredService<MediaPageViewModel>();
         public ProfileViewModel ProfileViewModel => _provider.GetRequiredService<ProfileViewModel>();
-        
-
         public EditMediaWindowViewModel EditMediaWindowViewModel => _provider.GetRequiredService<EditMediaWindowViewModel>();
         
     }
