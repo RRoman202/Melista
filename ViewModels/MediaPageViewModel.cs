@@ -130,6 +130,14 @@ namespace Melista.ViewModels
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
         {
+            Task.Run(async () =>
+            {
+                if (Player.SourceProvider.MediaPlayer != null)
+                {
+                    Player.SourceProvider.MediaPlayer.Stop();
+                }
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
             Player = new Vlc.DotNet.Wpf.VlcControl();
             _pageService.ChangePage(new StartPageView());
         });
@@ -237,7 +245,7 @@ namespace Melista.ViewModels
         public DelegateCommand FullScreen => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
+            
             Task.Run(async () =>
             {
                 if (Player.SourceProvider.MediaPlayer != null)
@@ -257,7 +265,7 @@ namespace Melista.ViewModels
         public DelegateCommand MiniScreenCommand => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
+            
             Task.Run(async () =>
             {
                 if (Player.SourceProvider.MediaPlayer != null)
