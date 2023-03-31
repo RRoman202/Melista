@@ -26,7 +26,7 @@ namespace Melista.ViewModels
             if (!File.Exists("theme.json"))
             {
                 ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"style/dark.xaml", UriKind.Relative);
+                dict.Source = new Uri(@"themes/dark.xaml", UriKind.Relative);
 
                 Application.Current.Resources.MergedDictionaries[0] = dict;
                 List<Theme> _theme = new List<Theme>();
@@ -50,14 +50,14 @@ namespace Melista.ViewModels
                     if (theme == "Светлая")
                     {
                         ResourceDictionary dict = new ResourceDictionary();
-                        dict.Source = new Uri(@"style/light.xaml", UriKind.Relative);
+                        dict.Source = new Uri(@"themes/light.xaml", UriKind.Relative);
 
                         Application.Current.Resources.MergedDictionaries[0] = dict;
                     }
                     if (theme == "Темная")
                     {
                         ResourceDictionary dict = new ResourceDictionary();
-                        dict.Source = new Uri(@"style/dark.xaml", UriKind.Relative);
+                        dict.Source = new Uri(@"themes/dark.xaml", UriKind.Relative);
 
                         Application.Current.Resources.MergedDictionaries[0] = dict;
                     }
