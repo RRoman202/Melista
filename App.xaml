@@ -12,8 +12,8 @@
             <converters:BlurPanelConverter x:Key="BlurPanelConverter"></converters:BlurPanelConverter>
             <FontFamily x:Key="Font">/Resources/Fonts/#Montserrat</FontFamily>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
-                <!--<ResourceDictionary Source="Styles/LightTheme.xaml"/>-->
+                <ResourceDictionary Source="themes/dark.xaml"/>
+                <!--<ResourceDictionary Source="themes/light.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

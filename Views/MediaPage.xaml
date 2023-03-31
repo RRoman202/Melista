@@ -152,7 +152,7 @@
                     <StackPanel Margin="20">
                         <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
                         <TextBlock Foreground="White">Описание</TextBlock>
-                        <Button Content="изменить"></Button>
+                        <Button Content="изменить" Command="{Binding OpenEditMediaWindow}"></Button>
                     </StackPanel>
                     
                 </Border>
