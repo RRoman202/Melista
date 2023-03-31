@@ -78,7 +78,7 @@ namespace Melista.ViewModels
             Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
             Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
             Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
-            timer2.Interval = TimeSpan.FromSeconds(0.05);
+            timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
             timer2.Start();
         }
@@ -91,8 +91,8 @@ namespace Melista.ViewModels
 
         public void MediaOpened(object sender, Vlc.DotNet.Core.VlcMediaPlayerOpeningEventArgs e)
         {
-            
-            
+
+            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
             DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
             Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
         }
