@@ -224,6 +224,5 @@ namespace Melista.ViewModels
         {
             _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel());
         });
-           
     }
 }

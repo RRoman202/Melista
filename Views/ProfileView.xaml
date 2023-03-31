@@ -1,0 +1,61 @@
+﻿<Page x:Class="Melista.Views.ProfileView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Melista.Views"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      DataContext="{Binding ProfileViewModel, Source={StaticResource ViewModelLocator}}"
+      xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{DynamicResource FilePanel}" Margin="10" CornerRadius="30">
+            <StackPanel Margin="20">
+                <Grid>
+                    
+                </Grid>
+                <Grid Height="40">
+                    <TextBlock Style="{DynamicResource TextStyle2}" VerticalAlignment="Center">Тема приложения</TextBlock>
+                    <ComboBox Style="{DynamicResource ComboBoxTest2}" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right"
+                               ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}">
+                    </ComboBox>
+                    <Separator VerticalAlignment="Bottom"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        
+        <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" Width="270" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
+                <Grid Background="White" Height="0.5" Margin="20 0"></Grid>
+                <ListView Margin="10 30 10 0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </StackPanel>
+            <Grid Grid.Row="1" x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
+                <StackPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=buttons}" >
+                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="Очистить" Margin="40 20"/>
+                    <Button Style="{DynamicResource ButtonOne}" Command="{Binding GoToStartPage}"  Grid.Row="1" Height="40" 
+                            Content="На главную" Margin="40 0 40 20"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

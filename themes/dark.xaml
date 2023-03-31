@@ -4,7 +4,9 @@
     <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
 
     <Color x:Key="pwsPrimaryColor">#ffffff</Color>
+    <Color x:Key="pwsSecondaryColor">#000000</Color>
     <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource pwsSecondaryColor}"/>
 
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
