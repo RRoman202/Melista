@@ -42,7 +42,7 @@ namespace Melista.ViewModels
         public bool isPlaying;
 
         string[] PlayPauseImagePaths;
-
+        
         public MediaPageViewModel(PageService pageService, WindowService windowService)
         {
             string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -69,10 +69,12 @@ namespace Melista.ViewModels
                 "--no-xlib",
                 "--no-osd",
                 "--no-video-title-show",
-                "--vout=opengl"
+                "--vout=glx",
+                "--avcodec-hw=none"
             };
-            Player.BeginInit();
-            
+
+
+
             
             Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
             
@@ -80,10 +82,13 @@ namespace Melista.ViewModels
             if (path != null)
             {
                 Position = 0;
-                Player.SourceProvider.MediaPlayer.Play(new Uri(path));
-                
-                
+                Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
+                Player.SourceProvider.MediaPlayer.Play();
+               
+
+
             }
+
             Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
             Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
             Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
@@ -105,7 +110,7 @@ namespace Melista.ViewModels
 
         public void MediaOpened(object sender, Vlc.DotNet.Core.VlcMediaPlayerOpeningEventArgs e)
         {
-
+           
             DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
             DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
             Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
@@ -135,6 +140,7 @@ namespace Melista.ViewModels
             }
         }
         public Vlc.DotNet.Wpf.VlcControl Player { get; set; }
+        
         
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
