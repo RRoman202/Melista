@@ -21,7 +21,7 @@ namespace Melista.ViewModels
             _pageService = pageService;
             _pageService.onPageChanged += (page) => PageSource = page;
             _pageService.ChangePage(new StartPageView());
-            InterfaceVisible = 10;
+            InterfaceVisible = 2;
 
             if (!File.Exists("theme.json"))
             {
@@ -92,7 +92,7 @@ namespace Melista.ViewModels
 
         public void InterfaceisVisible2()
         {
-            InterfaceVisible = 10;
+            InterfaceVisible = 2;
         }
     }
 }
