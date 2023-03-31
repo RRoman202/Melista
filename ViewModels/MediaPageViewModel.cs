@@ -130,6 +130,7 @@ namespace Melista.ViewModels
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
         {
+            Player.SourceProvider.MediaPlayer.Pause();
             Task.Run(async () =>
             {
                 if (Player.SourceProvider.MediaPlayer != null)
@@ -245,7 +246,7 @@ namespace Melista.ViewModels
         public DelegateCommand FullScreen => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            
+            Player.SourceProvider.MediaPlayer.Pause();
             Task.Run(async () =>
             {
                 if (Player.SourceProvider.MediaPlayer != null)
@@ -265,7 +266,7 @@ namespace Melista.ViewModels
         public DelegateCommand MiniScreenCommand => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            
+            Player.SourceProvider.MediaPlayer.Pause();
             Task.Run(async () =>
             {
                 if (Player.SourceProvider.MediaPlayer != null)
