@@ -229,7 +229,7 @@ namespace Melista.ViewModels
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
             Player.SourceProvider.MediaPlayer.Pause();
-            //Player = new Vlc.DotNet.Wpf.VlcControl();
+            
             
             _pageService.ChangePage(new FullScreenPage());
             
@@ -240,7 +240,7 @@ namespace Melista.ViewModels
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
             Player.SourceProvider.MediaPlayer.Pause();
-            //Player = new Vlc.DotNet.Wpf.VlcControl();
+            
             
             _pageService.ChangePage(new MediaPage());
 
