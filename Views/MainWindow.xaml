@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <controls:BlurryUserControl Width="auto" Visibility="Visible"
                                     Height="{Binding InterfaceVisible}" 
-                                    VerticalAlignment="Top" Background="#000000"
+                                    VerticalAlignment="Top" Background="{DynamicResource SecondaryBrush}"
                                     Opacity="0.6" BorderThickness="0"
                                     Panel.ZIndex="100" BlurContainer="{Binding ElementName=OuterBlurContainer}"
                                     BlurRadius="45" Magnification="0.25">

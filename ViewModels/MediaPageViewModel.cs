@@ -212,8 +212,6 @@ namespace Melista.ViewModels
         {
             Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
             _pageService.ChangePage(new MediaPage());
-            
         });
-           
     }
 }
