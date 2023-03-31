@@ -17,6 +17,9 @@ using System.Windows.Documents;
 using DevExpress.Mvvm.POCO;
 using Vlc.DotNet.Core.Interops.Signatures;
 using Vlc.DotNet.Core;
+using Vlc.DotNet.Wpf;
+using FFmpeg.AutoGen;
+using System.Drawing.Drawing2D;
 
 namespace Melista.ViewModels
 {
@@ -63,10 +66,16 @@ namespace Melista.ViewModels
             
             var options = new string[]
             {
-                ":sout=#file{dst="+System.IO.Path.Combine(Environment.CurrentDirectory, "output.mov")+"}",
-                ":sout-keep",
+                "--no-xlib",
+                "--no-osd",
+                "--no-video-title-show",
+                "--vout=opengl"
             };
+            Player.BeginInit();
+            
+            
             Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
+            
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
