@@ -17,6 +17,9 @@ using System.Windows.Documents;
 using DevExpress.Mvvm.POCO;
 using Vlc.DotNet.Core.Interops.Signatures;
 using Vlc.DotNet.Core;
+using Vlc.DotNet.Wpf;
+using FFmpeg.AutoGen;
+using System.Drawing.Drawing2D;
 
 namespace Melista.ViewModels
 {
@@ -39,7 +42,7 @@ namespace Melista.ViewModels
         public bool isPlaying;
 
         string[] PlayPauseImagePaths;
-
+        
         public MediaPageViewModel(PageService pageService, WindowService windowService)
         {
             string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -63,50 +66,69 @@ namespace Melista.ViewModels
             
             var options = new string[]
             {
-                ":sout=#file{dst="+System.IO.Path.Combine(Environment.CurrentDirectory, "output.mov")+"}",
-                ":sout-keep",
+                "--no-xlib",
+                "--no-osd",
+                "--no-video-title-show",
+                "--vout=glx",
+                "--avcodec-hw=none"
             };
+
+
+
+            
             Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
+            
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
-                Player.SourceProvider.MediaPlayer.Play(new Uri(path));
-                
-                
+                Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
+                Player.SourceProvider.MediaPlayer.Play();
+               
+
+
             }
+
             Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
             Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
             Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
             timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
+            
             timer2.Start();
+            
         }
 
         private void MediaPlayer_LengthChanged(object? sender, VlcMediaPlayerLengthChangedEventArgs e)
         {
+            
             Duration = Player.SourceProvider.MediaPlayer.Length;
             DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            
+
         }
 
         public void MediaOpened(object sender, Vlc.DotNet.Core.VlcMediaPlayerOpeningEventArgs e)
         {
-
+           
             DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
             DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
             Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
+            
         }
 
         public void MediaEnded(object sender, VlcMediaPlayerEndReachedEventArgs e)
         {
             isPlaying = false;
             PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
+            Position = Duration;
         }
         void timer_Tick2(object sender, EventArgs e)
         {
+            
             if (Player.SourceProvider.MediaPlayer != null)
             {
-
+                
                 Position = Player.SourceProvider.MediaPlayer.Time;
                 DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
                 
@@ -119,9 +141,19 @@ namespace Melista.ViewModels
         }
         public Vlc.DotNet.Wpf.VlcControl Player { get; set; }
         
+        
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
         {
+            Player.SourceProvider.MediaPlayer.Pause();
+            Task.Run(async () =>
+            {
+                if (Player.SourceProvider.MediaPlayer != null)
+                {
+                    Player.SourceProvider.MediaPlayer.Stop();
+                }
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
             Player = new Vlc.DotNet.Wpf.VlcControl();
             _pageService.ChangePage(new StartPageView());
         });
@@ -225,12 +257,22 @@ namespace Melista.ViewModels
             DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
             
         });
+        
         public DelegateCommand FullScreen => new(() =>
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
             Player.SourceProvider.MediaPlayer.Pause();
-            
-            
+            Task.Run(async () =>
+            {
+                if (Player.SourceProvider.MediaPlayer != null)
+                {
+                    Player.SourceProvider.MediaPlayer.Stop();
+                }
+                    
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+            Player = new Vlc.DotNet.Wpf.VlcControl();
+
             _pageService.ChangePage(new FullScreenPage());
             
 
@@ -240,8 +282,16 @@ namespace Melista.ViewModels
         {
             Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
             Player.SourceProvider.MediaPlayer.Pause();
-            
-            
+            Task.Run(async () =>
+            {
+                if (Player.SourceProvider.MediaPlayer != null)
+                {
+                    Player.SourceProvider.MediaPlayer.Stop();
+                }
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+            Player = new Vlc.DotNet.Wpf.VlcControl();
+
             _pageService.ChangePage(new MediaPage());
 
         });

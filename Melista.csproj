@@ -98,12 +98,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Light\search.png" />
+    <Content Include="Resources\Light\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Fonts\Montserrat.ttf" />
-    <Resource Include="Resources\Dark\Dark Theme.png" />
+    <Content Include="Resources\Dark\Dark Theme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Images\Gradient.png" />
-    <Content Include="Resources\Light\Light Theme.png" />
-    <Resource Include="Resources\Dark\search.png" />
+    <Content Include="Resources\Light\Light Theme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Dark\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Folder Include="Models\" />
   </ItemGroup>
 

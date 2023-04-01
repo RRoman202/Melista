@@ -30,7 +30,7 @@
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Style="{DynamicResource ComboBoxTest2}" 
-                          VerticalAlignment="Center" Margin="20 0 0 0" Width="140" 
+                          VerticalAlignment="Center" Margin="20 0 0 0" Width="160" 
                           HorizontalAlignment="Left">
                     <ComboBoxItem>Музыка</ComboBoxItem>
                     <ComboBoxItem>Видео</ComboBoxItem>

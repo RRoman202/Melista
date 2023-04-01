@@ -38,8 +38,8 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock Foreground="White" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
-                <Grid Background="White" Height="0.5" Margin="20 0"></Grid>
+                <TextBlock Foreground="{DynamicResource PrimaryForegroundBrush}" HorizontalAlignment="Center" Margin="0 20 0 0">Статистика</TextBlock>
+                <Separator Background="{DynamicResource PrimaryForegroundBrush}" Height="0.5" Margin="20 0"></Separator>
                 <ListView Margin="10 30 10 0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
