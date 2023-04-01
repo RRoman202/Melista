@@ -10,7 +10,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" AllowsTransparency="False"
         WindowState="Maximized" MouseDown="Window_MouseDown"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
-        Icon="/Resources/Icons/melista.png" WindowStyle="None">
+        Icon="/Resources/Icons/melista.png" WindowStyle="None" >
     <Grid x:Name="OuterBlurContainer" Style="{DynamicResource Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
