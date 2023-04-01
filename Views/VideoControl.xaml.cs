@@ -16,15 +16,14 @@ using System.Windows.Shapes;
 namespace Melista.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MediaPage.xaml
+    /// Логика взаимодействия для VideoControl.xaml
     /// </summary>
-    public partial class MediaPage : Page
+    public partial class VideoControl : UserControl
     {
-        public MediaPage()
+        public VideoControl()
         {
             InitializeComponent();
         }
-
         private void Slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
             FrameworkElement element = (FrameworkElement)sender;
