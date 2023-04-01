@@ -20,6 +20,8 @@ using Vlc.DotNet.Core;
 using Vlc.DotNet.Wpf;
 using FFmpeg.AutoGen;
 using System.Drawing.Drawing2D;
+using LibVLCSharp.Shared;
+using System.Windows.Forms;
 
 namespace Melista.ViewModels
 {
@@ -42,7 +44,10 @@ namespace Melista.ViewModels
         public bool isPlaying;
 
         string[] PlayPauseImagePaths;
-        
+
+        LibVLC _libVLC;
+        LibVLCSharp.Shared.MediaPlayer _mediaPlayer;
+
         public MediaPageViewModel(PageService pageService, WindowService windowService)
         {
             string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -60,10 +65,6 @@ namespace Melista.ViewModels
             _pageService = pageService;
             isPlaying = true;
             MediaName = Global.CurrentMedia.NameVideo;
-
-            Player = new Vlc.DotNet.Wpf.VlcControl();
-
-            
             var options = new string[]
             {
                 "--no-xlib",
@@ -75,88 +76,91 @@ namespace Melista.ViewModels
 
 
 
+
+            //Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
+
+            //string path = GetPathFromLink(Global.CurrentMedia.Path);
+            //if (path != null)
+            //{
+            //    Position = 0;
+            //    Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
+            //    Player.SourceProvider.MediaPlayer.Play();
+
+
+
+            //}
+
             
-            Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
+            //Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
+            //Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
+            
+            
+        }
+        public DelegateCommand VideoLoaded => new(() =>
+        {
+            Core.Initialize();
+
+            _libVLC = new LibVLC();
+            Player = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
             
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
-                Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
-                Player.SourceProvider.MediaPlayer.Play();
-               
-
-
+                Player.Play(new Media(_libVLC, new Uri(path)));
+                
             }
-
-            Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
-            Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
-            Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
+            Player.Opening += MediaOpened;
+            Player.LengthChanged += MediaLengthChanged;
+            Player.EndReached += MediaEnded;
             timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
-            
+
             timer2.Start();
-            
-        }
 
-        private void MediaPlayer_LengthChanged(object? sender, VlcMediaPlayerLengthChangedEventArgs e)
-        {
-            
-            Duration = Player.SourceProvider.MediaPlayer.Length;
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
-            
 
-        }
+        });
 
-        public void MediaOpened(object sender, Vlc.DotNet.Core.VlcMediaPlayerOpeningEventArgs e)
-        {
-           
-            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
-            Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
-            
-        }
-
-        public void MediaEnded(object sender, VlcMediaPlayerEndReachedEventArgs e)
+        private void MediaEnded(object? sender, EventArgs e)
         {
             isPlaying = false;
             PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
             Position = Duration;
         }
-        void timer_Tick2(object sender, EventArgs e)
+
+        private void MediaLengthChanged(object? sender, MediaPlayerLengthChangedEventArgs e)
+        {
+            Duration = Player.Length;
+            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+        }
+
+        private void MediaOpened(object? sender, EventArgs e)
         {
             
-            if (Player.SourceProvider.MediaPlayer != null)
+            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            Player.Time = Global.CurrentMedia.CurrentTime;
+        }
+        void timer_Tick2(object sender, EventArgs e)
+        {
+
+            if (Player != null)
             {
-                
-                Position = Player.SourceProvider.MediaPlayer.Time;
+
+                Position = Player.Time;
                 DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
-                
+
                 if (isPlaying)
                 {
-                    Position = Player.SourceProvider.MediaPlayer.Time;
-
+                    Position = Player.Time;
                 }
             }
         }
-        public Vlc.DotNet.Wpf.VlcControl Player { get; set; }
+        public LibVLCSharp.Shared.MediaPlayer Player { get; set; }
         
         
         public Visibility InterfaceVisible { get; set; }
-        public DelegateCommand Back => new(() =>
-        {
-            Player.SourceProvider.MediaPlayer.Pause();
-            Task.Run(async () =>
-            {
-                if (Player.SourceProvider.MediaPlayer != null)
-                {
-                    Player.SourceProvider.MediaPlayer.Stop();
-                }
-            }).WaitAsync(TimeSpan.FromMilliseconds(10))
-            .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
-            _pageService.ChangePage(new StartPageView());
-        });
+        
 
         public DelegateCommand PlayVideoCommand => new(() =>
         {
@@ -164,39 +168,39 @@ namespace Melista.ViewModels
             {
                 if (Position == Duration)
                 {
-                    Player.SourceProvider.MediaPlayer.Time = 0;
+                    Player.Time = 0;
                 }
-                Player.SourceProvider.MediaPlayer.Play();
+                Player.Play();
                 isPlaying = true;
                 PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             }
             else if (isPlaying)
             {
                 PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
-                Player.SourceProvider.MediaPlayer.Pause();
+                Player.Pause();
                 isPlaying = false;
             }
         });
 
         public DelegateCommand FastForward => new(() =>
         {
-            Player.SourceProvider.MediaPlayer.Time += 10000;
-            Position = Player.SourceProvider.MediaPlayer.Time;
-            
+            Player.Time += 10000;
+            Position = Player.Time;
+
 
         });
 
         public DelegateCommand Rewind => new(() =>
         {
-            if(Player.SourceProvider.MediaPlayer.Time >= 10000)
+            if (Player.Time >= 10000)
             {
-                Player.SourceProvider.MediaPlayer.Time -= 10000;
-                Position = Player.SourceProvider.MediaPlayer.Time;
+                Player.Time -= 10000;
+                Position = Player.Time;
             }
             else
             {
-                Player.SourceProvider.MediaPlayer.Time = 0;
-                Position = Player.SourceProvider.MediaPlayer.Time;
+                Player.Time = 0;
+                Position = Player.Time;
             }
 
         });
@@ -238,17 +242,17 @@ namespace Melista.ViewModels
         public DelegateCommand SliderDragStartedCommand => new(() =>
         {
             thumbIsDraging = true;
-            Player.SourceProvider.MediaPlayer.Pause();
+            Player.Pause();
             timer2.Stop();
         });
 
         public DelegateCommand SliderDragCompletedCommand => new(() =>
         {
-            Player.SourceProvider.MediaPlayer.Time = (long)Position;
+            Player.Time = (long)Position;
             thumbIsDraging = false;
             if (isPlaying)
             {
-                Player.SourceProvider.MediaPlayer.Play();
+                Player.Play();
                 timer2.Start();
             }
         });
@@ -260,37 +264,37 @@ namespace Melista.ViewModels
         
         public DelegateCommand FullScreen => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
+            Global.CurrentMedia.CurrentTime = Player.Time;
+            Player.Pause();
             Task.Run(async () =>
             {
-                if (Player.SourceProvider.MediaPlayer != null)
+                if (Player != null)
                 {
-                    Player.SourceProvider.MediaPlayer.Stop();
+                    Player.Stop();
                 }
-                    
+
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+
 
             _pageService.ChangePage(new FullScreenPage());
-            
+
 
         });
 
         public DelegateCommand MiniScreenCommand => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
+            Global.CurrentMedia.CurrentTime = Player.Time;
+            Player.Pause();
             Task.Run(async () =>
             {
-                if (Player.SourceProvider.MediaPlayer != null)
+                if (Player != null)
                 {
-                    Player.SourceProvider.MediaPlayer.Stop();
+                    Player.Stop();
                 }
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+
 
             _pageService.ChangePage(new MediaPage());
 
@@ -299,6 +303,19 @@ namespace Melista.ViewModels
         public DelegateCommand OpenEditMediaWindow => new(() =>
         {
             _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel());
+        });
+        
+        public DelegateCommand Back => new(() =>
+        {
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Player.Pause();
+                Player.Stop();
+            });
+            
+
+            _pageService.ChangePage(new StartPageView());
         });
     }
 }
