@@ -61,7 +61,7 @@ namespace Melista.ViewModels
             isPlaying = true;
             MediaName = Global.CurrentMedia.NameVideo;
 
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+            
 
             
             var options = new string[]
@@ -69,29 +69,35 @@ namespace Melista.ViewModels
                 "--no-xlib",
                 "--no-osd",
                 "--no-video-title-show",
-                "--vout=glx",
+                "--vout=opengl",
                 "--avcodec-hw=none"
+                
             };
+            Player = new VlcMediaPlayer(vlcLibDirectory, options);
 
 
 
-            
-            Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
-            
+
+
+
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
-                Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
-                Player.SourceProvider.MediaPlayer.Play();
+                
+                
+                
+                Player.SetMedia(new Uri(path), options);
+                Player.Play();
+                
                
 
 
             }
 
-            Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
-            Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
-            Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
+            //Player.SourceProvider.MediaPlayer.Opening += MediaOpened;
+            //Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
+            //Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
             timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
             
@@ -102,8 +108,8 @@ namespace Melista.ViewModels
         private void MediaPlayer_LengthChanged(object? sender, VlcMediaPlayerLengthChangedEventArgs e)
         {
             
-            Duration = Player.SourceProvider.MediaPlayer.Length;
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            //Duration = Player.SourceProvider.MediaPlayer.Length;
+            //DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
             
 
         }
@@ -111,93 +117,93 @@ namespace Melista.ViewModels
         public void MediaOpened(object sender, Vlc.DotNet.Core.VlcMediaPlayerOpeningEventArgs e)
         {
            
-            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
-            Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
+            //DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            //DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            //Player.SourceProvider.MediaPlayer.Time = Global.CurrentMedia.CurrentTime;
             
         }
 
         public void MediaEnded(object sender, VlcMediaPlayerEndReachedEventArgs e)
         {
-            isPlaying = false;
-            PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
-            Position = Duration;
+            //isPlaying = false;
+            //PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
+            //Position = Duration;
         }
         void timer_Tick2(object sender, EventArgs e)
         {
             
-            if (Player.SourceProvider.MediaPlayer != null)
-            {
+            //if (Player.SourceProvider.MediaPlayer != null)
+            //{
                 
-                Position = Player.SourceProvider.MediaPlayer.Time;
-                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            //    Position = Player.SourceProvider.MediaPlayer.Time;
+            //    DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
                 
-                if (isPlaying)
-                {
-                    Position = Player.SourceProvider.MediaPlayer.Time;
+            //    if (isPlaying)
+            //    {
+            //        Position = Player.SourceProvider.MediaPlayer.Time;
 
-                }
-            }
+            //    }
+            //}
         }
-        public Vlc.DotNet.Wpf.VlcControl Player { get; set; }
+        public VlcMediaPlayer Player { get; set; }
         
         
         public Visibility InterfaceVisible { get; set; }
         public DelegateCommand Back => new(() =>
         {
-            Player.SourceProvider.MediaPlayer.Pause();
-            Task.Run(async () =>
-            {
-                if (Player.SourceProvider.MediaPlayer != null)
-                {
-                    Player.SourceProvider.MediaPlayer.Stop();
-                }
-            }).WaitAsync(TimeSpan.FromMilliseconds(10))
-            .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
-            _pageService.ChangePage(new StartPageView());
+            //Player.SourceProvider.MediaPlayer.Pause();
+            //Task.Run(async () =>
+            //{
+            //    if (Player.SourceProvider.MediaPlayer != null)
+            //    {
+            //        Player.SourceProvider.MediaPlayer.Stop();
+            //    }
+            //}).WaitAsync(TimeSpan.FromMilliseconds(10))
+            //.ConfigureAwait(false);
+            //Player = new Vlc.DotNet.Wpf.VlcControl();
+            //_pageService.ChangePage(new StartPageView());
         });
 
         public DelegateCommand PlayVideoCommand => new(() =>
         {
-            if (!isPlaying)
-            {
-                if (Position == Duration)
-                {
-                    Player.SourceProvider.MediaPlayer.Time = 0;
-                }
-                Player.SourceProvider.MediaPlayer.Play();
-                isPlaying = true;
-                PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
-            }
-            else if (isPlaying)
-            {
-                PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
-                Player.SourceProvider.MediaPlayer.Pause();
-                isPlaying = false;
-            }
+            //if (!isPlaying)
+            //{
+            //    if (Position == Duration)
+            //    {
+            //        Player.SourceProvider.MediaPlayer.Time = 0;
+            //    }
+            //    Player.SourceProvider.MediaPlayer.Play();
+            //    isPlaying = true;
+            //    PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
+            //}
+            //else if (isPlaying)
+            //{
+            //    PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
+            //    Player.SourceProvider.MediaPlayer.Pause();
+            //    isPlaying = false;
+            //}
         });
 
         public DelegateCommand FastForward => new(() =>
         {
-            Player.SourceProvider.MediaPlayer.Time += 10000;
-            Position = Player.SourceProvider.MediaPlayer.Time;
+            //Player.SourceProvider.MediaPlayer.Time += 10000;
+            //Position = Player.SourceProvider.MediaPlayer.Time;
             
 
         });
 
         public DelegateCommand Rewind => new(() =>
         {
-            if(Player.SourceProvider.MediaPlayer.Time >= 10000)
-            {
-                Player.SourceProvider.MediaPlayer.Time -= 10000;
-                Position = Player.SourceProvider.MediaPlayer.Time;
-            }
-            else
-            {
-                Player.SourceProvider.MediaPlayer.Time = 0;
-                Position = Player.SourceProvider.MediaPlayer.Time;
-            }
+            //if(Player.SourceProvider.MediaPlayer.Time >= 10000)
+            //{
+            //    Player.SourceProvider.MediaPlayer.Time -= 10000;
+            //    Position = Player.SourceProvider.MediaPlayer.Time;
+            //}
+            //else
+            //{
+            //    Player.SourceProvider.MediaPlayer.Time = 0;
+            //    Position = Player.SourceProvider.MediaPlayer.Time;
+            //}
 
         });
 
@@ -237,20 +243,20 @@ namespace Melista.ViewModels
         bool thumbIsDraging = false;
         public DelegateCommand SliderDragStartedCommand => new(() =>
         {
-            thumbIsDraging = true;
-            Player.SourceProvider.MediaPlayer.Pause();
-            timer2.Stop();
+            //thumbIsDraging = true;
+            //Player.SourceProvider.MediaPlayer.Pause();
+            //timer2.Stop();
         });
 
         public DelegateCommand SliderDragCompletedCommand => new(() =>
         {
-            Player.SourceProvider.MediaPlayer.Time = (long)Position;
-            thumbIsDraging = false;
-            if (isPlaying)
-            {
-                Player.SourceProvider.MediaPlayer.Play();
-                timer2.Start();
-            }
+            //Player.SourceProvider.MediaPlayer.Time = (long)Position;
+            //thumbIsDraging = false;
+            //if (isPlaying)
+            //{
+            //    Player.SourceProvider.MediaPlayer.Play();
+            //    timer2.Start();
+            //}
         });
         public DelegateCommand SliderValueChangedCommand => new(() =>
         {
@@ -260,39 +266,39 @@ namespace Melista.ViewModels
         
         public DelegateCommand FullScreen => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
-            Task.Run(async () =>
-            {
-                if (Player.SourceProvider.MediaPlayer != null)
-                {
-                    Player.SourceProvider.MediaPlayer.Stop();
-                }
+            //Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
+            //Player.SourceProvider.MediaPlayer.Pause();
+            //Task.Run(async () =>
+            //{
+            //    if (Player.SourceProvider.MediaPlayer != null)
+            //    {
+            //        Player.SourceProvider.MediaPlayer.Stop();
+            //    }
                     
-            }).WaitAsync(TimeSpan.FromMilliseconds(10))
-            .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+            //}).WaitAsync(TimeSpan.FromMilliseconds(10))
+            //.ConfigureAwait(false);
+            //Player = new Vlc.DotNet.Wpf.VlcControl();
 
-            _pageService.ChangePage(new FullScreenPage());
+            //_pageService.ChangePage(new FullScreenPage());
             
 
         });
 
         public DelegateCommand MiniScreenCommand => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
-            Player.SourceProvider.MediaPlayer.Pause();
-            Task.Run(async () =>
-            {
-                if (Player.SourceProvider.MediaPlayer != null)
-                {
-                    Player.SourceProvider.MediaPlayer.Stop();
-                }
-            }).WaitAsync(TimeSpan.FromMilliseconds(10))
-            .ConfigureAwait(false);
-            Player = new Vlc.DotNet.Wpf.VlcControl();
+            //Global.CurrentMedia.CurrentTime = Player.SourceProvider.MediaPlayer.Time;
+            //Player.SourceProvider.MediaPlayer.Pause();
+            //Task.Run(async () =>
+            //{
+            //    if (Player.SourceProvider.MediaPlayer != null)
+            //    {
+            //        Player.SourceProvider.MediaPlayer.Stop();
+            //    }
+            //}).WaitAsync(TimeSpan.FromMilliseconds(10))
+            //.ConfigureAwait(false);
+            //Player = new Vlc.DotNet.Wpf.VlcControl();
 
-            _pageService.ChangePage(new MediaPage());
+            //_pageService.ChangePage(new MediaPage());
 
         });
 

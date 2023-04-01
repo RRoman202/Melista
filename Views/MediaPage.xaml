@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:Melista.Views"
       xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" 
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+      xmlns:vlc2="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
       DataContext="{Binding MediaPageViewModel, Source={StaticResource ViewModelLocator}}"
       xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
       mc:Ignorable="d"
@@ -17,7 +19,7 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
+        
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
             <Grid ClipToBounds="True">
                 <Grid.RowDefinitions>
@@ -35,7 +37,8 @@
                             Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
                         <Grid ClipToBounds="True">
-                            <ContentControl x:Name="Video" Content="{Binding Player, Mode=TwoWay}">
+
+                            <vlc2:VideoView x:Name="Video" MediaPlayer="{Binding Player, Mode=TwoWay}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseMove">
                                         <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
@@ -46,7 +49,7 @@
                                     <RectangleGeometry RadiusX="20" RadiusY="20" 
                                                            Rect="{Binding Path=ActualHeight, ElementName=window, Converter={StaticResource ContentControlConverter}}"></RectangleGeometry>
                                 </ContentControl.Clip>
-                            </ContentControl>
+                            </vlc2:VideoView>
 
                             <Grid Visibility="{Binding InterfaceVisible}">
 
