@@ -12,6 +12,11 @@
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" x:Name="window" Background="Black">
 
     <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseMove">
+                <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Grid x:Name="MediaGrid" ClipToBounds="True" Width="{Binding Path=ActualWidth,ElementName=window}"  Height="{Binding Path=ActualHeight,ElementName=window}"  HorizontalAlignment="Center">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseMove">

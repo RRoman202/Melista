@@ -132,7 +132,7 @@ namespace Melista.ViewModels
         public void LoadFile() 
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            OpenFile.Filter = "Файлы mp3; mp4; mkv|*.mp3;*.mp4;*.mkv";
             OpenFile.Multiselect = true;
             if (OpenFile.ShowDialog() == true)
             {
