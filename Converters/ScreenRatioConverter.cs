@@ -14,7 +14,7 @@ namespace Melista.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var height = (double)value;
-            int percent = (int)height * 80 / 100;
+            int percent = (int)(height * 80 / 100) - 40;
             int width = (percent / 9) * 16;
             return new string(width.ToString());
         }
