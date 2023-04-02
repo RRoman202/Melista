@@ -49,7 +49,7 @@
                                             <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <Grid Visibility="Visible">
+                                    <Grid Visibility="{Binding InterfaceVisible}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseMove">
                                                 <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
@@ -72,6 +72,7 @@
                                         </Border>
 
                                         <Button x:Name="playpause" Height="25" Width="25" Command="{Binding PlayVideoCommand}">
+                                            <Button Width="25" Height="25" Background="Blue" Command="{Binding PlayVideoCommand}" Opacity="0.2"></Button>
                                             <Button.Background>
                                                 <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                             </Button.Background>
@@ -85,16 +86,19 @@
 
                                             <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
+                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding Rewind}" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
+                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding PlayVideoCommand}" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Command="{Binding FastForward}">
+                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding FastForward}" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                                     </Button.Background>
@@ -121,20 +125,26 @@
                                             <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
                                                 <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">
+                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding ChangedRate}" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0">
+                                                    <Button Width="25" Height="25" Background="Blue" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Command="{Binding FullScreen}">
+                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding FullScreen}" Opacity="0.2"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/size.png"/>
                                                     </Button.Background>
+                                                   
+                                                    
                                                 </Button>
+                                                
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
