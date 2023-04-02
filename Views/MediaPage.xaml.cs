@@ -57,5 +57,17 @@ namespace Melista.Views
                 command.Execute(null);
             }
         }
+
+        private void Video_MouseMove(object sender, MouseEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            ICommand command = viewModel.MouseMove;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+            
+        }
     }
 }

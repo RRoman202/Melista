@@ -55,8 +55,7 @@ namespace Melista.ViewModels
 
             _windowService = windowService;
 
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
-            timer.Tick += Timer_Tick;
+            
 
             PlayPauseImagePaths = new string[] { "Resources\\Icons\\play.png", "Resources\\Icons\\pause.png" };
             PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
@@ -99,17 +98,27 @@ namespace Melista.ViewModels
         public DelegateCommand VideoLoaded => new(() =>
         {
             Core.Initialize();
+            var options = new string[]
+            {
+                "--input-repeat=1",
+                "--rate=1"
 
-            _libVLC = new LibVLC();
+            };
+            _libVLC = new LibVLC(options);
             Player = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
-
+            Player.EnableMouseInput= true;
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
+                
                 Player.Play(new Media(_libVLC, new Uri(path)));
+                
+
 
             }
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            timer.Tick += Timer_Tick;
             Player.Opening += MediaOpened;
             Player.LengthChanged += MediaLengthChanged;
             Player.EndReached += MediaEnded;
@@ -131,14 +140,28 @@ namespace Melista.ViewModels
         private void MediaLengthChanged(object? sender, MediaPlayerLengthChangedEventArgs e)
         {
             Duration = Player.Length;
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            if(Duration > 3600000)
+            {
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"hh\:mm\:ss"));
+            }
+            else
+            {
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            }
         }
 
         private void MediaOpened(object? sender, EventArgs e)
         {
-
-            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
-            DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            if(Duration > 3600000)
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"hh\:mm\:ss"));
+            }
+            else
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            }
             Player.Time = Global.CurrentMedia.CurrentTime;
         }
         void timer_Tick2(object sender, EventArgs e)
@@ -148,7 +171,14 @@ namespace Melista.ViewModels
             {
 
                 Position = Player.Time;
-                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+                if(Duration > 3600000)
+                {
+                    DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
+                }
+                else
+                {
+                    DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+                }
 
                 if (isPlaying)
                 {
@@ -227,6 +257,7 @@ namespace Melista.ViewModels
 
         private void Timer_Tick(object sender, object e)
         {
+            
             if (NavigateTimer == 0 && !thumbIsDraging)
             {
                 InterfaceVisible = Visibility.Hidden;
@@ -258,7 +289,14 @@ namespace Melista.ViewModels
         });
         public DelegateCommand SliderValueChangedCommand => new(() =>
         {
-            DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            if(Duration > 3600000)
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
+            }
+            else
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            }
 
         });
 
@@ -316,6 +354,14 @@ namespace Melista.ViewModels
 
 
             _pageService.ChangePage(new StartPageView());
+        });
+        public DelegateCommand MouseMove => new(() =>
+        {
+            InterfaceVisible = Visibility.Visible;
+        });
+        public DelegateCommand ChangedRate => new(() =>
+        {
+            Player.SetRate(3);
         });
     }
 }
