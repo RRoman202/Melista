@@ -49,7 +49,6 @@ namespace Melista.ViewModels
                 _selectedMedia = value;
                 RaisePropertiesChanged(nameof(SelectedMedia));
                 Global.CurrentMedia = SelectedMedia;
-
             }
         }
 
@@ -66,10 +65,8 @@ namespace Melista.ViewModels
                 }
                 Medias = await _mediaService.GetMedia();
                 ProgVis = Visibility.Hidden;
-               
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-            
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -92,11 +89,9 @@ namespace Melista.ViewModels
                 var files = dataObject.GetFileDropList();
                 foreach (var file in files)
                 {
-
                     if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
                     {
                         TagLib.File filik = TagLib.File.Create(file);
-
                         var firstPicture = filik.Tag.Pictures.FirstOrDefault();
                         if (firstPicture == null)
                         {
@@ -109,12 +104,10 @@ namespace Melista.ViewModels
                             new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                             };
                             filik.Save();
-
                         }
                         CreateShortCut(file, RemoveFormatString(file));
                         k++;
                     }
-                    
                 }
                 if(k == 0)
                 {
@@ -132,11 +125,14 @@ namespace Melista.ViewModels
 
         public DelegateCommand ClickMedia => new(() =>
             _pageService.ChangePage(new MediaPage()));
-
+        public DelegateCommand OpenProfile => new(() =>
+        {
+            _pageService.ChangePage(new ProfileView());
+        });
         public void LoadFile() 
         {
             OpenFileDialog OpenFile = new OpenFileDialog();
-            OpenFile.Filter = "Файлы mp3; mp4|*.mp3;*.mp4";
+            OpenFile.Filter = "Файлы mp3; mp4; mkv|*.mp3;*.mp4;*.mkv";
             OpenFile.Multiselect = true;
             if (OpenFile.ShowDialog() == true)
             {
@@ -156,23 +152,17 @@ namespace Melista.ViewModels
                             new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                         };
                         filik.Save();
-                        
                     }
-                   
                     CreateShortCut(file, RemoveFormatString(file));
-                  
-                    
                 }
-                
             }
         }
 
         public string RemoveFormatString(string stringForRemove) 
         {
-
             if (stringForRemove.Contains('\\')) 
             { 
-               string[] strings = stringForRemove.Split('\\');
+                string[] strings = stringForRemove.Split('\\');
                 stringForRemove = strings[strings.Length - 1];
             }
             string[] strings_1 = stringForRemove.Split('.');
@@ -190,13 +180,9 @@ namespace Melista.ViewModels
 
             Task.Run(async () =>
             {
-
                 Medias = await _mediaService.GetMedia();
-
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
-
         }
-
     }
 }

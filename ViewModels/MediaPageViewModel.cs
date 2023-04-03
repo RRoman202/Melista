@@ -14,6 +14,14 @@ using System.Windows.Controls;
 
 using System.Windows.Threading;
 using System.Windows.Documents;
+using DevExpress.Mvvm.POCO;
+using Vlc.DotNet.Core.Interops.Signatures;
+using Vlc.DotNet.Core;
+using Vlc.DotNet.Wpf;
+using FFmpeg.AutoGen;
+using System.Drawing.Drawing2D;
+using LibVLCSharp.Shared;
+using System.Windows.Forms;
 
 namespace Melista.ViewModels
 {
@@ -21,6 +29,7 @@ namespace Melista.ViewModels
     {
         private readonly PageService _pageService;
 
+        private readonly WindowService _windowService;
         public Uri PlayPauseImage { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
@@ -36,87 +45,166 @@ namespace Melista.ViewModels
 
         string[] PlayPauseImagePaths;
 
-        public MediaPageViewModel(PageService pageService)
-        {
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
-            timer.Tick += Timer_Tick;
+        LibVLC _libVLC;
+        LibVLCSharp.Shared.MediaPlayer _mediaPlayer;
 
-            PlayPauseImagePaths = new string[] {"Resources\\Icons\\play.png", "Resources\\Icons\\pause.png"};
+        public MediaPageViewModel(PageService pageService, WindowService windowService)
+        {
+            string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
+            var vlcLibDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+
+            _windowService = windowService;
+
+            
+
+            PlayPauseImagePaths = new string[] { "Resources\\Icons\\play.png", "Resources\\Icons\\pause.png" };
             PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
 
             InterfaceVisible = Visibility.Hidden;
             _pageService = pageService;
             isPlaying = true;
             MediaName = Global.CurrentMedia.NameVideo;
-
-            Player = new MediaElement()
+            var options = new string[]
             {
-                LoadedBehavior = MediaState.Manual,
+                "--no-xlib",
+                "--no-osd",
+                "--no-video-title-show",
+                "--vout=glx",
+                "--avcodec-hw=none"
             };
-            Player.MediaOpened += MediaOpened;
-            Player.MediaEnded += MediaEnded;
 
+
+
+
+            //Player.SourceProvider.CreatePlayer(vlcLibDirectory, options);
+
+            //string path = GetPathFromLink(Global.CurrentMedia.Path);
+            //if (path != null)
+            //{
+            //    Position = 0;
+            //    Player.SourceProvider.MediaPlayer.SetMedia(new Uri(path), options);
+            //    Player.SourceProvider.MediaPlayer.Play();
+
+
+
+            //}
+
+
+            //Player.SourceProvider.MediaPlayer.LengthChanged += MediaPlayer_LengthChanged;
+            //Player.SourceProvider.MediaPlayer.EndReached += MediaEnded;
+
+
+        }
+        public DelegateCommand VideoLoaded => new(() =>
+        {
+            Core.Initialize();
+            var options = new string[]
+            {
+                "--input-repeat=1",
+                "--rate=1"
+
+            };
+            _libVLC = new LibVLC(options);
+            Player = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
+            Player.EnableMouseInput= true;
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             if (path != null)
             {
                 Position = 0;
-                Player.Source = new Uri(path);
-                Player.Play();
+                
+                Player.Play(new Media(_libVLC, new Uri(path)));
+                
+
+
             }
-
-            timer2.Interval = TimeSpan.FromSeconds(0.05);
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            timer.Tick += Timer_Tick;
+            Player.Opening += MediaOpened;
+            Player.LengthChanged += MediaLengthChanged;
+            Player.EndReached += MediaEnded;
+            timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
-            timer2.Start();
-        }
-        
-        public void MediaOpened(object sender, RoutedEventArgs e)
-        {
-            Duration = Player.NaturalDuration.TimeSpan.TotalSeconds;
-            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
-            Player.Position = Global.CurrentMedia.CurrentTime;
-        }
 
-        public void MediaEnded(object sender, RoutedEventArgs e)
+            timer2.Start();
+
+
+        });
+
+        private void MediaEnded(object? sender, EventArgs e)
         {
             isPlaying = false;
             PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
+            Position = Duration;
+        }
+
+        private void MediaLengthChanged(object? sender, MediaPlayerLengthChangedEventArgs e)
+        {
+            Duration = Player.Length;
+            if(Duration > 3600000)
+            {
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"hh\:mm\:ss"));
+            }
+            else
+            {
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            }
+        }
+
+        private void MediaOpened(object? sender, EventArgs e)
+        {
+            if(Duration > 3600000)
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"hh\:mm\:ss"));
+            }
+            else
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+                DurText2 = String.Format("{0}", TimeSpan.FromMilliseconds(Duration).ToString(@"mm\:ss"));
+            }
+            Player.Time = Global.CurrentMedia.CurrentTime;
         }
         void timer_Tick2(object sender, EventArgs e)
         {
-            if (Player.Source != null)
+
+            if (Player != null)
             {
-                if (Player.NaturalDuration.HasTimeSpan)
+
+                Position = Player.Time;
+                if(Duration > 3600000)
                 {
-                    Position = Player.Position.TotalSeconds;
-                    DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
-                    if (isPlaying)
-                    {
-                        Position = Player.Position.TotalSeconds;
-                        
-                    }
+                    DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
+                }
+                else
+                {
+                    DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+                }
+
+                if (isPlaying)
+                {
+                    Position = Player.Time;
                 }
             }
         }
-        public MediaElement Player { get; set; }
+        public LibVLCSharp.Shared.MediaPlayer Player { get; set; }
+
+
         public Visibility InterfaceVisible { get; set; }
-        public DelegateCommand Back => new(() =>
-        {
-            _pageService.ChangePage(new StartPageView());
-        });
+
 
         public DelegateCommand PlayVideoCommand => new(() =>
         {
             if (!isPlaying)
-            { 
-                if(Position == Duration)
+            {
+                if (Position == Duration)
                 {
-                    Player.Position = TimeSpan.FromSeconds(0);
+                    Player.Time = 0;
                 }
                 Player.Play();
                 isPlaying = true;
                 PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             }
-            else if(isPlaying)
+            else if (isPlaying)
             {
                 PlayPauseImage = new Uri(PlayPauseImagePaths[0], UriKind.Relative);
                 Player.Pause();
@@ -126,19 +214,24 @@ namespace Melista.ViewModels
 
         public DelegateCommand FastForward => new(() =>
         {
-            Player.Position += TimeSpan.FromSeconds(10);
-            Position = Player.Position.TotalSeconds;
-            DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
-            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+            Player.Time += 10000;
+            Position = Player.Time;
+
 
         });
 
         public DelegateCommand Rewind => new(() =>
         {
-            Player.Position -= TimeSpan.FromSeconds(10);
-            Position = Player.Position.TotalSeconds;
-            DurText = String.Format("{0}", Player.Position.ToString(@"mm\:ss"));
-            DurText2 = String.Format("{0}", Player.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+            if (Player.Time >= 10000)
+            {
+                Player.Time -= 10000;
+                Position = Player.Time;
+            }
+            else
+            {
+                Player.Time = 0;
+                Position = Player.Time;
+            }
 
         });
 
@@ -164,6 +257,7 @@ namespace Melista.ViewModels
 
         private void Timer_Tick(object sender, object e)
         {
+            
             if (NavigateTimer == 0 && !thumbIsDraging)
             {
                 InterfaceVisible = Visibility.Hidden;
@@ -185,7 +279,7 @@ namespace Melista.ViewModels
 
         public DelegateCommand SliderDragCompletedCommand => new(() =>
         {
-            Player.Position = TimeSpan.FromSeconds(Position);
+            Player.Time = (long)Position;
             thumbIsDraging = false;
             if (isPlaying)
             {
@@ -195,25 +289,79 @@ namespace Melista.ViewModels
         });
         public DelegateCommand SliderValueChangedCommand => new(() =>
         {
-            DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
-            if (!thumbIsDraging)
+            if(Duration > 3600000)
             {
-                Player.Position = TimeSpan.FromSeconds(Position);
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"hh\:mm\:ss"));
             }
+            else
+            {
+                DurText = String.Format("{0}", TimeSpan.FromMilliseconds(Position).ToString(@"mm\:ss"));
+            }
+
         });
+
         public DelegateCommand FullScreen => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
+            Global.CurrentMedia.CurrentTime = Player.Time;
+            Player.Pause();
+            Task.Run(async () =>
+            {
+                if (Player != null)
+                {
+                    Player.Stop();
+                }
+
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+
+
             _pageService.ChangePage(new FullScreenPage());
-            
+
+
         });
 
         public DelegateCommand MiniScreenCommand => new(() =>
         {
-            Global.CurrentMedia.CurrentTime = TimeSpan.FromSeconds(Player.Position.TotalSeconds);
+            Global.CurrentMedia.CurrentTime = Player.Time;
+            Player.Pause();
+            Task.Run(async () =>
+            {
+                if (Player != null)
+                {
+                    Player.Stop();
+                }
+            }).WaitAsync(TimeSpan.FromMilliseconds(10))
+            .ConfigureAwait(false);
+
+
             _pageService.ChangePage(new MediaPage());
-            
+
         });
-           
+
+        public DelegateCommand OpenEditMediaWindow => new(() =>
+        {
+            _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel());
+        });
+
+        public DelegateCommand Back => new(() =>
+        {
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                Player.Pause();
+                Player.Stop();
+            });
+
+
+            _pageService.ChangePage(new StartPageView());
+        });
+        public DelegateCommand MouseMove => new(() =>
+        {
+            InterfaceVisible = Visibility.Visible;
+        });
+        public DelegateCommand ChangedRate => new(() =>
+        {
+            Player.SetRate(3);
+        });
     }
 }

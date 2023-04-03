@@ -5,7 +5,9 @@
     <converters:ListItemHeightConverter x:Key="ListItemHeightConverter"></converters:ListItemHeightConverter>
 
     <Color x:Key="pwsPrimaryColor">#000000</Color>
+    <Color x:Key="pwsSecondaryColor">#FFFFFF</Color>
     <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource pwsSecondaryColor}"/>
 
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">
@@ -104,9 +106,9 @@
                                             <ColumnDefinition Width="5*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Border x:Name="Border" CornerRadius="11 0 0 11" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0" />
+                                        <Border x:Name="Border" CornerRadius="11" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0" />
                                         <Border Grid.Column="0" Margin="1"  Background="Transparent"  BorderThickness="0" />
-                                        <Path x:Name="Arrow" Grid.Column="1"  Fill="#414141" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        <Path x:Name="Arrow" Grid.Column="1" Margin="0 0 10 0" Fill="#414141" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="ToggleButton.IsMouseOver" Value="true">
@@ -116,11 +118,11 @@
                                 </ControlTemplate>
                             </ToggleButton.Template>
                         </ToggleButton>
-                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="10 5 5 5"  />
                         <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" IsReadOnly="{TemplateBinding IsReadOnly}"/>
-                        <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                        <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Fade">
                             <Grid Style="{DynamicResource DropDownGrid}" Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                <Border x:Name="DropDownBorder" Background="Transparent"  BorderThickness="0"/>
+                                <Border x:Name="DropDownBorder" Background="#FFFFFF" Opacity="0.6" BorderThickness="0" CornerRadius="0 0 10 10"/>
                                 <ScrollViewer SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" />
                                 </ScrollViewer>
@@ -294,6 +296,9 @@
         <GradientStop Offset="0" Color="#FFD9D3E8"/>
     </LinearGradientBrush>
 
+
+   
+
     <Style x:Key="Slider_RepeatButton" TargetType="RepeatButton">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="Template">
@@ -328,18 +333,17 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Border Background="{StaticResource SliderBackground}"/>
-                        <Border Grid.ColumnSpan="2" CornerRadius="4"  Background="{StaticResource SliderBackground}" Width="15">
-                        </Border>
+                        <Border Background="{StaticResource SliderBackground}" Width="5" Height="5"/>
+                        <Ellipse x:Name="BordRad" Grid.ColumnSpan="2" Fill="{StaticResource SliderBackground}" Width="15" Height="15" VerticalAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-
     <Style x:Key="Slider_CustomStyle" TargetType="Slider">
         <Setter Property="Focusable" Value="false" />
+        <Setter Property="Height" Value="5"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Slider">
@@ -347,15 +351,15 @@
                         <Border Grid.Column="1" CornerRadius="10">
                             <Track Grid.Column="1" Name="PART_Track">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Style="{StaticResource Slider_RepeatButton}"  
+                                    <RepeatButton Height="5" Style="{StaticResource Slider_RepeatButton}"  
                                 Command="Slider.DecreaseLarge"/>
                                 </Track.DecreaseRepeatButton>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Style="{StaticResource Slider_RepeatButton1}"  
+                                    <RepeatButton Height="5" Style="{StaticResource Slider_RepeatButton1}"  
                                 Command="Slider.IncreaseLarge"/>
                                 </Track.IncreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Style="{StaticResource Slider_Thumb}"/>
+                                    <Thumb x:Name="ThumbHeig" Height="15" Width="15" Style="{StaticResource Slider_Thumb}"/>
                                 </Track.Thumb>
                             </Track>
                         </Border>
@@ -386,7 +390,7 @@
                     <Grid x:Name="GridBg" Background="Transparent">
                         <Border Height="18">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Resources/Dark/close.png" Stretch="Uniform"/>
+                                <ImageBrush ImageSource="/Resources/Light/close.png" Stretch="Uniform"/>
                             </Border.Background>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
@@ -408,14 +412,14 @@
                     <Grid x:Name="GridBg" Background="Transparent">
                         <Border Height="18">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Resources/Dark/minimize.png" Stretch="Uniform"/>
+                                <ImageBrush ImageSource="/Resources/Light/minimize.png" Stretch="Uniform"/>
                             </Border.Background>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="GridBg" Property="Background" Value="#414141"/>
+                            <Setter TargetName="GridBg" Property="Background" Value="#919191"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -430,14 +434,14 @@
                     <Grid x:Name="GridBg" Background="Transparent">
                         <Border Height="18">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Resources/Dark/rollup.png" Stretch="Uniform"/>
+                                <ImageBrush ImageSource="/Resources/Light/rollup.png" Stretch="Uniform"/>
                             </Border.Background>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="GridBg" Property="Background" Value="#414141"/>
+                            <Setter TargetName="GridBg" Property="Background" Value="#919191"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
