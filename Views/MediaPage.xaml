@@ -79,11 +79,10 @@
                                         </Button>
 
 
-                                        <controls:BlurryUserControl
-                                    Background="Transparent" VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}"
-                                    BlurContainer="{Binding ElementName=Video}"
-                                    BlurRadius="45"
-                                    Magnification="0.25">
+                                        <controls:BlurryUserControl Background="Transparent" VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}"
+                                                                    BlurContainer="{Binding ElementName=Video}"
+                                                                    BlurRadius="45"
+                                                                    Magnification="0.25">
                                             <controls:BlurryUserControl.Clip>
                                                 <RectangleGeometry RadiusX="100" RadiusY="100" 
                                                            Rect="0 0 75 75"></RectangleGeometry>
@@ -158,15 +157,6 @@
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
-                                    <controls:BlurryUserControl Height="200" Width="250" Grid.Column="1"
-                                    BorderBrush="Black"
-                                    Background="Transparent"
-                                    BorderThickness="1"
-                                    DragMoveEnabled="True"
-                                    Panel.ZIndex="100"
-                                    BlurContainer="{Binding ElementName=Video}"
-                                    BlurRadius="45"
-                                    Magnification="0.25"/>
                                 </Grid>
                             </vlc:VideoView>
                         </Grid>

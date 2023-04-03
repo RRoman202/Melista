@@ -13,7 +13,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StartPageView">
 
-    <Grid x:Name="Aboba">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -43,12 +43,12 @@
             </Grid>
         </Border>
         <ProgressBar Grid.Row="1" Height="50" Width="200" Foreground="blue" Value="{Binding ProgVal}" Visibility="{Binding ProgVis}" Background="LightBlue">
-            
+
         </ProgressBar>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Font}" Text="Загрузка..." Foreground="White" Visibility="{Binding ProgVis}"></TextBlock>
         <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" >
 
-                    <ListView Margin="10 10 10 0" 
+            <ListView Margin="10 10 10 0" 
                         ItemsSource="{Binding Medias}"
                               SelectedItem="{Binding SelectedMedia}"
                       dd:DragDrop.IsDropTarget="True"
@@ -62,16 +62,16 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-                                    
-                                </UniformGrid>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Border>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
 
-        
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Border>
+
+
         <Grid Style="{DynamicResource BottomPanel}" Grid.Row="2">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
@@ -83,15 +83,5 @@
                         Width="200" Content="Профиль" Command="{Binding OpenProfile}"/>
             </StackPanel>
         </Grid>
-        <controls:BlurryUserControl Height="200" Width="250" Grid.Column="1"
-                                    BorderBrush="Black"
-                                    Background="Transparent"
-                                    BorderThickness="1"
-                                    DragMoveEnabled="True"
-                                    Panel.ZIndex="100"
-                                    BlurContainer="{Binding ElementName=Aboba}"
-                                    BlurRadius="45"
-                                    Magnification="0.25"/>
     </Grid>
-
 </Page>
