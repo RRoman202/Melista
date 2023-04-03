@@ -46,5 +46,15 @@ namespace Melista.Views
                 command.Execute(null);
             }
         }
+        private void Video_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            ICommand command = viewModel.VideoLoaded;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
     }
 }
