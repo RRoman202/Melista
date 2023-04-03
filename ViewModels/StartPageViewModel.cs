@@ -166,7 +166,9 @@ namespace Melista.ViewModels
                 stringForRemove = strings[strings.Length - 1];
             }
             string[] strings_1 = stringForRemove.Split('.');
-            return strings_1[0];
+            int ubrat = strings_1[strings_1.Length - 1].Length + 1;
+            stringForRemove = stringForRemove.Substring(0, stringForRemove.Length - ubrat);
+            return stringForRemove;
         }
         public void CreateShortCut(string Pathh, string shortPath) {
 
