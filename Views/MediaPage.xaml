@@ -61,7 +61,7 @@
                                         <Border HorizontalAlignment="Center" Height="75" Width="75">
                                             <controls:BlurryUserControl
                                     Background="Transparent"
-                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurContainer="{Binding ElementName=vgrid}"
                                     BlurRadius="45"
                                     Magnification="0.25">
                                                 <controls:BlurryUserControl.Clip>
@@ -77,6 +77,19 @@
                                                 <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                             </Button.Background>
                                         </Button>
+
+
+                                        <controls:BlurryUserControl
+                                    Background="Transparent" VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}"
+                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurRadius="45"
+                                    Magnification="0.25">
+                                            <controls:BlurryUserControl.Clip>
+                                                <RectangleGeometry RadiusX="100" RadiusY="100" 
+                                                           Rect="0 0 75 75"></RectangleGeometry>
+                                            </controls:BlurryUserControl.Clip>
+                                        </controls:BlurryUserControl>
+
                                         <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"></ColumnDefinition>
