@@ -14,7 +14,7 @@
       Title="MediaPage" x:Name="window"
       >
 
-    <Grid ClipToBounds="True">
+    <Grid x:Name="Aboba" ClipToBounds="True">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseMove">
                 <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
@@ -42,7 +42,7 @@
 
 
                             <vlc:VideoView x:Name="Video" MediaPlayer="{Binding Player}" Loaded="Video_Loaded">
-                                
+
                                 <Grid>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseMove">
@@ -61,7 +61,7 @@
                                         <Border HorizontalAlignment="Center" Height="75" Width="75">
                                             <controls:BlurryUserControl
                                     Background="Transparent"
-                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurContainer="{Binding ElementName=vgrid}"
                                     BlurRadius="45"
                                     Magnification="0.25">
                                                 <controls:BlurryUserControl.Clip>
@@ -72,11 +72,23 @@
                                         </Border>
 
                                         <Button x:Name="playpause" Height="25" Width="25" Command="{Binding PlayVideoCommand}">
-                                            <Button Width="25" Height="25" Background="Blue" Command="{Binding PlayVideoCommand}" Opacity="0.2"></Button>
+                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
                                             <Button.Background>
                                                 <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                             </Button.Background>
                                         </Button>
+
+
+                                        <controls:BlurryUserControl Background="Transparent" VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}"
+                                                                    BlurContainer="{Binding ElementName=Video}"
+                                                                    BlurRadius="45"
+                                                                    Magnification="0.25">
+                                            <controls:BlurryUserControl.Clip>
+                                                <RectangleGeometry RadiusX="100" RadiusY="100" 
+                                                           Rect="0 0 75 75"></RectangleGeometry>
+                                            </controls:BlurryUserControl.Clip>
+                                        </controls:BlurryUserControl>
+
                                         <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -86,19 +98,19 @@
 
                                             <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
-                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding Rewind}" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding Rewind}"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
-                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding PlayVideoCommand}" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Command="{Binding FastForward}">
-                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding FastForward}" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding FastForward}"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/next.png"/>
                                                     </Button.Background>
@@ -125,33 +137,27 @@
                                             <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
                                                 <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">
-                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding ChangedRate}" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding ChangedRate}"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0">
-                                                    <Button Width="25" Height="25" Background="Blue" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000"></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
                                                     </Button.Background>
                                                 </Button>
                                                 <Button Height="25" Width="25" Command="{Binding FullScreen}">
-                                                    <Button Width="25" Height="25" Background="Blue" Command="{Binding FullScreen}" Opacity="0.2"></Button>
+                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding FullScreen}" ></Button>
                                                     <Button.Background>
                                                         <ImageBrush ImageSource="/Resources/Icons/size.png"/>
                                                     </Button.Background>
-                                                   
-                                                    
                                                 </Button>
-                                                
                                             </StackPanel>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-
-
-
                             </vlc:VideoView>
                         </Grid>
                     </Border>

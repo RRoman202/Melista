@@ -210,22 +210,8 @@
                     </Setter>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <ColorAnimation To="White" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" 
-                                                         Duration="0:0:0.8"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" Value="#414141"/>
-                        </Trigger>
-                        
-                        <Trigger Property="IsMouseOver" Value="False">
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="Background" Value="#414141"/>
+                            <Setter Property="Background" Value="#FFFFFF"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
