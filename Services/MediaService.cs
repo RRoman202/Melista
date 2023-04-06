@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Melista.Utils;
 
 namespace Melista.Services
 {
@@ -47,7 +48,7 @@ namespace Melista.Services
 
                             }
                             
-                            medias.Add(new Video { NameVideo = RemoveFormatString(f.Name), ImageVideo = bm, Path = f.FullName });
+                            medias.Add(new Video { NameVideo = RemoveFormatString.RemoveFormat(f.Name), ImageVideo = bm, Path = f.FullName });
                         }
                         else
                         {
@@ -60,19 +61,7 @@ namespace Melista.Services
             
             return medias;
         }
-        public string RemoveFormatString(string stringForRemove)
-        {
-
-            if (stringForRemove.Contains('\\'))
-            {
-                string[] strings = stringForRemove.Split('\\');
-                stringForRemove = strings[strings.Length - 1];
-            }
-            string[] strings_1 = stringForRemove.Split('.');
-            int ubrat = strings_1[strings_1.Length - 1].Length + 1;
-            stringForRemove = stringForRemove.Substring(0, stringForRemove.Length - ubrat);
-            return stringForRemove;
-        }
+        
         bool CheckLink(string linkPathName)
         {
             if (System.IO.File.Exists(linkPathName))
