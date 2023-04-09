@@ -12,22 +12,19 @@
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" x:Name="window" Background="Black">
 
     <Grid>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="MouseMove">
-                <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
+        
         <Grid x:Name="MediaGrid" ClipToBounds="True" Width="{Binding Path=ActualWidth,ElementName=window}"  Height="{Binding Path=ActualHeight,ElementName=window}"  HorizontalAlignment="Center">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseMove">
-                    <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+           
             <Border x:Name="MediaEl" ClipToBounds="True" CornerRadius="20">
                 <Grid>
                     <vlc:VideoView x:Name="Video" MediaPlayer="{Binding Player}" Loaded="Video_Loaded">
-                        <Grid>
-                            <Grid Visibility="Visible">
+                        <Grid Background="#01000000">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Grid Visibility="{Binding InterfaceVisible}">
 
                                 <Border VerticalAlignment="Bottom" Height="{Binding Path=ActualHeight, ElementName=VideoPanel}" CornerRadius="20">
                                     <controls:BlurryUserControl
@@ -130,11 +127,7 @@
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseMove">
-                                <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                      
 
                         <ContentControl.Clip>
                             <RectangleGeometry RadiusX="20" RadiusY="20" 
