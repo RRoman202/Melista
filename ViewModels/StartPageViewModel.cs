@@ -29,6 +29,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
 using Melista.Utils;
+using System;
 
 namespace Melista.ViewModels
 {
@@ -98,7 +99,17 @@ namespace Melista.ViewModels
                         {
                             string kek = System.IO.Path.GetFullPath("aboba.jpeg");
                             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            ffMpeg.GetVideoThumbnail(file, kek, 5);
+                            Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+                            dynamic shell = Activator.CreateInstance(shellAppType);
+                            string dir = Path.GetDirectoryName(file);
+                            string file2 = Path.GetFileName(file);
+                            dynamic folder = shell.NameSpace(dir);
+                            dynamic folderItem = folder.ParseName(file2);
+
+                            string timee = folder.GetDetailsOf(folderItem, 27).ToString();
+                            string[] times = timee.Split(":");
+
+                            ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
                             Bitmap btr = new Bitmap(kek);
                             filik.Tag.Pictures = new TagLib.IPicture[]
                             {
@@ -146,7 +157,18 @@ namespace Melista.ViewModels
                     {
                         string kek = System.IO.Path.GetFullPath("aboba.jpeg");
                         var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                        ffMpeg.GetVideoThumbnail(file, kek, 5);
+                        Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+                        dynamic shell = Activator.CreateInstance(shellAppType);
+                        string dir = Path.GetDirectoryName(file);
+                        string file2 = Path.GetFileName(file);
+                        dynamic folder = shell.NameSpace(dir);
+                        dynamic folderItem = folder.ParseName(file2);
+
+                        string timee = folder.GetDetailsOf(folderItem, 27).ToString();
+                        string[] times = timee.Split(":");
+
+                        ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
+                        
                         Bitmap btr = new Bitmap(kek);
                         filik.Tag.Pictures = new TagLib.IPicture[]
                         {
