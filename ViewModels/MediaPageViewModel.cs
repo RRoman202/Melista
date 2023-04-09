@@ -82,6 +82,7 @@ namespace Melista.ViewModels
             {
                 Position = 0;
                 Player.Play(new Media(_libVLC, new Uri(path)));
+                
             }
             timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
             timer.Tick += Timer_Tick;
@@ -265,6 +266,7 @@ namespace Melista.ViewModels
 
 
             _pageService.ChangePage(new FullScreenPage());
+            
 
 
         });
