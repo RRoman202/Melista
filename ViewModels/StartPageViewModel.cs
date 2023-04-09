@@ -28,6 +28,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
+using Melista.Utils;
 
 namespace Melista.ViewModels
 {
@@ -105,7 +106,7 @@ namespace Melista.ViewModels
                             };
                             filik.Save();
                         }
-                        CreateShortCut(file, RemoveFormatString(file));
+                        CreateShortCut(file, RemoveFormatString.RemoveFormat(file));
                         k++;
                     }
                 }
@@ -153,20 +154,9 @@ namespace Melista.ViewModels
                         };
                         filik.Save();
                     }
-                    CreateShortCut(file, RemoveFormatString(file));
+                    CreateShortCut(file, RemoveFormatString.RemoveFormat(file));
                 }
             }
-        }
-
-        public string RemoveFormatString(string stringForRemove) 
-        {
-            if (stringForRemove.Contains('\\')) 
-            { 
-                string[] strings = stringForRemove.Split('\\');
-                stringForRemove = strings[strings.Length - 1];
-            }
-            string[] strings_1 = stringForRemove.Split('.');
-            return strings_1[0];
         }
         public void CreateShortCut(string Pathh, string shortPath) {
 

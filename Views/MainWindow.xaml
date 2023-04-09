@@ -8,14 +8,11 @@
         xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
         mc:Ignorable="d" MinHeight="450" MinWidth="800"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors" AllowsTransparency="False"
-        WindowState="Maximized" MouseDown="Window_MouseDown"
+        WindowState="Maximized" MouseLeftButtonDown="Window_MouseDown"
         DataContext="{Binding MainViewModel, Source={StaticResource ViewModelLocator}}"
         Icon="/Resources/Icons/melista.png" WindowStyle="None" >
     <Grid x:Name="OuterBlurContainer" Style="{DynamicResource Background}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="204*"/>
-        </Grid.RowDefinitions>
+        
         <controls:BlurryUserControl Width="auto" Visibility="Visible"
                                     Height="{Binding InterfaceVisible}" 
                                     VerticalAlignment="Top" Background="{DynamicResource SecondaryBrush}"
@@ -39,6 +36,6 @@
 
 
         <Frame NavigationUIVisibility="Hidden"
-               Content="{Binding PageSource}" Grid.Row="1"></Frame>
+               Content="{Binding PageSource}"></Frame>
     </Grid>
 </Window>
