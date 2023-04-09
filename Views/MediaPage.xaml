@@ -39,11 +39,12 @@
                             Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
 
                         <Grid x:Name="vgrid" MouseMove="Video_MouseMove">
+                            
 
 
                             <vlc:VideoView x:Name="Video" MediaPlayer="{Binding Player}" Loaded="Video_Loaded">
 
-                                <Grid>
+                                <Grid Background="#01000000">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseMove">
                                             <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
