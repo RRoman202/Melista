@@ -79,7 +79,7 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding ClickMedia}" />
+                            <i:InvokeCommandAction Command="{Binding ClickMediaMusic}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </ListView>
