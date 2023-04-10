@@ -251,10 +251,10 @@
                                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="Resources/Images/Gradient.png" Height="100" Width="100" Stretch="UniformToFill" HorizontalAlignment="Left"
+                                        <Image Source="{Binding ImageAudio}" Height="100" Width="100" Stretch="UniformToFill" HorizontalAlignment="Left"
                                             Grid.Column="0"/>
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
-                                            <TextBlock Text="Нет монет" Style="{DynamicResource TextStyle2}"/>
+                                            <TextBlock Text="{Binding NameAudio}" Style="{DynamicResource TextStyle2}"/>
                                             <TextBlock Text="Монеточка" Style="{DynamicResource TextStyle2}"/>
                                         </StackPanel>
                                     </StackPanel>

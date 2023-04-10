@@ -38,7 +38,7 @@ namespace Melista.ViewModels
         public DelegateCommand MusicLoaded => new(() =>
         {
             WaveOutEvent player = new WaveOutEvent();
-            string path = GetPathFromLink(Global.CurrentMedia.Path);
+            string path = GetPathFromLink(Global.CurrentAudio.Path);
             AudioFileReader audioFile = new AudioFileReader(path);
             player.Init(audioFile);
             player.Play();//aa
