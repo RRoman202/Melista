@@ -70,8 +70,8 @@
                 </ListView>
 
                 <ListView Style="{DynamicResource MusicList}" x:Name="Music" Margin="10 10 10 0" 
-                        ItemsSource="{Binding Medias}"
-                        SelectedItem="{Binding SelectedMedia}"
+                        ItemsSource="{Binding Audios}"
+                        SelectedItem="{Binding SelectedAudio}"
                         dd:DragDrop.IsDropTarget="True"
                         dd:DragDrop.DropHandler="{Binding}"
                         HorizontalAlignment="Stretch"
