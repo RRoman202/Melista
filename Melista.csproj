@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\ShortCuts\Новая папка\**" />
+    <EmbeddedResource Remove="Resources\ShortCuts\Новая папка\**" />
+    <None Remove="Resources\ShortCuts\Новая папка\**" />
+    <Page Remove="Resources\ShortCuts\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Dark\close.png" />
     <None Remove="Resources\Dark\minimize.png" />
     <None Remove="Resources\Dark\MiniScreen.png" />
@@ -45,7 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\ShortCuts\" />
     <Content Include="Resources\Dark\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -94,7 +100,10 @@
     <Content Include="Resources\Light\rollup.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+
+
     <Folder Include="Resources\ShortCuts\" />
+
   </ItemGroup>
 
   <ItemGroup>
@@ -112,11 +121,12 @@
     <PackageReference Include="DevExpressMvvm" Version="22.1.3" />
     <PackageReference Include="FFME.Windows" Version="4.4.350" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
-    <PackageReference Include="LibVLCSharp.WPF" Version="3.6.8" />
+    <PackageReference Include="LibVLCSharp.WPF" Version="3.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="NAudio" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NReco.VideoConverter" Version="1.2.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />

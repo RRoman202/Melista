@@ -36,7 +36,7 @@ namespace Melista.Services
                 DataContext = dataContext
             };
 
-            window.Show();
+            window.ShowDialog();
         }
 
         public void Show(string documentType, object viewModel, object parameter, object parentViewModel)

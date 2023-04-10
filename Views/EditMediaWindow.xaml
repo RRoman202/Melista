@@ -5,9 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Melista.Views"
         mc:Ignorable="d"
-        Title="EditMediaWindow" Height="450" Width="800"
+        Title="Изменить файл" Height="500" Width="400"
+        ResizeMode="NoResize"
+        WindowState="Normal"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
         DataContext="{Binding EditMediaWindowViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
-        <TextBlock VerticalAlignment="Center">sdfsdbibji</TextBlock>
+        <StackPanel>
+            <TextBlock Height="30" Text="Название"/>
+            <TextBox Height="30"/>
+            <TextBlock Height="30" Text="Год"/>
+            <TextBox Height="30"/>
+            <TextBlock Height="30" Text="Жанр"/>
+            <TextBox Height="30"/>
+            <TextBlock Height="30" Text="Режиссер"/>
+            <TextBox Height="30"/>
+            <TextBlock Height="30"  Text="Комментарии"/>
+            <TextBox Height="30"/>
+        </StackPanel>
     </Grid>
 </Window>

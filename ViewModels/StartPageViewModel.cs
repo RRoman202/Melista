@@ -28,12 +28,16 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
+using Melista.Utils;
+using System;
 
 namespace Melista.ViewModels
 {
     public class StartPageViewModel : BindableBase, IDropTarget
     {
         public ObservableCollection<Video> Medias { get; set; }
+
+        public ObservableCollection<Audio> Audios { get; set; }
 
         private readonly PageService _pageService;
         private readonly MediaService _mediaService;
@@ -97,7 +101,17 @@ namespace Melista.ViewModels
                         {
                             string kek = System.IO.Path.GetFullPath("aboba.jpeg");
                             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            ffMpeg.GetVideoThumbnail(file, kek, 5);
+                            Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+                            dynamic shell = Activator.CreateInstance(shellAppType);
+                            string dir = Path.GetDirectoryName(file);
+                            string file2 = Path.GetFileName(file);
+                            dynamic folder = shell.NameSpace(dir);
+                            dynamic folderItem = folder.ParseName(file2);
+
+                            string timee = folder.GetDetailsOf(folderItem, 27).ToString();
+                            string[] times = timee.Split(":");
+
+                            ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
                             Bitmap btr = new Bitmap(kek);
                             filik.Tag.Pictures = new TagLib.IPicture[]
                             {
@@ -105,7 +119,7 @@ namespace Melista.ViewModels
                             };
                             filik.Save();
                         }
-                        CreateShortCut(file, RemoveFormatString(file));
+                        CreateShortCut(file, RemoveFormatString.RemoveFormat(file), true);
                         k++;
                     }
                 }
@@ -124,7 +138,7 @@ namespace Melista.ViewModels
         });
 
         public DelegateCommand ClickMedia => new(() =>
-            _pageService.ChangePage(new MediaPage()));
+            _pageService.ChangePage(new MusicPage()));
         public DelegateCommand OpenProfile => new(() =>
         {
             _pageService.ChangePage(new ProfileView());
@@ -138,41 +152,62 @@ namespace Melista.ViewModels
             {
                 foreach (string file in OpenFile.FileNames)
                 {
+
+                    bool isVideo = DefineFormatVideo(file);
+
                     TagLib.File filik = TagLib.File.Create(file);
 
                     var firstPicture = filik.Tag.Pictures.FirstOrDefault();
                     if (firstPicture == null)
                     {
-                        string kek = System.IO.Path.GetFullPath("aboba.jpeg");
-                        var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                        ffMpeg.GetVideoThumbnail(file, kek, 5);
-                        Bitmap btr = new Bitmap(kek);
+                        Bitmap btr;
+                        if (isVideo)
+                        {
+                            string kek = System.IO.Path.GetFullPath("aboba.jpeg");
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+                            dynamic shell = Activator.CreateInstance(shellAppType);
+                            string dir = Path.GetDirectoryName(file);
+                            string file2 = Path.GetFileName(file);
+                            dynamic folder = shell.NameSpace(dir);
+                            dynamic folderItem = folder.ParseName(file2);
+
+                            string timee = folder.GetDetailsOf(folderItem, 27).ToString();
+                            string[] times = timee.Split(":");
+
+                            ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
+                            btr = new Bitmap(kek);
+
+                        }
+                        else 
+                        {
+                            string zaglushka = System.IO.Path.GetFullPath("Resources/Images").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + "zaglushka.png";
+                            btr = new Bitmap(zaglushka);
+                        }
+                        
                         filik.Tag.Pictures = new TagLib.IPicture[]
                         {
                             new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                         };
                         filik.Save();
                     }
-                    CreateShortCut(file, RemoveFormatString(file));
+                    CreateShortCut(file, RemoveFormatString.RemoveFormat(file), isVideo);
                 }
             }
         }
-
-        public string RemoveFormatString(string stringForRemove) 
-        {
-            if (stringForRemove.Contains('\\')) 
-            { 
-                string[] strings = stringForRemove.Split('\\');
-                stringForRemove = strings[strings.Length - 1];
-            }
-            string[] strings_1 = stringForRemove.Split('.');
-            return strings_1[0];
-        }
-        public void CreateShortCut(string Pathh, string shortPath) {
+        public void CreateShortCut(string Pathh, string shortPath, bool isVideo) {
 
             WshShell shell = new WshShell();
-
-            string shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+            string shortcutPath;
+            if (isVideo)
+            {
+                shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts/Video").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+            }
+            else 
+            { 
+                shortcutPath = System.IO.Path.GetFullPath("Resources/ShortCuts/Audio").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + shortPath + ".lnk";
+            }
+            
 
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
             shortcut.TargetPath = Pathh;
@@ -180,9 +215,25 @@ namespace Melista.ViewModels
 
             Task.Run(async () =>
             {
-                Medias = await _mediaService.GetMedia();
+                if (isVideo)
+                {
+                    Medias = await _mediaService.GetMedia();
+                }
+                else 
+                {
+                    Audios = await _mediaService.GetAudios();
+                }
+                
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
+        }
+
+        public bool DefineFormatVideo(string filename)
+        {
+            string[] strings = filename.Split('.');
+            if (strings[strings.Length - 1] == "mp4")
+                return true;
+            return false;
         }
     }
 }
