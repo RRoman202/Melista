@@ -41,7 +41,7 @@ namespace Melista.ViewModels
             string path = GetPathFromLink(Global.CurrentMedia.Path);
             AudioFileReader audioFile = new AudioFileReader(path);
             player.Init(audioFile);
-            player.Play();
+            player.Play();//aa
 
         });
         
