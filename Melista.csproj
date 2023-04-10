@@ -95,6 +95,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Folder Include="Resources\ShortCuts\" />
+    <Folder Include="Resources\ShortCuts\" />
   </ItemGroup>
 
   <ItemGroup>
