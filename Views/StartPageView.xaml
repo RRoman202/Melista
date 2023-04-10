@@ -76,17 +76,12 @@
                         dd:DragDrop.DropHandler="{Binding}"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch">
-                    
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding ClickMedia}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
                 </ListView>
             </Grid>
         </Border>
