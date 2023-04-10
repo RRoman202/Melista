@@ -47,28 +47,43 @@
         </ProgressBar>
         <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource Font}" Text="Загрузка..." Foreground="White" Visibility="{Binding ProgVis}"></TextBlock>
         <Border Style="{DynamicResource FilePanel}" Grid.Row="1" Margin="70,10,70,0" >
+            <Grid>
 
-            <ListView Margin="10 10 10 0" 
+                <ListView Style="{DynamicResource VideoList}" x:Name="Video" Margin="10 10 10 0" 
+                        ItemsSource="{Binding Medias}" Visibility="Hidden"
+                        SelectedItem="{Binding SelectedMedia}"
+                        dd:DragDrop.IsDropTarget="True"
+                        dd:DragDrop.DropHandler="{Binding}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ClickMedia}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+
+                <ListView Style="{DynamicResource MusicList}" x:Name="Music" Margin="10 10 10 0" 
                         ItemsSource="{Binding Medias}"
-                              SelectedItem="{Binding SelectedMedia}"
-                      dd:DragDrop.IsDropTarget="True"
-                      dd:DragDrop.DropHandler="{Binding}"
-                              HorizontalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch">
+                        SelectedItem="{Binding SelectedMedia}"
+                        dd:DragDrop.IsDropTarget="True"
+                        dd:DragDrop.DropHandler="{Binding}"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
 
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ClickMedia}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="3" VerticalAlignment="Top" HorizontalAlignment="Stretch">
-
-                        </UniformGrid>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ClickMedia}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListView>
+            </Grid>
         </Border>
 
 
