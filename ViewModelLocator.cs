@@ -15,6 +15,7 @@ namespace Melista
             services.AddTransient<MediaPageViewModel>();
             services.AddTransient<ProfileViewModel>();
             services.AddTransient<EditMediaWindowViewModel>();
+            services.AddTransient<MusicPageViewModel>();
             
 
             services.AddSingleton<PageService>();
@@ -32,6 +33,7 @@ namespace Melista
         public MediaPageViewModel MediaPageViewModel => _provider.GetRequiredService<MediaPageViewModel>();
         public ProfileViewModel ProfileViewModel => _provider.GetRequiredService<ProfileViewModel>();
         public EditMediaWindowViewModel EditMediaWindowViewModel => _provider.GetRequiredService<EditMediaWindowViewModel>();
+        public MusicPageViewModel MusicPageViewModel => _provider.GetRequiredService<MusicPageViewModel>();
         
     }
 }

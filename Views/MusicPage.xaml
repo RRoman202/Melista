@@ -1,0 +1,86 @@
+﻿<Page x:Class="Melista.Views.MusicPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Melista.Views"
+      xmlns:viewmodels="clr-namespace:Melista.ViewModels" xmlns:local1="clr-namespace:Melista" 
+      xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      DataContext="{Binding MusicPageViewModel, Source={StaticResource ViewModelLocator}}"
+      xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MusicPage" Loaded="Page_Loaded">
+
+    <Grid x:Name="Aboba" ClipToBounds="True">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseMove">
+                <i:InvokeCommandAction Command="{Binding NavigateCommand}" CommandParameter="ViewImportProgress"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Hidden">
+            <Grid ClipToBounds="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid ClipToBounds="True" x:Name="MediaGrid" Grid.Row="0" Margin="15" HorizontalAlignment="Left">
+
+                    <Border ClipToBounds="True" x:Name="MediaEl" CornerRadius="20" Background="Black"
+                            Height="{Binding Path=ActualHeight,ElementName=window,Converter={StaticResource ScreenRatioHeightConvert}}" 
+                            Width="{Binding Path=ActualHeight,ElementName=window, Converter={StaticResource ScreenRatioConverter}}" >
+
+                        <Grid x:Name="vgrid" Width="800"> <!--MouseMove="Video_MouseMove"-->
+
+
+
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Border Style="{DynamicResource FilePanel}" Width="{Binding Path=ActualWidth,ElementName=MediaEl}"
+                            Grid.Row="1" Margin="15 0 15 0" HorizontalAlignment="Left">
+                    <StackPanel Margin="20">
+                        <TextBlock Foreground="White" FontSize="24" Text="{Binding MediaName}" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Foreground="White">Описание</TextBlock>
+                        <Button Content="изменить" Command="{Binding OpenEditMediaWindow}"></Button>
+                    </StackPanel>
+
+                </Border>
+            </Grid>
+        </ScrollViewer>
+        <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" Width="270" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Foreground="{DynamicResource PrimaryForegroundBrush}" HorizontalAlignment="Center" Margin="0 20 0 0">Очередь</TextBlock>
+                <Separator Background="{DynamicResource PrimaryForegroundBrush}" Height="0.5" Margin="20 0"></Separator>
+                <ListView Margin="10 30 10 0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </StackPanel>
+            <Grid Grid.Row="1" x:Name="buttons" Style="{DynamicResource BottomPanel}" VerticalAlignment="Bottom">
+                <StackPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=buttons}" >
+                    <Button Style="{DynamicResource ButtonOne}" Grid.Row="1" Height="40" 
+                            Content="История" Margin="40 20"/>
+                    <Button Style="{DynamicResource ButtonOne}" Command="{Binding Back}"  Grid.Row="1" Height="40" 
+                            Content="К музыке" Margin="40 0 40 20"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
