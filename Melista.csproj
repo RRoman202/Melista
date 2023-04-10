@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\ShortCuts\Новая папка\**" />
+    <EmbeddedResource Remove="Resources\ShortCuts\Новая папка\**" />
+    <None Remove="Resources\ShortCuts\Новая папка\**" />
+    <Page Remove="Resources\ShortCuts\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Dark\close.png" />
     <None Remove="Resources\Dark\minimize.png" />
     <None Remove="Resources\Dark\MiniScreen.png" />
@@ -45,7 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\ShortCuts\" />
     <Content Include="Resources\Dark\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -94,7 +100,6 @@
     <Content Include="Resources\Light\rollup.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Folder Include="Resources\ShortCuts\" />
   </ItemGroup>
 
   <ItemGroup>
