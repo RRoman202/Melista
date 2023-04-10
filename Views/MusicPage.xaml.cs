@@ -24,5 +24,16 @@ namespace Melista.Views
         {
             InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MusicPageViewModel viewModel = (MusicPageViewModel)element.DataContext;
+            ICommand command = viewModel.MusicLoaded;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
     }
 }

@@ -136,7 +136,7 @@ namespace Melista.ViewModels
         });
 
         public DelegateCommand ClickMedia => new(() =>
-            _pageService.ChangePage(new MediaPage()));
+            _pageService.ChangePage(new MusicPage()));
         public DelegateCommand OpenProfile => new(() =>
         {
             _pageService.ChangePage(new ProfileView());
