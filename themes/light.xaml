@@ -156,8 +156,8 @@
     </Style>
 	
 	<!--ListView for Video-->
-    
-    <Style TargetType="{x:Type ListView}">
+
+    <Style x:Key="VideoList" TargetType="{x:Type ListView}">
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Background" Value="Transparent"/>
