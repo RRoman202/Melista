@@ -182,8 +182,6 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListViewItem}">
-
-
                     <Setter Property="FontSize" Value="20"/>
                     <Setter Property="Background" Value="#414141"/>
                     <Setter Property="BorderThickness" Value="0"/>
