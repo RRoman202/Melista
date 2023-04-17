@@ -32,11 +32,9 @@
 
                 <ComboBox Style="{DynamicResource ComboBoxTest2}" 
                           VerticalAlignment="Center" Margin="20 0 0 0" Width="160" 
-                          HorizontalAlignment="Left">
-                    <ComboBoxItem>Музыка</ComboBoxItem>
-                    <ComboBoxItem>Видео</ComboBoxItem>
-                    <ComboBoxItem>Плейлисты видео</ComboBoxItem>
-                    <ComboBoxItem>Плейлисты музыка</ComboBoxItem>
+                          HorizontalAlignment="Left"
+                          ItemsSource="{Binding Mods}"
+                          SelectedItem="{Binding SelectedMode}">
                 </ComboBox>
                 <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
                 <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
@@ -50,7 +48,7 @@
             <Grid>
 
                 <ListView Style="{DynamicResource VideoList}" x:Name="Video" Margin="10 10 10 0" 
-                        ItemsSource="{Binding Medias}" Visibility="Hidden"
+                        ItemsSource="{Binding Medias}" Visibility="{Binding VideoListVisibility}"
                         SelectedItem="{Binding SelectedMedia}"
                         dd:DragDrop.IsDropTarget="True"
                         dd:DragDrop.DropHandler="{Binding}"
@@ -75,7 +73,8 @@
                         dd:DragDrop.IsDropTarget="True"
                         dd:DragDrop.DropHandler="{Binding}"
                         HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Stretch">
+                        HorizontalContentAlignment="Stretch"
+                          Visibility="{Binding MusicListVisibility}">
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
