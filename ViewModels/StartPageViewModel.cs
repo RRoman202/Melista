@@ -30,6 +30,7 @@ using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
 using Melista.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Melista.ViewModels
 {
@@ -49,6 +50,33 @@ namespace Melista.ViewModels
 
         public Audio _selectedAudio { get; set; }
 
+        public Visibility MusicListVisibility { get; set; }
+        public Visibility VideoListVisibility { get; set; }
+
+        public List<string> Mods { get; set; } = new() { "Видео", "Музыка", "Плейлисты видео", "Плейлисты музыки" };
+        public string SelectedMode 
+        { 
+            get { return GetValue<string>();  }
+            set { SetValue(value, changedCallback: ChangeMode); }
+        }
+        public void ChangeMode() 
+        {
+            if (SelectedMode == "Видео")
+            {
+                VideoListVisibility = Visibility.Visible;
+                MusicListVisibility = Visibility.Collapsed;
+            }
+            else if(SelectedMode == "Музыка")     
+            {
+                VideoListVisibility = Visibility.Collapsed;
+                MusicListVisibility = Visibility.Visible;
+            }
+            else 
+            {
+                VideoListVisibility = Visibility.Collapsed;
+                MusicListVisibility = Visibility.Collapsed;
+            }
+        }
         public Audio SelectedAudio 
         { 
             get { return  _selectedAudio; }
