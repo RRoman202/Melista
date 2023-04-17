@@ -135,6 +135,18 @@
                                                 </i:Interaction.Triggers>
                                             </Slider>
 
+                                            <Slider
+                                                Margin="10 20 0 20"
+                                                Maximum="100"
+                                                Style="{DynamicResource Slider_CustomStyle}"
+                                                Value="{Binding VolumePosition}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="ValueChanged">
+                                                        <i:InvokeCommandAction Command="{Binding SliderVolumeChanged}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Slider>
+
                                             <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
                                                 <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
                                                 <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">

@@ -45,6 +45,8 @@ namespace Melista.ViewModels
 
         string[] PlayPauseImagePaths;
 
+        public int VolumePosition { get; set; }
+
 
         LibVLC _libVLC;
         LibVLCSharp.Shared.MediaPlayer _mediaPlayer;
@@ -92,8 +94,8 @@ namespace Melista.ViewModels
             timer2.Interval = TimeSpan.FromSeconds(1);
             timer2.Tick += timer_Tick2;
             timer2.Start();
-            
 
+            VolumePosition = Player.Volume;
         });
 
         private void MediaEnded(object? sender, EventArgs e)
@@ -313,6 +315,11 @@ namespace Melista.ViewModels
         public DelegateCommand ChangedRate => new(() =>
         {
             Player.SetRate(3);
+        });
+
+        public DelegateCommand SliderVolumeChanged => new(() =>
+        {
+            Player.Volume = VolumePosition;
         });
     }
 }
