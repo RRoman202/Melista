@@ -59,7 +59,7 @@
 
 
 
-                                        <Border HorizontalAlignment="Center" Height="75" Width="75">
+                                        <Border HorizontalAlignment="Center" Height="75" Width="75" Background="#7FFFFFFF" CornerRadius="100">
                                             <controls:BlurryUserControl
                                     Background="Transparent"
                                     BlurContainer="{Binding ElementName=vgrid}"
@@ -90,85 +90,110 @@
                                             </controls:BlurryUserControl.Clip>
                                         </controls:BlurryUserControl>
 
-                                        <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
+                                        <StackPanel VerticalAlignment="Bottom">
+                                            <Border CornerRadius="20 0 0 0" Background="#7FFFFFFF" HorizontalAlignment="Right" Width="300">
+                                                <StackPanel Margin="20 10 0 60">
+                                                    <TextBlock>Настройки</TextBlock>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Margin="0 10 0 0">Скорость воспроизведения</TextBlock>
+                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="16 10">
+                                                            <TextBlock VerticalAlignment="Center" Margin="0 0 10 0">1x</TextBlock>
+                                                            <Path x:Name="Arrow" Fill="{DynamicResource SecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                <Path.LayoutTransform>
+                                                                    <RotateTransform Angle="-90"></RotateTransform>
+                                                                </Path.LayoutTransform>
+                                                            </Path>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0">Громкость звука:</TextBlock>
+                                                        <Slider Height="20" Margin="10 0 10 0"
+                                                        Maximum="100" Grid.Column="1"
+                                                        Style="{DynamicResource Slider_CustomStyle}"
+                                                        Value="{Binding VolumePosition}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="ValueChanged">
+                                                                    <i:InvokeCommandAction Command="{Binding SliderVolumeChanged}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Slider>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border CornerRadius="0 0 20 20" Background="#7FFFFFFF">
+                                                <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
 
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
-                                                <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
-                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding Rewind}"></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
-                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Height="25" Width="25" Command="{Binding FastForward}">
-                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding FastForward}"></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Icons/next.png"/>
-                                                    </Button.Background>
-                                                </Button>
-                                                <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
-                                            </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding Rewind}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <Button Height="25" Width="25" Command="{Binding FastForward}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding FastForward}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/next.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
+                                                    </StackPanel>
 
 
 
-                                            <Slider Maximum="{Binding Duration}"
-                                            Style="{DynamicResource Slider_CustomStyle}"
-                                            Value="{Binding Position}"
-                                            Height="20" Grid.Column="1"
-                                            Margin="10 20 0 20"
-                                            Thumb.DragStarted="Slider_DragStarted"
-                                            Thumb.DragCompleted="Slider_DragCompleted">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="ValueChanged">
-                                                        <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Slider>
+                                                    <Slider Maximum="{Binding Duration}"
+                                                        Style="{DynamicResource Slider_CustomStyle}"
+                                                        Value="{Binding Position}"
+                                                        Height="20" Grid.Column="1"
+                                                        Margin="10 20 0 20"
+                                                        Thumb.DragStarted="Slider_DragStarted"
+                                                        Thumb.DragCompleted="Slider_DragCompleted">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="ValueChanged">
+                                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Slider>
 
-                                            <Slider
-                                                Margin="10 20 0 20"
-                                                Maximum="100"
-                                                Style="{DynamicResource Slider_CustomStyle}"
-                                                Value="{Binding VolumePosition}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="ValueChanged">
-                                                        <i:InvokeCommandAction Command="{Binding SliderVolumeChanged}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Slider>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="145">
+                                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding ChangedRate}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <Button Height="25" Width="25" Command="{Binding FullScreen}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding FullScreen}" ></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/size.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
-                                                <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
-                                                <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">
-                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding ChangedRate}"></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Height="25" Width="25" Margin="0 0 20 0">
-                                                    <Button Width="25" Height="25" Background="#01000000"></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
-                                                    </Button.Background>
-                                                </Button>
-                                                <Button Height="25" Width="25" Command="{Binding FullScreen}">
-                                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding FullScreen}" ></Button>
-                                                    <Button.Background>
-                                                        <ImageBrush ImageSource="/Resources/Icons/size.png"/>
-                                                    </Button.Background>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
+                                        
                                     </Grid>
                                 </Grid>
                             </vlc:VideoView>
