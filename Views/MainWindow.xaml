@@ -35,7 +35,7 @@
         </controls:BlurryUserControl>
 
 
-        <Frame NavigationUIVisibility="Hidden"
+        <Frame NavigationUIVisibility="Hidden" Navigating="Frame_Navigating"
                Content="{Binding PageSource}"></Frame>
     </Grid>
 </Window>
