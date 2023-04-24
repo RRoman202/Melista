@@ -30,6 +30,8 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         private readonly WindowService _windowService;
+
+        private readonly EditMediaService _editMediaService;
         public Uri PlayPauseImage { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
@@ -51,14 +53,14 @@ namespace Melista.ViewModels
         LibVLC _libVLC;
         LibVLCSharp.Shared.MediaPlayer _mediaPlayer;
 
-        public MediaPageViewModel(PageService pageService, WindowService windowService)
+        public MediaPageViewModel(PageService pageService, WindowService windowService, EditMediaService editMediaService)
         {
             string currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             var vlcLibDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
 
             _windowService = windowService;
 
-            
+            _editMediaService = editMediaService;
 
             PlayPauseImagePaths = new string[] { "Resources\\Icons\\play.png", "Resources\\Icons\\pause.png" };
             PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
@@ -293,7 +295,7 @@ namespace Melista.ViewModels
 
         public DelegateCommand OpenEditMediaWindow => new(() =>
         {
-            _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel());
+            _windowService.Show<EditMediaWindow>(new EditMediaWindowViewModel(_editMediaService));
         });
 
         public DelegateCommand Back => new(() =>

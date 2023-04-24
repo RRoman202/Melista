@@ -21,12 +21,13 @@ namespace Melista
             services.AddSingleton<PageService>();
             services.AddSingleton<MediaService>();
             services.AddSingleton<WindowService>();
+            services.AddSingleton<EditMediaService>();
 
             _provider = services.BuildServiceProvider();
-            foreach (var service in services)
-            {
-                _provider.GetRequiredService(service.ServiceType);
-            }
+            //foreach (var service in services)
+            //{
+            //    _provider.GetRequiredService(service.ServiceType);
+            //}
         }
         public MainViewModel MainViewModel => _provider.GetRequiredService<MainViewModel>();
         public StartPageViewModel StartPageViewModel => _provider.GetRequiredService<StartPageViewModel>();
