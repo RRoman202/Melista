@@ -20,6 +20,7 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         private readonly WindowService _windowService;
+        public string Speed { get; set; }
 
         public WaveOutEvent player { get; set; }
         public float VolumePosition { get; set; }
@@ -41,6 +42,8 @@ namespace Melista.ViewModels
             PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
             isPlaying = true;
 
+            SettingsVisibility = Visibility.Hidden;
+            Speed = "1x";
 
         }
         public string GetPathFromLink(string linkPathName)
@@ -138,6 +141,21 @@ namespace Melista.ViewModels
             if(thumbIsDraging)
                 DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
         });
+
+        public Visibility SettingsVisibility { get; set; }
+        public DelegateCommand NavigateCommand2 => new(() => SettingsIsVisibility());
+
+        public void SettingsIsVisibility()
+        {
+            if(SettingsVisibility == Visibility.Hidden)
+            {
+                SettingsVisibility = Visibility.Visible;
+            }
+            else
+            {
+                SettingsVisibility = Visibility.Hidden;
+            }
+        }
 
     }
 }
