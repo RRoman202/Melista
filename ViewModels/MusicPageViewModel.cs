@@ -25,7 +25,8 @@ namespace Melista.ViewModels
 
             _windowService = windowService;
             _pageService = pageService;
-           
+            SettingsVisibility = Visibility.Hidden;
+
 
         }
         public string GetPathFromLink(string linkPathName)
@@ -56,6 +57,21 @@ namespace Melista.ViewModels
             });
             _pageService.ChangePage(new StartPageView());
         });
+
+        public Visibility SettingsVisibility { get; set; }
+        public DelegateCommand NavigateCommand2 => new(() => SettingsIsVisibility());
+
+        public void SettingsIsVisibility()
+        {
+            if(SettingsVisibility == Visibility.Hidden)
+            {
+                SettingsVisibility = Visibility.Visible;
+            }
+            else
+            {
+                SettingsVisibility = Visibility.Hidden;
+            }
+        }
 
     }
 }
