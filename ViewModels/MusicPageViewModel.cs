@@ -17,6 +17,7 @@ namespace Melista.ViewModels
         private readonly PageService _pageService;
 
         private readonly WindowService _windowService;
+        public string Speed { get; set; }
 
         public WaveOutEvent player { get; set; }
 
@@ -26,7 +27,7 @@ namespace Melista.ViewModels
             _windowService = windowService;
             _pageService = pageService;
             SettingsVisibility = Visibility.Hidden;
-
+            Speed = "1x";
 
         }
         public string GetPathFromLink(string linkPathName)

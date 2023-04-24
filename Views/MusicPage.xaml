@@ -105,16 +105,15 @@
                                                                 <ColumnDefinition></ColumnDefinition>
                                                                 <ColumnDefinition></ColumnDefinition>
                                                             </Grid.ColumnDefinitions>
-                                                            <Button Grid.Column="0" Background="Transparent">
+                                                            <Button Grid.Column="0" Background="Transparent" Command="{Binding ChangedRateSlow}">
                                                                 <Path x:Name="Arrow2"  Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
                                                                     <Path.LayoutTransform>
                                                                         <RotateTransform Angle="90"></RotateTransform>
                                                                     </Path.LayoutTransform>
                                                                 </Path>
                                                             </Button>
-                                                            <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10 0 10 0">1x</TextBlock>
-                                                            <Button Grid.Column="2" Background="Transparent" >
-                                                                <!--Command="ChangedRate"-->
+                                                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Speed}"></TextBlock>
+                                                            <Button Grid.Column="2" Background="Transparent" Command="{Binding ChangedRate}">
                                                                 <Path x:Name="Arrow" Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
                                                                     <Path.LayoutTransform>
                                                                         <RotateTransform Angle="-90"></RotateTransform>
