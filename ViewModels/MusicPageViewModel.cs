@@ -22,7 +22,7 @@ namespace Melista.ViewModels
         private readonly WindowService _windowService;
 
         public WaveOutEvent player { get; set; }
-
+        public float VolumePosition { get; set; }
         DispatcherTimer timer = new DispatcherTimer();
         string[] PlayPauseImagePaths;
         public string MediaName { get; set; }
@@ -62,9 +62,17 @@ namespace Melista.ViewModels
             player.Play();//aa
             Duration = audioFile.TotalTime.TotalSeconds;
             DurText2 = String.Format("{0}", audioFile.TotalTime.ToString(@"mm\:ss"));
+            VolumePosition = player.Volume;
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
+            
+
+        });
+        public DelegateCommand SliderVolumeChanged => new(() =>
+        {
+            
+            player.Volume = VolumePosition;
         });
         void timer_Tick(object sender, EventArgs e)
         {
@@ -101,6 +109,34 @@ namespace Melista.ViewModels
                 player.Stop();
             });
             _pageService.ChangePage(new StartPageView());
+        });
+        bool thumbIsDraging = false;
+        public DelegateCommand SliderDragStartedCommand => new(() =>
+        {
+            thumbIsDraging = true;
+            player.Pause();
+            timer.Stop();
+        });
+
+        public DelegateCommand SliderDragCompletedCommand => new(() =>
+        {
+            player = new WaveOutEvent();
+            string path = GetPathFromLink(Global.CurrentAudio.Path);
+            AudioFileReader audioFile = new AudioFileReader(path);
+            audioFile.Position = (long)Position;
+            player.Init(audioFile);
+            
+            thumbIsDraging = false;
+            if (isPlaying)
+            {
+                player.Play();
+                timer.Start();
+            }
+        });
+        public DelegateCommand SliderValueChangedCommand => new(() =>
+        {
+            if(thumbIsDraging)
+                DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
         });
 
     }
