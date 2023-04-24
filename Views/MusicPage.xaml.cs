@@ -35,5 +35,55 @@ namespace Melista.Views
                 command.Execute(null);
             }
         }
+
+        private void Slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            ICommand command = viewModel.SliderDragStartedCommand;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
+
+        private void Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            ICommand command = viewModel.SliderDragCompletedCommand;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
+
+        //private void Video_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    FrameworkElement element = (FrameworkElement)sender;
+        //    MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+        //    ICommand command = viewModel.VideoLoaded;
+        //    if (command.CanExecute(null))
+        //    {
+        //        command.Execute(null);
+        //    }
+        //}
+
+        private void Video_MouseMove(object sender, MouseEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            ICommand command = viewModel.MouseMove;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
     }
 }
