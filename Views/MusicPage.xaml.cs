@@ -39,7 +39,7 @@ namespace Melista.Views
         private void Slider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
             FrameworkElement element = (FrameworkElement)sender;
-            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            MusicPageViewModel viewModel = (MusicPageViewModel)element.DataContext;
             ICommand command = viewModel.SliderDragStartedCommand;
             if (command.CanExecute(null))
             {
@@ -50,7 +50,7 @@ namespace Melista.Views
         private void Slider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             FrameworkElement element = (FrameworkElement)sender;
-            MediaPageViewModel viewModel = (MediaPageViewModel)element.DataContext;
+            MusicPageViewModel viewModel = (MusicPageViewModel)element.DataContext;
             ICommand command = viewModel.SliderDragCompletedCommand;
             if (command.CanExecute(null))
             {
