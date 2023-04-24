@@ -315,6 +315,7 @@ namespace Melista.ViewModels
         public DelegateCommand ChangedRate => new(() =>
         {
             Player.SetRate(3);
+            
         });
 
         public DelegateCommand SliderVolumeChanged => new(() =>
