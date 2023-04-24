@@ -90,7 +90,7 @@
                                         </controls:BlurryUserControl>
 
                                         <StackPanel VerticalAlignment="Bottom">
-                                            <Border CornerRadius="20 0 0 0" Background="#7FFFFFFF" HorizontalAlignment="Right" Width="300">
+                                            <Border CornerRadius="20 0 0 0" Background="#7FFFFFFF" HorizontalAlignment="Right" Width="300" Visibility="{Binding SettingsVisibility}">
                                                 <StackPanel Margin="20 10 0 60">
                                                     <TextBlock>Настройки</TextBlock>
                                                     <Grid>
@@ -99,14 +99,28 @@
                                                             <ColumnDefinition></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Grid.Column="0" Margin="0 10 0 0">Скорость воспроизведения</TextBlock>
-                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="16 10">
-                                                            <TextBlock VerticalAlignment="Center" Margin="0 0 10 0">1x</TextBlock>
-                                                            <Path x:Name="Arrow" Fill="{DynamicResource SecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
-                                                                <Path.LayoutTransform>
-                                                                    <RotateTransform Angle="-90"></RotateTransform>
-                                                                </Path.LayoutTransform>
-                                                            </Path>
-                                                        </StackPanel>
+                                                        <Grid Grid.Column="1" Margin="16 10">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button Grid.Column="0" Background="Transparent" Command="{Binding ChangedRateSlow}">
+                                                                <Path x:Name="Arrow2"  Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="90"></RotateTransform>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Button>
+                                                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Speed}"></TextBlock>
+                                                            <Button Grid.Column="2" Background="Transparent" Command="{Binding ChangedRate}">
+                                                                <Path x:Name="Arrow" Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"></RotateTransform>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Button>
+                                                        </Grid>
                                                     </Grid>
                                                     <Grid>
                                                         <Grid.ColumnDefinitions>
@@ -175,8 +189,8 @@
 
                                                     <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="145">
                                                         <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
-                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding ChangedRate}">
-                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding ChangedRate}"></Button>
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding NavigateCommand2}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding NavigateCommand2}"></Button>
                                                             <Button.Background>
                                                                 <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
                                                             </Button.Background>
