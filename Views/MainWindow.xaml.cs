@@ -27,5 +27,12 @@ namespace Melista
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) => DragMove();
 
+        private void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
