@@ -65,20 +65,13 @@ namespace Melista.ViewModels
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-            
-            
-
         });
         void timer_Tick(object sender, EventArgs e)
         {
 
             if (player != null)
             {
-
-                
                 DurText = String.Format("{0}", player.GetPositionTimeSpan().ToString(@"mm\:ss"));
-
-
                 if (isPlaying)
                 {
                     Position++;
@@ -89,7 +82,6 @@ namespace Melista.ViewModels
         {
             if (!isPlaying)
             {
-                
                 player.Play();
                 isPlaying = true;
                 PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
