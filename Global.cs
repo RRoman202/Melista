@@ -11,5 +11,6 @@ namespace Melista
     {
         public static Video CurrentMedia { get; set; } = new Video();
         public static List<string> MediaList { get; set; } = new List<string>();
+        public static Audio CurrentAudio { get; set; } = new Audio();
     }
 }

@@ -182,8 +182,6 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListViewItem}">
-
-
                     <Setter Property="FontSize" Value="20"/>
                     <Setter Property="Background" Value="#414141"/>
                     <Setter Property="BorderThickness" Value="0"/>
@@ -237,33 +235,37 @@
             <Setter.Value>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Setter Property="FontSize" Value="20"/>
-                    <Setter Property="Background" Value="#414141"/>
-                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="#01000000"/>
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="VerticalContentAlignment" Value="Center"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <Grid Margin="0 20 0 0">
+                                <Grid x:Name="gridd" Margin="0 20 0 0" Background="{TemplateBinding Background}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0.45*"></ColumnDefinition>
                                         <ColumnDefinition Width="0.45*"></ColumnDefinition>
                                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="Resources/Images/Gradient.png" Height="100" Width="100" Stretch="UniformToFill" HorizontalAlignment="Left"
+                                        <Image Source="{Binding ImageAudio}" Height="100" Width="100" Stretch="UniformToFill" HorizontalAlignment="Left"
                                             Grid.Column="0"/>
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
-                                            <TextBlock Text="Нет монет" Style="{DynamicResource TextStyle2}"/>
-                                            <TextBlock Text="Монеточка" Style="{DynamicResource TextStyle2}"/>
+                                            <TextBlock Text="{Binding NameAudio}" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="Монеточка" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Раскраски для взрослых" Style="{DynamicResource TextStyle2}"/>
-                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="4:38" Style="{DynamicResource TextStyle2}" FontWeight="Black" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Раскраски для взрослых" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}"/>
+                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="4:38" Style="{DynamicResource TextStyle2}" FontWeight="Black" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#3930AC"/>
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>

@@ -154,8 +154,10 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    <Style TargetType="{x:Type ListView}">
+	
+	<!--ListView for Video-->
+
+    <Style x:Key="VideoList" TargetType="{x:Type ListView}">
         <Setter Property="TextBlock.TextAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -168,8 +170,6 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListViewItem}">
-
-
                     <Setter Property="FontSize" Value="20"/>
                     <Setter Property="Background" Value="White"/>
                     <Setter Property="BorderThickness" Value="0"/>
@@ -206,6 +206,59 @@
             </Setter.Value>
         </Setter>
     </Style>
+	
+	 <!--ListView for Music-->
+
+    <Style x:Key="MusicList" TargetType="{x:Type ListView}">
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#414141"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Background" Value="#01000000"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Grid x:Name="gridd" Margin="0 20 0 0" Background="{TemplateBinding Background}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.45*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.45*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding ImageAudio}" Height="100" Width="100" Stretch="UniformToFill" HorizontalAlignment="Left"
+                                            Grid.Column="0"/>
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
+                                            <TextBlock Text="{Binding NameAudio}" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="Монеточка" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Раскраски для взрослых" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}"/>
+                                    <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="4:38" Style="{DynamicResource TextStyle2}" FontWeight="Black" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#939BFF"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	
+	<!--ScrollBar-->
 
     <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
         <Setter Property="Template">

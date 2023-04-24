@@ -30,6 +30,7 @@ using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
 using Melista.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Melista.ViewModels
 {
@@ -46,6 +47,46 @@ namespace Melista.ViewModels
         public string ProgVal { get; set; }
 
         public Video _selectedMedia { get; set; }
+
+        public Audio _selectedAudio { get; set; }
+
+        public Visibility MusicListVisibility { get; set; }
+        public Visibility VideoListVisibility { get; set; }
+
+        public List<string> Mods { get; set; } = new() { "Видео", "Музыка", "Плейлисты видео", "Плейлисты музыки" };
+        public string SelectedMode 
+        { 
+            get { return GetValue<string>();  }
+            set { SetValue(value, changedCallback: ChangeMode); }
+        }
+        public void ChangeMode() 
+        {
+            if (SelectedMode == "Видео")
+            {
+                VideoListVisibility = Visibility.Visible;
+                MusicListVisibility = Visibility.Collapsed;
+            }
+            else if(SelectedMode == "Музыка")     
+            {
+                VideoListVisibility = Visibility.Collapsed;
+                MusicListVisibility = Visibility.Visible;
+            }
+            else 
+            {
+                VideoListVisibility = Visibility.Collapsed;
+                MusicListVisibility = Visibility.Collapsed;
+            }
+        }
+        public Audio SelectedAudio 
+        { 
+            get { return  _selectedAudio; }
+            set
+            {
+                _selectedAudio = value;
+                RaisePropertiesChanged(nameof(SelectedAudio));
+                Global.CurrentAudio = SelectedAudio;
+            }
+        }
         public Video SelectedMedia
         {
             get { return _selectedMedia; }
@@ -68,6 +109,7 @@ namespace Melista.ViewModels
                     ProgVal = i.ToString();
                 }
                 Medias = await _mediaService.GetMedia();
+                Audios = await _mediaService.GetAudios();
                 ProgVis = Visibility.Hidden;
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
@@ -95,31 +137,45 @@ namespace Melista.ViewModels
                 {
                     if(Path.GetExtension(file) == ".mp3" || Path.GetExtension(file) == ".mp4")
                     {
+                        bool isVideo = DefineFormatVideo(file);
+
                         TagLib.File filik = TagLib.File.Create(file);
+
                         var firstPicture = filik.Tag.Pictures.FirstOrDefault();
                         if (firstPicture == null)
                         {
-                            string kek = System.IO.Path.GetFullPath("aboba.jpeg");
-                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
-                            dynamic shell = Activator.CreateInstance(shellAppType);
-                            string dir = Path.GetDirectoryName(file);
-                            string file2 = Path.GetFileName(file);
-                            dynamic folder = shell.NameSpace(dir);
-                            dynamic folderItem = folder.ParseName(file2);
+                            Bitmap btr;
+                            if (isVideo)
+                            {
+                                string kek = System.IO.Path.GetFullPath("aboba.jpeg");
+                                var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                                Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+                                dynamic shell = Activator.CreateInstance(shellAppType);
+                                string dir = Path.GetDirectoryName(file);
+                                string file2 = Path.GetFileName(file);
+                                dynamic folder = shell.NameSpace(dir);
+                                dynamic folderItem = folder.ParseName(file2);
 
-                            string timee = folder.GetDetailsOf(folderItem, 27).ToString();
-                            string[] times = timee.Split(":");
+                                string timee = folder.GetDetailsOf(folderItem, 27).ToString();
+                                string[] times = timee.Split(":");
 
-                            ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
-                            Bitmap btr = new Bitmap(kek);
+                                ffMpeg.GetVideoThumbnail(file, kek, (int.Parse(times[2]) / 2));
+                                btr = new Bitmap(kek);
+
+                            }
+                            else
+                            {
+                                string zaglushka = System.IO.Path.GetFullPath("Resources/Images").Replace(@"\bin\Debug\net7.0-windows\", @"\") + @"\" + "zaglushka.png";
+                                btr = new Bitmap(zaglushka);
+                            }
+
                             filik.Tag.Pictures = new TagLib.IPicture[]
                             {
                             new TagLib.Picture(new TagLib.ByteVector((byte[])new ImageConverter().ConvertTo(btr, typeof(byte[]))))
                             };
                             filik.Save();
                         }
-                        CreateShortCut(file, RemoveFormatString.RemoveFormat(file), true);
+                        CreateShortCut(file, RemoveFormatString.RemoveFormat(file), isVideo);
                         k++;
                     }
                 }
@@ -138,6 +194,8 @@ namespace Melista.ViewModels
         });
 
         public DelegateCommand ClickMedia => new(() =>
+            _pageService.ChangePage(new MediaPage()));
+        public DelegateCommand ClickMediaMusic => new(() =>
             _pageService.ChangePage(new MusicPage()));
         public DelegateCommand OpenProfile => new(() =>
         {
