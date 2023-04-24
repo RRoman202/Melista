@@ -35,6 +35,7 @@ namespace Melista.ViewModels
         public Uri PlayPauseImage { get; set; }
         TimeSpan PositonToPlayer { get; set; } // Для передачи в MediaElement
         public string MediaName { get; set; }
+        public string Speed { get; set; }
         public string DurText { get; set; } // Текст с отчётом времени {1:02}
         public double Position { get; set; } // Текущая позиция mediapleer(а) в секундах
         public double Duration { get; set; } // Длительность файла mediapleer(а) в секундах
@@ -69,6 +70,8 @@ namespace Melista.ViewModels
             _pageService = pageService;
             isPlaying = true;
             MediaName = Global.CurrentMedia.NameVideo;
+            SettingsVisibility = Visibility.Hidden;
+            Speed = "1x";
         }
         public DelegateCommand VideoLoaded => new(() =>
         {
@@ -316,12 +319,38 @@ namespace Melista.ViewModels
         });
         public DelegateCommand ChangedRate => new(() =>
         {
-            Player.SetRate(3);
+            if (Player.Rate < 2)
+            {
+                Player.SetRate(Player.Rate + (float)0.25);
+                Speed = Player.Rate.ToString() + "x";
+            }
+        });
+        public DelegateCommand ChangedRateSlow => new(() =>
+        {
+            if (Player.Rate > 0.25)
+            {
+                Player.SetRate(Player.Rate - (float)0.25);
+                Speed = Player.Rate.ToString() + "x";
+            }
         });
 
         public DelegateCommand SliderVolumeChanged => new(() =>
         {
             Player.Volume = VolumePosition;
         });
+        public Visibility SettingsVisibility { get; set; }
+        public DelegateCommand NavigateCommand2 => new(() => SettingsIsVisibility());
+
+        public void SettingsIsVisibility()
+        {
+            if (SettingsVisibility == Visibility.Hidden)
+            {
+                SettingsVisibility = Visibility.Visible;
+            }
+            else
+            {
+                SettingsVisibility = Visibility.Hidden;
+            }
+        }
     }
 }
