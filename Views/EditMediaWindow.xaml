@@ -9,20 +9,23 @@
         ResizeMode="NoResize"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         DataContext="{Binding EditMediaWindowViewModel, Source={StaticResource ViewModelLocator}}">
     <Grid>
         <StackPanel>
             <TextBlock Height="30" Text="Название"/>
-            <TextBox Height="30"/>
+            <TextBox Height="30"
+                     Text="{Binding Title}"/>
             <TextBlock Height="30" Text="Год"/>
-            <TextBox Height="30"/>
+            <TextBox Height="30"
+                     Text="{Binding Year}"/>
             <TextBlock Height="30" Text="Жанр"/>
             <TextBox Height="30"/>
             <TextBlock Height="30" Text="Режиссер"/>
             <TextBox Height="30"/>
-            <TextBlock Height="30"  Text="Комментарии"/>
-            <TextBox Height="30"/>
+            <TextBlock Height="30"  Text="Описание"/>
+            <TextBox Height="30"
+                     Text="{Binding Description}"/>
         </StackPanel>
     </Grid>
 </Window>
