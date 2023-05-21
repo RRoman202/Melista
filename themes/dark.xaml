@@ -15,6 +15,13 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="owner" TargetType="Image">
+        <Setter Property="Source">
+            <Setter.Value>
+                <ImageSource>/Resources/Images/owner.png</ImageSource>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style x:Key="TextStyle1" TargetType="TextBlock">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource Font}"/>
@@ -252,10 +259,10 @@
                                             Grid.Column="0"/>
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="20 0">
                                             <TextBlock Text="{Binding NameAudio}" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
-                                            <TextBlock Text="Монеточка" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
+                                            <TextBlock Text="Исполнитель" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Раскраски для взрослых" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}"/>
+                                    <TextBlock Grid.Column="1" VerticalAlignment="Center" Text="Название альбома" Style="{DynamicResource TextStyle2}" Foreground="{TemplateBinding Foreground}"/>
                                     <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="4:38" Style="{DynamicResource TextStyle2}" FontWeight="Black" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
                                 </Grid>
                             </ControlTemplate>

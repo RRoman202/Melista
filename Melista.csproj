@@ -33,6 +33,8 @@
     <None Remove="Resources\Images\Dark Theme.png" />
     <None Remove="Resources\Images\Light Theme.png" />
     <None Remove="Resources\Images\musicgif.gif" />
+    <None Remove="Resources\Images\owner.png" />
+    <None Remove="Resources\Images\ownerdark.png" />
     <None Remove="Resources\Light\close.png" />
     <None Remove="Resources\Light\minimize.png" />
     <None Remove="Resources\Light\MiniScreen.png" />
@@ -87,6 +89,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\volume.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\owner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ownerdark.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Light\close.png">
