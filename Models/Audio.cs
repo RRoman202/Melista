@@ -10,6 +10,9 @@ namespace Melista.Models
     public class Audio
     {
         public string NameAudio { get; set; }
+
+        public string Singer { get; set; }
+
         public string DescriptionAudio { get; set; }
         public DateTime DateAudio { get; set; }
         public int DurationAudio { get; set; }
