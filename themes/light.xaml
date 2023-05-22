@@ -8,6 +8,8 @@
     <Color x:Key="pwsSecondaryColor">#FFFFFF</Color>
     <SolidColorBrush x:Key="PrimaryForegroundBrush" Color="{StaticResource pwsPrimaryColor}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource pwsSecondaryColor}"/>
+    <Color x:Key="SearchColor">#99292929</Color>
+    <SolidColorBrush x:Key="SearchBrush" Color="{StaticResource SearchColor}"/>
 
     <Style x:Key="Background" TargetType="Grid">
         <Setter Property="Background">

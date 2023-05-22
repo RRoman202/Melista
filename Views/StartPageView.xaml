@@ -43,7 +43,9 @@
                     <!--ItemsSource="{Binding Mods}"
                           SelectedItem="{Binding SelectedMode}"-->
                 </ComboBox>
-                <local1:PlaceHolderTextBox Grid.Column="2" Style="{DynamicResource SearchBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
+                <Border Grid.Column="2"  Style="{DynamicResource SearchPanel}" Background="{DynamicResource SearchBrush}" CornerRadius="14" Height="30">
+                    <local1:PlaceHolderTextBox Margin="20 0" Style="{DynamicResource SearchBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Foreground="White" BorderThickness="0"/>
+                </Border>
                 <Image Grid.Column="3" Style="{DynamicResource Search Icon}" Height="26"/>
             </Grid>
         </Border>
