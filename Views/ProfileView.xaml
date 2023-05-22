@@ -17,20 +17,23 @@
             <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Style="{DynamicResource FilePanel}" Margin="10" CornerRadius="30">
-            <StackPanel Margin="20">
-                <Grid>
-                    
-                </Grid>
-                <Grid Height="40">
-                    <TextBlock Style="{DynamicResource TextStyle2}" VerticalAlignment="Center">Тема приложения</TextBlock>
-                    <ComboBox Style="{DynamicResource ComboBoxTest2}" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right"
+        <StackPanel>
+            <Border Grid.Column="0" Style="{DynamicResource FilePanel}" Margin="10" CornerRadius="30" VerticalAlignment="Top">
+                <StackPanel Margin="20">
+                    <Grid>
+
+                    </Grid>
+                    <Grid Height="40">
+                        <TextBlock Style="{DynamicResource TextStyle2}" VerticalAlignment="Center">Тема приложения</TextBlock>
+                        <ComboBox Style="{DynamicResource ComboBoxTest2}" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right"
                                ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme}">
-                    </ComboBox>
-                    <Separator VerticalAlignment="Bottom"/>
-                </Grid>
-            </StackPanel>
-        </Border>
+                        </ComboBox>
+                        <Separator VerticalAlignment="Bottom"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <Image Style="{DynamicResource owner}"></Image>
+        </StackPanel>
         
         <Grid Style="{DynamicResource RightPanel}" Grid.Column="1" Width="270" HorizontalAlignment="Right">
             <Grid.RowDefinitions>

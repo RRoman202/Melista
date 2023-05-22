@@ -12,10 +12,14 @@
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" x:Name="window" Background="Black">
 
     <Grid>
-        
-        <Grid x:Name="MediaGrid" ClipToBounds="True" Width="{Binding Path=ActualWidth,ElementName=window}"  Height="{Binding Path=ActualHeight,ElementName=window}"  HorizontalAlignment="Center">
-           
-            <Border x:Name="MediaEl" ClipToBounds="True" CornerRadius="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="103*"/>
+            <ColumnDefinition Width="97*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="MediaGrid" ClipToBounds="True" Width="{Binding Path=ActualWidth,ElementName=window}"  Height="{Binding Path=ActualHeight,ElementName=window}"  HorizontalAlignment="Left" Grid.ColumnSpan="2">
+
+            <Border Background="White" x:Name="MediaEl" ClipToBounds="True" CornerRadius="20">
                 <Grid>
                     <vlc:VideoView x:Name="Video" MediaPlayer="{Binding Player}" Loaded="Video_Loaded">
                         <Grid Background="#01000000">
@@ -39,10 +43,10 @@
                                     </controls:BlurryUserControl>
                                 </Border>
 
-                                <Border HorizontalAlignment="Center" Height="75" Width="75">
+                                <Border HorizontalAlignment="Center" Height="75" Width="75" Background="#7FFFFFFF" CornerRadius="100">
                                     <controls:BlurryUserControl
                                     Background="Transparent"
-                                    BlurContainer="{Binding ElementName=Video}"
+                                    BlurContainer="{Binding ElementName=vgrid}"
                                     BlurRadius="45"
                                     Magnification="0.25">
                                         <controls:BlurryUserControl.Clip>
@@ -52,82 +56,138 @@
                                     </controls:BlurryUserControl>
                                 </Border>
 
+                                <Button x:Name="playpause" Height="25" Width="25" Command="{Binding PlayVideoCommand}">
+                                    <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
+                                    </Button.Background>
+                                </Button>
+
                                 <Button Height="25" Width="25" Command="{Binding PlayVideoCommand}">
                                     <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
                                     <Button.Background>
                                         <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
                                     </Button.Background>
                                 </Button>
-                                <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0 20 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                <StackPanel VerticalAlignment="Bottom">
+                                            <Border CornerRadius="20 0 0 0" Background="#7FFFFFFF" HorizontalAlignment="Right" Width="300" Visibility="{Binding SettingsVisibility}">
+                                                <StackPanel Margin="20 10 0 60">
+                                                    <TextBlock>Настройки</TextBlock>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Margin="0 10 0 0">Скорость воспроизведения</TextBlock>
+                                                        <Grid Grid.Column="1" Margin="16 10">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                                <ColumnDefinition></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Button Grid.Column="0" Background="Transparent" Command="{Binding ChangedRateSlow}">
+                                                                <Path x:Name="Arrow2"  Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="90"></RotateTransform>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Button>
+                                                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="{Binding Speed}"></TextBlock>
+                                                            <Button Grid.Column="2" Background="Transparent" Command="{Binding ChangedRate}">
+                                                                <Path x:Name="Arrow" Fill="{DynamicResource PrimaryForegroundBrush}" Data="M 0 0 L 4 4 L 8 0 Z">
+                                                                    <Path.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"></RotateTransform>
+                                                                    </Path.LayoutTransform>
+                                                                </Path>
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                            <ColumnDefinition></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0">Громкость звука:</TextBlock>
+                                                        <Slider Height="20" Margin="10 0 10 0"
+                                                        Maximum="100" Grid.Column="1"
+                                                        Style="{DynamicResource Slider_CustomStyle}"
+                                                        Value="{Binding VolumePosition}">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="ValueChanged">
+                                                                    <i:InvokeCommandAction Command="{Binding SliderVolumeChanged}"/>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Slider>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border Background="#7FFFFFFF">
+                                                <Grid x:Name="VideoPanel" VerticalAlignment="Bottom" Margin="20 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
-                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
-                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding Rewind}"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
-                                            </Button.Background>
-                                        </Button>
-                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
-                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
-                                            </Button.Background>
-                                        </Button>
-                                        <Button Height="25" Width="25" Command="{Binding FastForward}">
-                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding FastForward}"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/next.png"/>
-                                            </Button.Background>
-                                        </Button>
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
-                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="0 20 0 20" Width="185">
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding Rewind}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding Rewind}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/previous.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding PlayVideoCommand}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding PlayVideoCommand}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="{Binding PlayPauseImage}"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <Button Height="25" Width="25" Command="{Binding FastForward}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding FastForward}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/next.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
+                                                    </StackPanel>
 
 
 
-                                    <Slider Maximum="{Binding Duration}"
-                                            Style="{DynamicResource Slider_CustomStyle}"
-                                            Value="{Binding Position}"
-                                            Height="20" Grid.Column="1"
-                                            Margin="10 20 0 20"
-                                            Thumb.DragStarted="Slider_DragStarted"
-                                            Thumb.DragCompleted="Slider_DragCompleted">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="ValueChanged">
-                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Slider>
+                                                    <Slider Maximum="{Binding Duration}"
+                                                        Style="{DynamicResource Slider_CustomStyle}"
+                                                        Value="{Binding Position}"
+                                                        Height="20" Grid.Column="1"
+                                                        Margin="10 20 0 20"
+                                                        Thumb.DragStarted="Slider_DragStarted"
+                                                        Thumb.DragCompleted="Slider_DragCompleted">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="ValueChanged">
+                                                                <i:InvokeCommandAction Command="{Binding SliderValueChangedCommand}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Slider>
 
-                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="185">
-                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
-                                            <Button Width="25" Height="25" Background="#01000000"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
-                                            </Button.Background>
-                                        </Button>
-                                        <Button Height="25" Width="25" Margin="0 0 20 0">
-                                            <Button Width="25" Height="25" Background="#01000000"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/volume.png"/>
-                                            </Button.Background>
-                                        </Button>
-                                        <Button Height="25" Width="25" Command="{Binding MiniScreenCommand}">
-                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding MiniScreenCommand}"></Button>
-                                            <Button.Background>
-                                                <ImageBrush ImageSource="/Resources/Icons/size.png"/>
-                                            </Button.Background>
-                                        </Button>
-                                    </StackPanel>
-                                </Grid>
+                                                    <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="0 20 0 20" Width="145">
+                                                        <TextBlock Margin="10 0" VerticalAlignment="Center" Text="{Binding DurText2}" FontWeight="Bold" FontFamily="{StaticResource Font}" Foreground="{DynamicResource PrimaryForegroundBrush}" Width="50"></TextBlock>
+                                                        <Button Height="25" Width="25" Margin="0 0 20 0" Command="{Binding NavigateCommand2}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding NavigateCommand2}"></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/setting.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                <Button Height="25" Width="25" Command="{Binding MiniScreenCommand}">
+                                                            <Button Width="25" Height="25" Background="#01000000" Command="{Binding MiniScreenCommand}" ></Button>
+                                                            <Button.Background>
+                                                                <ImageBrush ImageSource="/Resources/Icons/size.png"/>
+                                                            </Button.Background>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+                                        </StackPanel>
                             </Grid>
                         </Grid>
-                      
+
 
                         <ContentControl.Clip>
                             <RectangleGeometry RadiusX="20" RadiusY="20" 
