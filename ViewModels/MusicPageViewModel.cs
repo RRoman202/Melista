@@ -62,7 +62,7 @@ namespace Melista.ViewModels
             string path = GetPathFromLink(Global.CurrentAudio.Path);
             AudioFileReader audioFile = new AudioFileReader(path);
             player.Init(audioFile);
-            player.Play();//aa
+            //player.Play();//aa
             Duration = audioFile.TotalTime.TotalSeconds;
             DurText2 = String.Format("{0}", audioFile.TotalTime.ToString(@"mm\:ss"));
             VolumePosition = player.Volume;
