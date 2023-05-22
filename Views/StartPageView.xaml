@@ -25,13 +25,13 @@
                 Margin="40,10,40,0" VerticalAlignment="Center">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.1*"></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <ComboBox Style="{DynamicResource ComboBoxTest2}" 
+                <ComboBox Style="{DynamicResource ComboBoxTest2}"
                           VerticalAlignment="Center" Margin="20 0 0 0" Width="160" 
                           HorizontalAlignment="Left"
                           ItemsSource="{Binding Mods}"
@@ -39,9 +39,9 @@
                 </ComboBox>
                 <ComboBox Style="{DynamicResource ComboBoxTest2}" Grid.Column="1"
                           VerticalAlignment="Center" Margin="20 0 0 0" Width="160" 
-                          HorizontalAlignment="Left"
-                          ItemsSource="{Binding Mods}"
-                          SelectedItem="{Binding SelectedMode}">
+                          HorizontalAlignment="Left">
+                    <!--ItemsSource="{Binding Mods}"
+                          SelectedItem="{Binding SelectedMode}"-->
                 </ComboBox>
                 <local1:PlaceHolderTextBox Grid.Column="2" Style="{DynamicResource SearchBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
                 <Image Grid.Column="3" Style="{DynamicResource Search Icon}" Height="26"/>
