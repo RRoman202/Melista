@@ -319,6 +319,10 @@ namespace Melista.ViewModels
         });
         public DelegateCommand ChangedRate => new(() =>
         {
+
+            
+            
+
             if (Player.Rate < 2)
             {
                 Player.SetRate(Player.Rate + (float)0.25);
@@ -332,6 +336,7 @@ namespace Melista.ViewModels
                 Player.SetRate(Player.Rate - (float)0.25);
                 Speed = Player.Rate.ToString() + "x";
             }
+
         });
 
         public DelegateCommand SliderVolumeChanged => new(() =>

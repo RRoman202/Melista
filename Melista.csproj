@@ -32,6 +32,9 @@
     <None Remove="Resources\Icons\volume.png" />
     <None Remove="Resources\Images\Dark Theme.png" />
     <None Remove="Resources\Images\Light Theme.png" />
+    <None Remove="Resources\Images\musicgif.gif" />
+    <None Remove="Resources\Images\owner.png" />
+    <None Remove="Resources\Images\ownerdark.png" />
     <None Remove="Resources\Light\close.png" />
     <None Remove="Resources\Light\minimize.png" />
     <None Remove="Resources\Light\MiniScreen.png" />
@@ -88,6 +91,12 @@
     <Content Include="Resources\Icons\volume.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Images\owner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\ownerdark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Light\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -136,6 +145,7 @@
     <PackageReference Include="Vlc.DotNet.Core" Version="3.1.0" />
     <PackageReference Include="Vlc.DotNet.Core.Interops" Version="3.1.0" />
     <PackageReference Include="Vlc.DotNet.Wpf" Version="3.1.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
 </Project>
