@@ -31,6 +31,7 @@ using Path = System.IO.Path;
 using Melista.Utils;
 using System;
 using System.Collections.Generic;
+using DevExpress.Mvvm.Native;
 
 namespace Melista.ViewModels
 {
@@ -50,10 +51,32 @@ namespace Melista.ViewModels
 
         public Audio _selectedAudio { get; set; }
 
+        public ObservableCollection<Video> CopyMedias;
+        public string SearchText {
+
+            get { return GetValue<string>(); }
+            set { SetValue(value, changedCallback: ChangeSearchText); }
+        }
+
+        public void ChangeSearchText()
+        {
+            if (SearchText != null && SearchText != "")
+            {
+                
+                Medias = CopyMedias.Where(md => md.NameVideo.ToLower().Trim().Contains(SearchText.ToLower().Trim())).ToObservableCollection();
+            }
+            else
+            {
+                Medias = CopyMedias;
+            }
+            
+        }
         public Visibility MusicListVisibility { get; set; }
         public Visibility VideoListVisibility { get; set; }
 
         public List<string> Mods { get; set; } = new() { "Видео", "Музыка", "Плейлисты видео", "Плейлисты музыки" };
+
+        
         public string SelectedMode 
         { 
             get { return GetValue<string>();  }
@@ -101,6 +124,9 @@ namespace Melista.ViewModels
         {
             _pageService = pageService;
             _mediaService = mediaService;
+
+            SearchText = null;
+
             Task.Run(async () =>
             {
                 ProgVis = Visibility.Visible;
@@ -110,9 +136,11 @@ namespace Melista.ViewModels
                 }
                 Medias = await _mediaService.GetMedia();
                 Audios = await _mediaService.GetAudios();
+                CopyMedias = Medias;
                 ProgVis = Visibility.Hidden;
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
+            
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -276,6 +304,7 @@ namespace Melista.ViewModels
                 if (isVideo)
                 {
                     Medias = await _mediaService.GetMedia();
+                    CopyMedias = Medias;
                 }
                 else 
                 {
