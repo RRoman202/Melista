@@ -12,6 +12,9 @@ using System.Threading;
 using System.Windows.Threading;
 using System.Numerics;
 using NAudio.Utils;
+using LibVLCSharp.Shared;
+using Melista.Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Melista.ViewModels
 {
@@ -31,7 +34,7 @@ namespace Melista.ViewModels
         public double Position { get; set; } // Текущая позиция mediapleer(а) в секундах
         public double Duration { get; set; } // Длительность файла mediapleer(а) в секундах
         public string DurText2 { get; set; }
-        public bool isPlaying;
+        public bool isPlaying { get; set; } = false;
         public Uri PlayPauseImage { get; set; }
         public MusicPageViewModel(PageService pageService, WindowService windowService)
         {
@@ -40,7 +43,7 @@ namespace Melista.ViewModels
             _pageService = pageService;
             PlayPauseImagePaths = new string[] { "Resources\\Icons\\play.png", "Resources\\Icons\\pause.png" };
             PlayPauseImage = new Uri(PlayPauseImagePaths[1], UriKind.Relative);
-            isPlaying = true;
+            
 
             SettingsVisibility = Visibility.Hidden;
             Speed = "1x";
@@ -62,19 +65,21 @@ namespace Melista.ViewModels
             string path = GetPathFromLink(Global.CurrentAudio.Path);
             AudioFileReader audioFile = new AudioFileReader(path);
             player.Init(audioFile);
-            player.Play();//aa
+            
+            
+            
             Duration = audioFile.TotalTime.TotalSeconds;
             DurText2 = String.Format("{0}", audioFile.TotalTime.ToString(@"mm\:ss"));
             VolumePosition = player.Volume;
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-            
+
 
         });
         public DelegateCommand SliderVolumeChanged => new(() =>
         {
-            
+
             player.Volume = VolumePosition;
         });
         void timer_Tick(object sender, EventArgs e)
@@ -128,7 +133,7 @@ namespace Melista.ViewModels
             AudioFileReader audioFile = new AudioFileReader(path);
             audioFile.Position = (long)Position;
             player.Init(audioFile);
-            
+
             thumbIsDraging = false;
             if (isPlaying)
             {
@@ -138,7 +143,7 @@ namespace Melista.ViewModels
         });
         public DelegateCommand SliderValueChangedCommand => new(() =>
         {
-            if(thumbIsDraging)
+            if (thumbIsDraging)
                 DurText = String.Format("{0}", TimeSpan.FromSeconds(Position).ToString(@"mm\:ss"));
         });
 
@@ -147,7 +152,7 @@ namespace Melista.ViewModels
 
         public void SettingsIsVisibility()
         {
-            if(SettingsVisibility == Visibility.Hidden)
+            if (SettingsVisibility == Visibility.Hidden)
             {
                 SettingsVisibility = Visibility.Visible;
             }
