@@ -63,7 +63,7 @@ namespace Melista.ViewModels
             if (SearchText != null && SearchText != "")
             {
                 
-                Medias = CopyMedias.Where(md => md.NameVideo.Contains(SearchText)).ToObservableCollection();
+                Medias = CopyMedias.Where(md => md.NameVideo.ToLower().Trim().Contains(SearchText.ToLower().Trim())).ToObservableCollection();
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Melista.ViewModels
             _pageService = pageService;
             _mediaService = mediaService;
 
-            
+            SearchText = null;
 
             Task.Run(async () =>
             {
