@@ -65,6 +65,10 @@ namespace Melista.ViewModels
                 
                 Medias = CopyMedias.Where(md => md.NameVideo.Contains(SearchText)).ToObservableCollection();
             }
+            else
+            {
+                Medias = CopyMedias;
+            }
             
         }
         public Visibility MusicListVisibility { get; set; }
@@ -300,6 +304,7 @@ namespace Melista.ViewModels
                 if (isVideo)
                 {
                     Medias = await _mediaService.GetMedia();
+                    CopyMedias = Medias;
                 }
                 else 
                 {
