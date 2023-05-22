@@ -36,7 +36,7 @@
                           ItemsSource="{Binding Mods}"
                           SelectedItem="{Binding SelectedMode}">
                 </ComboBox>
-                <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
+                <local1:PlaceHolderTextBox Grid.Column="1" Style="{DynamicResource SearchBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" PlaceHolderText="Введите запрос" BorderThickness="0"/>
                 <Image Grid.Column="2" Style="{DynamicResource Search Icon}" Height="26"/>
             </Grid>
         </Border>
