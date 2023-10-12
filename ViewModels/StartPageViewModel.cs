@@ -63,7 +63,7 @@ namespace Melista.ViewModels
         public Visibility MusicListVisibility { get; set; }
         public Visibility VideoListVisibility { get; set; }
 
-        public List<string> Mods { get; set; } = new() { "Видео", "Музыка", "Плейлисты видео", "Плейлисты музыки" };
+        public List<string> Mods { get; set; } = new() { "Видео", "Музыка"};
         public void ChangeSearchText()
         {
             if(VideoListVisibility == Visibility.Visible)
