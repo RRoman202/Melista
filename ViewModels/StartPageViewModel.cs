@@ -52,31 +52,48 @@ namespace Melista.ViewModels
         public Audio _selectedAudio { get; set; }
 
         public ObservableCollection<Video> CopyMedias;
+        public ObservableCollection<Audio> CopyAudios;
         public string SearchText {
 
             get { return GetValue<string>(); }
             set { SetValue(value, changedCallback: ChangeSearchText); }
         }
 
-        public void ChangeSearchText()
-        {
-            if (SearchText != null && SearchText != "")
-            {
-                
-                Medias = CopyMedias.Where(md => md.NameVideo.ToLower().Trim().Contains(SearchText.ToLower().Trim())).ToObservableCollection();
-            }
-            else
-            {
-                Medias = CopyMedias;
-            }
-            
-        }
+        
         public Visibility MusicListVisibility { get; set; }
         public Visibility VideoListVisibility { get; set; }
 
         public List<string> Mods { get; set; } = new() { "Видео", "Музыка", "Плейлисты видео", "Плейлисты музыки" };
+        public void ChangeSearchText()
+        {
+            if(VideoListVisibility == Visibility.Visible)
+            {
+                if (SearchText != null && SearchText != "")
+                {
 
-        
+                    Medias = CopyMedias.Where(md => md.NameVideo.ToLower().Trim().Contains(SearchText.ToLower().Trim())).ToObservableCollection();
+                }
+                else
+                {
+                    Medias = CopyMedias;
+                }
+            }
+            else
+            {
+                if (SearchText != null && SearchText != "")
+                {
+
+                    Audios = CopyAudios.Where(ad => ad.NameAudio.ToLower().Trim().Contains(SearchText.ToLower().Trim())).ToObservableCollection();
+                }
+                else
+                {
+                    Audios = CopyAudios;
+                }
+            }
+            
+
+        }
+
         public string SelectedMode 
         { 
             get { return GetValue<string>();  }
@@ -137,6 +154,8 @@ namespace Melista.ViewModels
                 Medias = await _mediaService.GetMedia();
                 Audios = await _mediaService.GetAudios();
                 CopyMedias = Medias;
+                CopyAudios = Audios;
+                
                 ProgVis = Visibility.Hidden;
             }).WaitAsync(TimeSpan.FromMilliseconds(10))
             .ConfigureAwait(false);
