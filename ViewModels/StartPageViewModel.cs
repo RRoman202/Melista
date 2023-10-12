@@ -103,11 +103,13 @@ namespace Melista.ViewModels
         {
             if (SelectedMode == "Видео")
             {
+                SearchText= string.Empty;
                 VideoListVisibility = Visibility.Visible;
                 MusicListVisibility = Visibility.Collapsed;
             }
             else if(SelectedMode == "Музыка")     
             {
+                SearchText = string.Empty;
                 VideoListVisibility = Visibility.Collapsed;
                 MusicListVisibility = Visibility.Visible;
             }
